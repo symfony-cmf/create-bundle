@@ -26,5 +26,10 @@
     "autoload": {
         "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
     },
-    "target-dir": "Symfony/Cmf/Bundle/CreateBundle"
+    "target-dir": "Symfony/Cmf/Bundle/CreateBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
