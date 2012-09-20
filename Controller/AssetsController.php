@@ -7,8 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 
-use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface,
-    Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 

@@ -17,12 +17,8 @@
         "php": ">=5.3.2",
         "symfony/symfony": "2.1.*",
         "symfony/assetic-bundle": "2.1.*",
-        "symfony-cmf/core-bundle": "1.0.*",
         "friendsofsymfony/rest-bundle": "*",
         "midgard/createphp": "dev-master"
-    },
-    "suggest": {
-        "dms/dms-filter": "if you want to filter content on your fields"
     },
     "autoload": {
         "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
