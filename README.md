@@ -120,16 +120,6 @@ but you have to make sure they are enabled in your symfony project:
 * AsseticBundle to be able to provide the javascript files. (part of
   symfony-standard, just make sure you did not disable it)
 
-Furthermore there is an optional dependency in DMS\Filter:
-https://github.com/rdohms/DMS-Filter
-
-And finally enable the filter service:
-
-```
-symfony_cmf_create:
-    filter: true
-```
-
 
 Developping hallo editor
 ========================

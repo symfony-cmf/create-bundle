@@ -60,10 +60,6 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        if (!empty($config['filter'])) {
-            $loader->load('filter.xml');
-        }
-
         $loader->load('services.xml');
     }
 }

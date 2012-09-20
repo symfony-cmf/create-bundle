@@ -12,7 +12,6 @@
             <argument type="service" id="doctrine"/>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
-            <argument type="service" id="symfony_cmf_create.filter"/>
             <argument>null</argument>
         </service>
 

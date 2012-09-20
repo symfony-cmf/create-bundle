@@ -35,7 +35,6 @@
             <argument type="service" id="symfony_cmf_create.rest_handler"/>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context"/>
-            <argument type="service" id="symfony_cmf_create.filter" on-invalid="ignore" />
         </service>
 
         <service id="symfony_cmf_create.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
