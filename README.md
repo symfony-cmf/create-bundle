@@ -10,16 +10,16 @@ Installation
 
 This bundle is best included using Composer.
 
-Edit your project composer file to add a new require for liip/vie-bundle.
+Edit your project composer file to add a new require for symfony-cmf/create-bundle.
 Then create a scripts section or add to the existing one:
 
     "scripts": {
         "post-install-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ],
         "post-update-cmd": [
-            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Composer\\ScriptHandler::initSubmodules",
             ...
         ]
     },
