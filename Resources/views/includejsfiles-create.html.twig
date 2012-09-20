@@ -1,10 +1,12 @@
 {# basic js files needed for vie #}
 
 <script type="text/javascript">
+    {%  if vie_image_upload_enabled %}
     var hallo_image_upload = '{{ path('hallo_image_upload') }}';
-    var vie_phpcr_path = '{{ path('symfony_cmf_create_phpcr_odm_put_documents') }}';
+    {%  endif %}
     var vie_plugins_image_search = '{{ path('symfony_cmf_create_assets_search') }}';
     var vie_plugins_link_related_path = '{{ path('symfony_cmf_create_assets_related') }}';
+    var vie_phpcr_path = '{{ path('symfony_cmf_create_phpcr_odm_put_documents') }}';
     var vie_stanbol_url = '{{ vie_stanbol_url }}';
 </script>
 

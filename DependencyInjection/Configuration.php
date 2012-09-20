@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('role')->defaultValue('IS_AUTHENTICATED_ANONYMOUSLY')->end()
+                ->scalarNode('image_class')->defaultNull()->end()
                 ->scalarNode('phpcr')->defaultFalse()->end()
                 ->scalarNode('phpcr_odm')->defaultFalse()->end()
                 ->scalarNode('orm')->defaultFalse()->end()

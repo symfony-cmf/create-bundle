@@ -31,12 +31,14 @@ class VieController
      *
      * @param ViewHandlerInterface $viewHandler view handler
      * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
+     * @param string $imageClass image class
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      */
-    public function __construct(ViewHandlerInterface $viewHandler, $stanbolUrl, $useCoffee = false)
+    public function __construct(ViewHandlerInterface $viewHandler, $stanbolUrl, $imageClass, $useCoffee = false)
     {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
+        $this->imageClass = $imageClass;
         $this->coffee = $useCoffee;
     }
 
@@ -70,7 +72,7 @@ class VieController
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
-        $view->setData(array('vie_stanbol_url' => $this->stanbolUrl));
+        $view->setData(array('vie_stanbol_url' => $this->stanbolUrl, 'vie_image_upload_enabled' => (boolean) $this->imageClass));
 
         return $this->viewHandler->handle($view);
     }

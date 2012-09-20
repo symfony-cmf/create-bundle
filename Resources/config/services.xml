@@ -15,6 +15,7 @@
         <service id="symfony_cmf_create.controller.vie" class="%symfony_cmf_create.controller.vie.class%" public="true">
             <argument type="service" id="fos_rest.view_handler" />
             <argument>%symfony_cmf_create.stanbol_url%</argument>
+            <argument>%symfony_cmf_create.image_class%</argument>
             <argument>%symfony_cmf_create.use_coffee%</argument>
         </service>
 
