@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\Controller;
+namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 

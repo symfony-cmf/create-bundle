@@ -6,26 +6,26 @@
 
     <parameters>
 
-        <parameter key="liip_vie.mapping.annotation_loader.class">DMS\Filter\Mapping\Loader\AnnotationLoader</parameter>
-        <parameter key="liip_vie.mapping.factory.class">DMS\Filter\Mapping\ClassMetadataFactory</parameter>
-        <parameter key="liip_vie.filter.class">DMS\Filter\Filter</parameter>
+        <parameter key="symfony_cmf_create.mapping.annotation_loader.class">DMS\Filter\Mapping\Loader\AnnotationLoader</parameter>
+        <parameter key="symfony_cmf_create.mapping.factory.class">DMS\Filter\Mapping\ClassMetadataFactory</parameter>
+        <parameter key="symfony_cmf_create.filter.class">DMS\Filter\Filter</parameter>
 
     </parameters>
 
     <services>
 
-        <service id="liip_vie.metadata.annotation_reader" alias="annotation_reader" public="false" />
+        <service id="symfony_cmf_create.metadata.annotation_reader" alias="annotation_reader" public="false" />
 
-        <service id="liip_vie.mapping.annotation_loader" class="%liip_vie.mapping.annotation_loader.class%" public="false">
-            <argument type="service" id="liip_vie.metadata.annotation_reader" />
+        <service id="symfony_cmf_create.mapping.annotation_loader" class="%symfony_cmf_create.mapping.annotation_loader.class%" public="false">
+            <argument type="service" id="symfony_cmf_create.metadata.annotation_reader" />
         </service>
 
-        <service id="liip_vie.mapping.factory" class="%liip_vie.mapping.factory.class%" public="false">
-            <argument type="service" id="liip_vie.mapping.annotation_loader" />
+        <service id="symfony_cmf_create.mapping.factory" class="%symfony_cmf_create.mapping.factory.class%" public="false">
+            <argument type="service" id="symfony_cmf_create.mapping.annotation_loader" />
         </service>
 
-        <service id="liip_vie.filter" class="%liip_vie.filter.class%" public="true">
-            <argument type="service" id="liip_vie.mapping.factory" />
+        <service id="symfony_cmf_create.filter" class="%symfony_cmf_create.filter.class%" public="true">
+            <argument type="service" id="symfony_cmf_create.mapping.factory" />
         </service>
 
     </services>

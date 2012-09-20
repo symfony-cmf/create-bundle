@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\Controller;
+namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
@@ -18,9 +18,6 @@ use DMS\Filter\FilterInterface;
 use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\RestService,
     Midgard\CreatePHP\RdfMapperInterface;
-
-use Liip\VieBundle\FromJsonLdInterface,
-    Liip\VieBundle\ToJsonLdInterface;
 
 class RestController
 {

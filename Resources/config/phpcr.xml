@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="liip_vie.phpcr.controller" class="Liip\VieBundle\Controller\PhpcrController">
+        <service id="symfony_cmf_create.phpcr.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\PhpcrController">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="doctrine_phpcr"/>
             <argument>null</argument>

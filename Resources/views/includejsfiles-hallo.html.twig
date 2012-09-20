@@ -1,8 +1,8 @@
-{% include "LiipVieBundle::includejsfiles-create.html.twig" %}
+{% include "SymfonyCmfCreateBundle::includejsfiles-create.html.twig" %}
 
 {# hallo.js is already included in the create deps #}
 {% javascripts output="js/hallo-extra.js"
-    '@LiipVieBundle/Resources/public/js/init-create-hallo.js'
+    '@SymfonyCmfCreateBundle/Resources/public/js/init-create-hallo.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

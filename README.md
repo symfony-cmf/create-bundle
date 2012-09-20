@@ -31,14 +31,14 @@ Add this bundle to your application's kernel:
     {
         return array(
             // ...
-            new Liip\VieBundle\LiipVieBundle(),
+            new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
             // ...
         );
     }
 
 Add a mapping to the `config.yml` and enable a controller
 
-        liip_vie:
+        symfony_cmf_create:
             phpcr_odm: true
             #orm: my_document_manager
             map:
@@ -54,16 +54,16 @@ post of images. See the ImageController in the cmf sandbox for an example.
 
 Finally add the relevant routing to your configuration
 
-        <import resource="liip_vie.phpcr.controller" type="rest" />
+        <import resource="symfony_cmf_create.phpcr.controller" type="rest" />
 
         vie:
-            resource: "@LiipVieBundle/Resources/config/routing/phpcr_odm.xml"
+            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/phpcr_odm.xml"
 
 Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
 
         To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
-        Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/vendor/aloha
-        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/bundles/Liip/VieBundle/vendor/aloha/aloha.js
+        Unzip the contents of the "aloha" subfolder of this zip as folder vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundlle/CreateBundle/vendor/aloha
+        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/symfony-cmf/create-bundle/Symfony/Cmf/Bundlle/CreateBundle/vendor/aloha/aloha.js
 
 
 Usage
@@ -71,7 +71,7 @@ Usage
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
-    {% render "liip_vie.controller.vie:includeJSFilesAction" %}
+    {% render "symfony_cmf_create.controller.vie:includeJSFilesAction" %}
 
 Plus include the css files from Resources/public/css.
 
@@ -128,7 +128,7 @@ https://github.com/rdohms/DMS-Filter
 And finally enable the filter service:
 
 ```
-liip_vie:
+symfony_cmf_create:
     filter: true
 ```
 
@@ -137,7 +137,7 @@ Developping hallo editor
 ========================
 
 You can develop the hallo editor inside the VIE bundle. If you set the
-``liip_vie: use_coffee`` option to true, it will include the coffee script
+``symfony_cmf_create: use_coffee`` option to true, it will include the coffee script
 files with assetic, rather than the precompiled javascript.
 This also means that if you have a mapping for coffeescript in your assetic
 configuration, you need to have the coffee compiler set up correctly. In the
@@ -152,7 +152,7 @@ config.yml we make the coffee extension configurable:
                 node: %coffee.node%
                 apply_to: %coffee.extension%
 
-    liip_vie:
+    symfony_cmf_create:
         # set this to true if you want to develop hallo and edit the coffee files
         use_coffee: true|false
 

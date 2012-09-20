@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
                 //     offset = offset || 0;
                 //     return jQuery.ajax({
                 //         type: "GET",
-                //         url: "/app_dev.php/liip/vie/assets/list/",
+                //         url: "/app_dev.php/symfony-cmf/vie/assets/list/",
                 //         data: "tags=" + tags + "&offset=" + offset + "&limit=" + limit,
                 //         success: successCallback
                 //     });

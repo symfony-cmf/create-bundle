@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\Composer;
+namespace Symfony\Cmf\Bundle\CreateBundle\Composer;
 
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Process\Process;

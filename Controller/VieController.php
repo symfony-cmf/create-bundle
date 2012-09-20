@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\Controller;
+namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
@@ -59,13 +59,13 @@ class VieController
         switch ($editor) {
             case 'hallo':
                 if ($this->coffee) {
-                    $view->setTemplate('LiipVieBundle::includecoffeefiles-hallo.html.twig');
+                    $view->setTemplate('SymfonyCmfCreateBundle::includecoffeefiles-hallo.html.twig');
                 } else {
-                    $view->setTemplate('LiipVieBundle::includejsfiles-hallo.html.twig');
+                    $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-hallo.html.twig');
                 }
                 break;
             case 'aloha':
-                $view->setTemplate('LiipVieBundle::includejsfiles-aloha.html.twig');
+                $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-aloha.html.twig');
                 break;
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");

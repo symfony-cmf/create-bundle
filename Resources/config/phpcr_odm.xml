@@ -5,13 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="liip_vie.phpcr_odm_mapper_class">Midgard\CreatePHP\Mapper\DoctrinePhpcrOdmMapper</parameter>
+        <parameter key="symfony_cmf_create.phpcr_odm_mapper_class">Midgard\CreatePHP\Mapper\DoctrinePhpcrOdmMapper</parameter>
     </parameters>
 
     <services>
 
-        <service id="liip_vie.object_mapper" class="%liip_vie.phpcr_odm_mapper_class%" public="false">
-            <argument>%liip_vie.map%</argument>
+        <service id="symfony_cmf_create.object_mapper" class="%symfony_cmf_create.phpcr_odm_mapper_class%" public="false">
+            <argument>%symfony_cmf_create.map%</argument>
             <argument type="service" id="doctrine_phpcr"/>
             <argument>null</argument>
         </service>

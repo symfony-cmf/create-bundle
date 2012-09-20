@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="liip_vie_phpcr_odm_put_document" pattern="/{_locale}/liip/vie/phpcr_odm/documents/{subject}">
-        <default key="_controller">liip_vie.controller.rest:putDocumentAction</default>
+    <route id="symfony_cmf_create_phpcr_odm_put_document" pattern="/{_locale}/symfony-cmf/vie/phpcr_odm/documents/{subject}">
+        <default key="_controller">symfony_cmf_create.controller.rest:putDocumentAction</default>
         <default key="_format">json</default>
         <requirement key="subject">.+</requirement>
     </route>
 
-    <!-- this route should never be used from the outside, only to be used inside "includejsfiles-vie.html.twig -->
-    <route id="liip_vie_phpcr_odm_put_documents" pattern="/{_locale}/liip/vie/phpcr_odm/documents" />
+    <!-- this route should never be used from the outside, only to be used inside "includejsfiles-create.html.twig -->
+    <route id="symfony_cmf_create_phpcr_odm_put_documents" pattern="/{_locale}/symfony-cmf/vie/phpcr_odm/documents" />
 
 </routes>

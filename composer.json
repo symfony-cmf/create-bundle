@@ -1,5 +1,5 @@
 {
-    "name": "liip/vie-bundle",
+    "name": "symfony-cmf/create-bundle",
     "type": "symfony-bundle",
     "description": "VIE is a way to make any site using RDFa editable.",
     "license": "MIT",
@@ -9,8 +9,8 @@
             "homepage": "http://www.liip.ch/"
         },
         {
-            "name": "Community contributions",
-            "homepage": "https://github.com/liip/LiipVieBundle/contributors"
+            "name": "Symfony CMF Community",
+            "homepage": "https://github.com/symfony-cmf/SimpleCmsBundle/contributors"
         }
     ],
     "require": {
@@ -24,7 +24,7 @@
         "dms/dms-filter": "if you want to filter content on your fields"
     },
     "autoload": {
-        "psr-0": { "Liip\\VieBundle": "" }
+        "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
     },
-    "target-dir": "Liip/VieBundle"
+    "target-dir": "Symfony/Cmf/Bundle/CreateBundle"
 }

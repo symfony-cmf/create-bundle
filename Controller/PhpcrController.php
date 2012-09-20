@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\Controller;
+namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -11,9 +11,6 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 use PHPCR\NodeInterface;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-
-use Liip\VieBundle\FromJsonLdInterface,
-    Liip\VieBundle\ToJsonLdInterface;
 
 /**
  * TODO: built a PhpcrMapper from this

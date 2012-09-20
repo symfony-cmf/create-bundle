@@ -77,7 +77,7 @@ body > .hallotoolbar {
 }
 
 .hallotoolbar .halloButtonrow-2 .ui-buttonset {
-    background: url('/bundles/liipvie/img/stripe.png') no-repeat right 5px;
+    background: url('/bundles/symfonycmfcreate/img/stripe.png') no-repeat right 5px;
     padding: 0 6px 0 5px;
 }
 
@@ -116,26 +116,26 @@ body > .hallotoolbar {
 
 /* Image dialog */
 .halloimage-dialog .tabs li {
-    background: #01add2 url('/bundles/liipvie/img/divider.png') no-repeat right;
+    background: #01add2 url('/bundles/symfonycmfcreate/img/divider.png') no-repeat right;
 }
 
 .halloimage-dialog .tabs li.halloimage-tab-suggestions span {
-    background-image: url('/bundles/liipvie/img/tabicon_suggestions.png') no-repeat left;
+    background-image: url('/bundles/symfonycmfcreate/img/tabicon_suggestions.png') no-repeat left;
 }
 .halloimage-dialog .tabs li.halloimage-tab-search span {
-    background: url('/bundles/liipvie/img/tabicon_search.png') no-repeat left;
+    background: url('/bundles/symfonycmfcreate/img/tabicon_search.png') no-repeat left;
 }
 .halloimage-dialog .tabs li.halloimage-tab-upload span {
-    background: url('/bundles/liipvie/img/tabicon_upload.png') no-repeat left;
+    background: url('/bundles/symfonycmfcreate/img/tabicon_upload.png') no-repeat left;
 }
 
 .halloimage-dialog .tab-activeIndicator {
-    background: url('/bundles/liipvie/img/arrow.png');
+    background: url('/bundles/symfonycmfcreate/img/arrow.png');
 }
 
 /* Close button
 .ui-dialog .ui-dialog-titlebar-close {
-    background: url('/bundles/liipvie/img/close_button.png') no-repeat 0 -25px;
+    background: url('/bundles/symfonycmfcreate/img/close_button.png') no-repeat 0 -25px;
     top: -2px;
     right: -11px;
     width: 25px;
@@ -226,7 +226,7 @@ body > .hallotoolbar {
     position: relative;
     top: 25px;
     left: 25px;
-    background: rgba(0,0,0,0.8) url('/bundles/liipvie/img/trash.png') no-repeat 12px 12px;
+    background: rgba(0,0,0,0.8) url('/bundles/symfonycmfcreate/img/trash.png') no-repeat 12px 12px;
     border-radius: 10px;
     cursor: none;
 }

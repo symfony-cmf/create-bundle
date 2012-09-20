@@ -1,6 +1,6 @@
 <?php
 
-namespace Liip\VieBundle\DependencyInjection;
+namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class LiipVieExtension extends Extension
+class SymfonyCmfCreateExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -28,21 +28,21 @@ class LiipVieExtension extends Extension
         if (!empty($config['phpcr'])) {
             $loader->load('phpcr.xml');
             if (is_string($config['phpcr'])) {
-                $phpcr = $container->getDefinition('liip_vie.phpcr.controller');
+                $phpcr = $container->getDefinition('symfony_cmf_create.phpcr.controller');
                 $phpcr->replaceArgument(4, $config['phpcr']);
             }
         }
         if (!empty($config['phpcr_odm'])) {
             $loader->load('phpcr_odm.xml');
             if (is_string($config['phpcr_odm'])) {
-                $phpcr_odm = $container->getDefinition('liip_vie.phpcr_odm.controller');
+                $phpcr_odm = $container->getDefinition('symfony_cmf_create.phpcr_odm.controller');
                 $phpcr_odm->replaceArgument(4, $config['phpcr_odm']);
             }
         }
         if (!empty($config['orm'])) {
             $loader->load('orm.xml');
             if (is_string($config['orm'])) {
-                $phpcr = $container->getDefinition('liip_vie.orm.controller');
+                $phpcr = $container->getDefinition('symfony_cmf_create.orm.controller');
                 $phpcr->replaceArgument(4, $config['orm']);
             }
         }
