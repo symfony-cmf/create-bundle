@@ -1,9 +1,17 @@
 Introduction
 ============
 
-VIE is a way to make any site using RDFa editable.
+This bundle integrates create.js and the createphp helper into Symfony2.
 
-For more information see http://wiki.iks-project.eu/index.php/Semantic_Editor
+Create.js is a comprehensive web editing interface for Content Management
+Systems. It is designed to provide a modern, fully browser-based HTML5
+environment for managing content. Create can be adapted to work on almost any
+content management backend.
+See http://createjs.org/
+
+Createphp is a php library to help with RDFa annotating your documents/entities.
+See https://github.com/flack/createphp for documentation on how it works.
+
 
 Installation
 ============
@@ -24,13 +32,16 @@ Then create a scripts section or add to the existing one:
         ]
     },
 
-Add this bundle to your application's kernel:
+Add this bundle (and its dependencies, if they are not already there) to your
+application's kernel:
 
     // application/ApplicationKernel.php
     public function registerBundles()
     {
         return array(
             // ...
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new FOS\RestBundle\FOSRestBundle(),
             new Symfony\Cmf\Bundle\CreateBundle\SymfonyCmfCreateBundle(),
             // ...
         );
@@ -41,8 +52,6 @@ Add a mapping to the `config.yml` and enable a controller
         symfony_cmf_create:
             phpcr_odm: true
             #orm: my_document_manager
-            map:
-                'http://rdfs.org/sioc/ns#Post': 'Liip\HelloBundle\Document\Article'
             rdf_config_dirs:
                 - app/Resources/rdf-mappings
             base_path: /cms/routes
@@ -56,7 +65,7 @@ Finally add the relevant routing to your configuration
 
         <import resource="symfony_cmf_create.phpcr.controller" type="rest" />
 
-        vie:
+        createjs:
             resource: "@SymfonyCmfCreateBundle/Resources/config/routing/phpcr_odm.xml"
 
 Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
@@ -102,32 +111,26 @@ Or if you need more control over the generated HTML
     {% endcreatephp %}
 
 
-What is this?
-=============
-
-The main goal is to eventually support tools to easily output Entity/Document instances
-as RDFa inside HTML, as well as map them back from JSON-LD for processing.
-
-The bundle currently provides:
-* A REST handler to save JSON-LD data into ORM/ODM Entities resp. Documents.
-* The VIE library and the hallo editor, and support for integration the aloha editor
-
-
 Dependencies
 ============
 
-This bundle includes vie and the hallo editor as submodules and createphp
-through composer. The required bundles are also mentioned in composer.json,
-but you have to make sure they are enabled in your symfony project:
-* FOSRestBundle to handle the requests (see installation instructions above)
-* AsseticBundle to be able to provide the javascript files. (part of
-  symfony-standard, just make sure you did not disable it)
+This bundle includes create.js (which bundles all its dependencies like jquery,
+vie, hallo, backbone etc) as a git submodule. Do not forget to add the composer
+script handler to your composer.json as described above.
+
+PHP dependencies are managed through composer. We use createphp as well as
+AsseticBundle, FOSRestBundle and by inference also JmsSerializerBundle. Make
+sure you instantiate all those bundles in your kernel and properly configure
+assetic.
 
 
 Developping hallo editor
 ========================
 
-You can develop the hallo editor inside the VIE bundle. If you set the
+TODO: for this to work you would also have to put the hallo repository into
+the right place. Please update this section if you happen to use this again.
+
+You can develop the hallo editor inside the Create bundle. If you set the
 ``symfony_cmf_create: use_coffee`` option to true, it will include the coffee script
 files with assetic, rather than the precompiled javascript.
 This also means that if you have a mapping for coffeescript in your assetic
