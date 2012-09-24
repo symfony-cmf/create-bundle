@@ -58,6 +58,16 @@ class SymfonyCmfCreateExtension extends Extension
         $container->setParameter($this->getAlias().'.base_path', $config['base_path']);
         $container->setParameter($this->getAlias().'.cms_path', $config['cms_path']);
 
+        if ($config['auto_mapping']) {
+            foreach ($container->getParameter('kernel.bundles') as $class) {
+                $bundle = new \ReflectionClass($class);
+                $rdfMappingDir = dirname($bundle->getFilename()).'/Resources/rdf-mappings';
+                if (file_exists($rdfMappingDir)) {
+                    $config['rdf_config_dirs'][] = $rdfMappingDir;
+                }
+            }
+        }
+
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
         $container->setParameter($this->getAlias().'.image_class', $config['image_class']);

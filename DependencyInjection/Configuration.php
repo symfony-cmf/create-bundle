@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('dir')
                     ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('auto_mapping')->defaultTrue()->end()
             ->end()
         ;
 
