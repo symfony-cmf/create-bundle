@@ -73,7 +73,10 @@ Adjust your template to load the editor js files if the current session is allow
 
     {% render "symfony_cmf_create.controller.vie:includeJSFilesAction" %}
 
-Plus include the css files from Resources/public/css.
+Plus make sure that assetic is rewriting paths in your css files, then  include
+the base css files (and customize with your css as needed) with
+
+    {% include "SymfonyCmfCreateBundle::includecssfiles.html.twig" %}
 
 The other thing you have to do is provide RDFa mappings for your model classes
 and adjust your templates to render with createphp so that create.js knows what
