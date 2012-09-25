@@ -2,11 +2,11 @@ jQuery(document).ready(function() {
     jQuery('body').midgardCreate({
         url: function() {
             if (this.id) {
-                return vie_phpcr_path + this.id.substring(1, this.id.length - 1);
+                return cmfCreatePutDocument + this.id.substring(1, this.id.length - 1);
             }
-            return vie_phpcr_path;
+            return cmfCreatePutDocument;
         },
-        stanbolUrl: vie_stanbol_url,
+        stanbolUrl: cmfCreateStanbolUrl,
         tags: true
     });
 
@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
                     offset = offset || 0;
                     jQuery.ajax({
                         type: "GET",
-                        url: vie_plugins_image_search,
+                        url: cmfCreateHalloImageSearch,
                         data: "query="+query+"&offset="+offset+"&limit="+limit,
                         success: successCallback
                     });
@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
                 uploadUrl: hallo_image_upload,
                 'vie': this.vie
             },
-            'hallolink': { 'relatedUrl': vie_plugins_link_related_path },
+            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
             'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
             'halloblock': {},
             'hallolists': {'lists': {'ordered': false}},

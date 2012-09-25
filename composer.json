@@ -1,7 +1,7 @@
 {
     "name": "symfony-cmf/create-bundle",
     "type": "symfony-bundle",
-    "description": "VIE is a way to make any site using RDFa editable.",
+    "description": "Symfony Bundle for createphp and create.js. The easiest way to make any site editable and have semantic annotations with RDFa.",
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +10,7 @@
         },
         {
             "name": "Symfony CMF Community",
-            "homepage": "https://github.com/symfony-cmf/SimpleCmsBundle/contributors"
+            "homepage": "https://github.com/symfony-cmf/CreateBundle/contributors"
         }
     ],
     "require": {

@@ -11,54 +11,6 @@ body > .hallotoolbar {
     background-color: #01ADD2;
 }
 
-/*
-.hallotoolbar .ui-state-default{
-    border: none;
-}
-
-.hallotoolbar .ui-button{
-    margin: 0 0 0 1px;
-    color: #fff;
-    box-shadow: none;
-    height: 33px;
-    width: 26px;
-    -webkit-transition: none;
-    -moz-transition: none;
-    -o-transition: none;
-}
-
-.hallotoolbar .ui-button-text-only .ui-button-text{
-    padding: 0;
-    margin: 0;
-}
-
-.hallotoolbar .ui-button-text .ui-button-text{
-    display: block;
-    height: 22px;
-    width: 17px;
-    margin: 0;
-    padding: 0;
-    text-indent: 1000px;
-    overflow: hidden;
-}
-
-.hallotoolbar .ui-buttonset{
-    display: inline-block;
-    margin: 0;
-}
-
-/* Button Rows */
-/**************
-.hallotoolbar .halloButtonrow {
-    background-color: #000000;
-}
-
-.hallotoolbar .halloButtonrow-1 {
-    padding: 0px 5px;
-}
-
-/* Only apply this block if there is another line in the toolbar */
-/* TODO: decide on the multirow thing */
 .hallotoolbar .halloButtonrow-1:not(:last-child) {
     background-color: #272727;
     text-align: right;
@@ -120,7 +72,7 @@ body > .hallotoolbar {
 }
 
 .halloimage-dialog .tabs li.halloimage-tab-suggestions span {
-    background-image: url('/bundles/symfonycmfcreate/img/tabicon_suggestions.png') no-repeat left;
+    background: url('/bundles/symfonycmfcreate/img/tabicon_suggestions.png') no-repeat left;
 }
 .halloimage-dialog .tabs li.halloimage-tab-search span {
     background: url('/bundles/symfonycmfcreate/img/tabicon_search.png') no-repeat left;
@@ -131,29 +83,6 @@ body > .hallotoolbar {
 
 .halloimage-dialog .tab-activeIndicator {
     background: url('/bundles/symfonycmfcreate/img/arrow.png');
-}
-
-/* Close button
-.ui-dialog .ui-dialog-titlebar-close {
-    background: url('/bundles/symfonycmfcreate/img/close_button.png') no-repeat 0 -25px;
-    top: -2px;
-    right: -11px;
-    width: 25px;
-    height: 25px;
-}
-
-.ui-dialog .ui-dialog-titlebar-close:hover {
-    background-position: 0 0;
-}
-
-.ui-dialog input[type="submit"] {
-    border: 1px solid #01add2;
-    height: 30px;
-    position: relative;
-    background-color: #01add2;
-    color: white;
-    border-radius: 0 3px 3px 0;
-    box-shadow: none;
 }
 
 /* Drag n Drop */

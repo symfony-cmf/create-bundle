@@ -80,7 +80,7 @@ Usage
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
-    {% render "symfony_cmf_create.controller.vie:includeJSFilesAction" %}
+    {% render "symfony_cmf_create.jsloader.controller:includeJSFilesAction" %}
 
 Plus make sure that assetic is rewriting paths in your css files, then  include
 the base css files (and customize with your css as needed) with
