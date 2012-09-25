@@ -124,11 +124,8 @@ sure you instantiate all those bundles in your kernel and properly configure
 assetic.
 
 
-Developping hallo editor
+Developing hallo editor
 ========================
-
-TODO: for this to work you would also have to put the hallo repository into
-the right place. Please update this section if you happen to use this again.
 
 You can develop the hallo editor inside the Create bundle. If you set the
 ``symfony_cmf_create: use_coffee`` option to true, it will include the coffee script
@@ -154,3 +151,8 @@ Now if the parameters.yml sets ``coffee.extension`` to ``\.coffee`` the
 coffeescript is compiled and the coffee compiler needs to be installed.
 If you set it to anything else like ``\.nocoffee`` then you do not need the
 coffee compiler installed.
+
+The default values for the three parameters are:
+coffee.bin: /usr/local/bin/coffee
+coffee.node: /usr/local/bin/node
+coffee.extension: \.coffee
