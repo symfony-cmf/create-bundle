@@ -15,7 +15,7 @@ use Doctrine\ODM\PHPCR\DocumentManager;
 
 use PHPCR\Query\QueryInterface;
 
-use Sandbox\MainBundle\Document\Image;
+use Symfony\Cmf\Bundle\CreateBundle\Document\ImageInterface;
 
 /**
  * TODO this controller should eventually be removed
@@ -143,8 +143,7 @@ class AssetsController
         $data = array();
 
         foreach ($images as $image) {
-            if ($image instanceof Image) {
-
+            if ($image instanceof ImageInterface) {
                 $url = $this->router->generate('image_display', array('id' => $image->name), true);
                 $data[] = array('url' => $url, 'alt' => $image->name);
             }
