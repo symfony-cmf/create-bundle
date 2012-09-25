@@ -58,8 +58,8 @@ Add a mapping to the `config.yml` and enable a controller
             cms_path: /cms/content/static
             # stanbol_url: custom stanbol url, otherwise defaults to the demo install
 
-Currently you need to provide a route called hallo_image_upload that can handle
-post of images. See the ImageController in the cmf sandbox for an example.
+You need to implement an ImageController and override the ``symfony_cmf_create.controller.image``
+service accordingly.
 
 Finally add the relevant routing to your configuration
 

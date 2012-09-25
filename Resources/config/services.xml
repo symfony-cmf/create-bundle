@@ -7,19 +7,20 @@
     <parameters>
         <parameter key="symfony_cmf_create.controller.vie.class">Symfony\Cmf\Bundle\CreateBundle\Controller\VieController</parameter>
         <parameter key="symfony_cmf_create.controller.assets.class">Symfony\Cmf\Bundle\CreateBundle\Controller\AssetsController</parameter>
+        <parameter key="symfony_cmf_create.controller.rest.class">Symfony\Cmf\Bundle\CreateBundle\Controller\RestController</parameter>
         <parameter key="symfony_cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
         <parameter key="symfony_cmf_create.rest_handler_class">Midgard\CreatePHP\RestService</parameter>
     </parameters>
 
     <services>
-        <service id="symfony_cmf_create.controller.vie" class="%symfony_cmf_create.controller.vie.class%" public="true">
+        <service id="symfony_cmf_create.controller.vie" class="%symfony_cmf_create.controller.vie.class%">
             <argument type="service" id="fos_rest.view_handler" />
             <argument>%symfony_cmf_create.stanbol_url%</argument>
-            <argument>%symfony_cmf_create.image_class%</argument>
+            <argument>%symfony_cmf_create.image.model_class%</argument>
             <argument>%symfony_cmf_create.use_coffee%</argument>
         </service>
 
-        <service id="symfony_cmf_create.controller.assets" class="%symfony_cmf_create.controller.assets.class%" public="true">
+        <service id="symfony_cmf_create.controller.assets" class="%symfony_cmf_create.controller.assets.class%">
             <!-- TODO: this depends on doctrine phpcr-odm -->
             <argument type="service" id="doctrine_phpcr.odm.default_document_manager" />
             <argument type="service" id="router"/>
@@ -28,7 +29,7 @@
             <argument>%symfony_cmf_create.cms_path%</argument>
         </service>
 
-        <service id="symfony_cmf_create.controller.rest" class="Symfony\Cmf\Bundle\CreateBundle\Controller\RestController">
+        <service id="symfony_cmf_create.controller.rest" class="%symfony_cmf_create.controller.rest.class%">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="validator"/>
             <argument type="service" id="symfony_cmf_create.object_mapper"/>

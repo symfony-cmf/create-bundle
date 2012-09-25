@@ -70,7 +70,11 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        $container->setParameter($this->getAlias().'.image_class', $config['image_class']);
+        if (isset($config['image'])) {
+            $loader->load('image.xml');
+            $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
+            $container->setParameter($this->getAlias().'.controller.image.class', $config['image']['controller_class']);
+        }
 
         $loader->load('services.xml');
     }
