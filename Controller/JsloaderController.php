@@ -5,7 +5,11 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 
-class VieController
+/**
+ * This controller includes the correct twig file to bootstrap the javascript
+ * files of create.js and its dependencies.
+ */
+class JsloaderController
 {
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
@@ -23,7 +27,7 @@ class VieController
     private $coffee;
 
     /**
-     * Create the Vie Controller
+     * Create the Controller
      *
      * When using hallo, the controller can include the compiled js files from
      * hallo's examples folder or use the assetic coffee filter.
@@ -31,7 +35,7 @@ class VieController
      *
      * @param ViewHandlerInterface $viewHandler view handler
      * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
-     * @param string $imageClass image class
+     * @param string $imageClass used to determine whether image upload should be activated
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      */
     public function __construct(ViewHandlerInterface $viewHandler, $stanbolUrl, $imageClass, $useCoffee = false)
@@ -43,10 +47,9 @@ class VieController
     }
 
     /**
-     * Render js for VIE and a semantic editor.
+     * Render js inclusion for create.js and dependencies and bootstrap code.
      *
-     * Hallo is a submodule of this bundle and available after right after you
-     * followed the installation instructions.
+     * THe hallo editor is bundled with create.js and available automatically.
      * To use aloha, you need to download the zip, as explained in step 8 of
      * the README.
      *
@@ -72,7 +75,7 @@ class VieController
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
-        $view->setData(array('vie_stanbol_url' => $this->stanbolUrl, 'vie_image_upload_enabled' => (boolean) $this->imageClass));
+        $view->setData(array('cmfCreateStanbolUrl' => $this->stanbolUrl, 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass));
 
         return $this->viewHandler->handle($view);
     }

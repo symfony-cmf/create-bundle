@@ -17,6 +17,9 @@ use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\RestService,
     Midgard\CreatePHP\RdfMapperInterface;
 
+/**
+ * Controller to handle content update callbacks
+ */
 class RestController
 {
     /**

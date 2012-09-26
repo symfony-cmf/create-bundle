@@ -3,17 +3,25 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Imagine\Image\ImageInterface;
+use Symfony\Component\Routing\RouterInterface;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 abstract class ImageController
 {
     protected $manager;
+    protected $router;
+    protected $imageClass;
 
-    public function __construct(ObjectManager $manager, $imageClass)
+    public function __construct(ObjectManager $manager, RouterInterface $router, $imageClass)
     {
         $this->manager = $manager;
+        $this->router = $router;
         $this->imageClass = $imageClass;
     }
 
@@ -39,16 +47,25 @@ abstract class ImageController
      * @param array $files
      * @return Response
      */
-    abstract protected function generateUploadResponse(array $ids, array $images, array $files);
+    protected function generateUploadResponse(array $ids, array $images, FileBag $files)
+    {
+        $name = basename($ids[0]);
+
+        return new RedirectResponse($this->router->generate('symfony_cmf_create_image_display', array('name' => $name)));
+    }
 
     protected function validateImage($file)
     {
         return true;
     }
 
-    public function displayAction($id)
+    public function displayAction($name)
     {
-        $image = $this->manager->find($this->imageClass, $this->generateId($id));
+        $id = $this->generateId($name);
+        $image = $this->manager->find($this->imageClass, $id);
+        if (!$image) {
+            throw new NotFoundHttpException("Image '$name' not found at '$id'");
+        }
 
         $data = stream_get_contents($image->getContent());
 
@@ -68,6 +85,7 @@ abstract class ImageController
             if (!$this->validateImage($file)) {
                 continue;
             }
+
             $ids[] = $id = $this->generateId($this->generateName($file));
             $images[] = $image = $this->manager->find($imageClass, $id);
             if (!$image) {
@@ -76,9 +94,9 @@ abstract class ImageController
             }
 
             $image->setName($file->getClientOriginalName());
-            $image->setContent(file_get_contents($file->getPathname()));
+            $image->setContent(fopen($file->getPathname(), 'r'));
             $image->setMimeType($file->getClientMimeType());
-            $image->setTags(explode(',', $request->get('tags')));
+            $image->setTags(explode(',', $request->get('tags', array())));
 
             $this->manager->persist($image);
         }

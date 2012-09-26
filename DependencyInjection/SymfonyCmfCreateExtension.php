@@ -26,24 +26,26 @@ class SymfonyCmfCreateExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         if (!empty($config['phpcr'])) {
+            throw new \Exception('todo: build a phpcr mapper');
             $loader->load('phpcr.xml');
             if (is_string($config['phpcr'])) {
-                $phpcr = $container->getDefinition('symfony_cmf_create.phpcr.controller');
-                $phpcr->replaceArgument(4, $config['phpcr']);
+                $phpcr = $container->getDefinition('symfony_cmf_create.object_mapper');
+                $phpcr->replaceArgument(3, $config['phpcr']);
             }
         }
         if (!empty($config['phpcr_odm'])) {
             $loader->load('phpcr_odm.xml');
             if (is_string($config['phpcr_odm'])) {
-                $phpcr_odm = $container->getDefinition('symfony_cmf_create.phpcr_odm.controller');
-                $phpcr_odm->replaceArgument(4, $config['phpcr_odm']);
+                $phpcr_odm = $container->getDefinition('symfony_cmf_create.object_mapper');
+                $phpcr_odm->replaceArgument(3, $config['phpcr_odm']);
             }
         }
         if (!empty($config['orm'])) {
+            throw new \Exception('todo: build an orm mapper');
             $loader->load('orm.xml');
             if (is_string($config['orm'])) {
-                $phpcr = $container->getDefinition('symfony_cmf_create.orm.controller');
-                $phpcr->replaceArgument(4, $config['orm']);
+                $phpcr = $container->getDefinition('symfony_cmf_create.object_mapper');
+                $phpcr->replaceArgument(3, $config['orm']);
             }
         }
 
@@ -70,7 +72,13 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        $container->setParameter($this->getAlias().'.image_class', $config['image_class']);
+        if (isset($config['image'])) {
+            $loader->load('image.xml');
+            $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
+            $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
+        } else {
+            $container->setParameter($this->getAlias().'.image.model_class', false);
+        }
 
         $loader->load('services.xml');
     }
