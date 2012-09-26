@@ -4,7 +4,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-use Symfony\Cmf\Bundle\CreateBundle\Document\ImageInterface;
+use Symfony\Cmf\Bundle\CreateBundle\Model\ImageInterface;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\View\View;

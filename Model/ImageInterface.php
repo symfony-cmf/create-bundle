@@ -1,6 +1,6 @@
 <?php
 
-namespace Symfony\Cmf\Bundle\CreateBundle\Document;
+namespace Symfony\Cmf\Bundle\CreateBundle\Model;
 
 interface ImageInterface
 {
