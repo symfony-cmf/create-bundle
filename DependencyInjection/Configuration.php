@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('rest_controller_class')->defaultFalse()->end()
                 ->arrayNode('map')
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()

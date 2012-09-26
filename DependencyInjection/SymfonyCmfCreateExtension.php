@@ -73,5 +73,9 @@ class SymfonyCmfCreateExtension extends Extension
         }
 
         $loader->load('services.xml');
+
+        if ($config['rest_controller_class']) {
+            $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
+        }
     }
 }

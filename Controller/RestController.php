@@ -3,14 +3,12 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\Security\Core\Exception\AccessDeniedException,
     Symfony\Component\Security\Core\SecurityContextInterface;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
-    FOS\RestBundle\View\View,
-    FOS\Rest\Util\Codes;
+    FOS\RestBundle\View\View;
 
 use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\RestService,
