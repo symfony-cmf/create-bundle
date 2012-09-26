@@ -142,44 +142,6 @@ abstract class ImageController
      */
     public function searchAction(Request $request)
     {
-        $data = array(
-            array(
-                'url' => 'http://www.perfectoutdoorweddings.com/wp-content/uploads/2011/06/beach.jpg',
-                'alt' => 'Crazy beach, but no girls'
-            ),
-            array(
-                'url' => 'http://www.photosnewportbeach.com/artwork/newport-beach-sunset.jpg',
-                'alt' => 'Sunset from my balconey'
-            ),
-            array(
-                'url' => 'http://www.capetowndailyphoto.com/uploaded_images/Beach_Girl_IMG_3563-761741.jpg',
-                'alt' => 'My sister in Capetown'
-            ),
-            array(
-                'url' => 'http://news.fullorissa.com/wp-content/uploads/2011/06/PuriBeach.jpg',
-                'alt' => 'New Dehli chatting'
-            ),
-            array(
-                'url' => 'http://www.hotelplan.ch/CMS/1/1823506/4/ferien_auf_den_malediven.jpg',
-            ),
-            array(
-                'url' => 'http://stuckincustoms.smugmug.com/Portfolio-The-Best/your-favorites/3410783929310572ed16o/742619149_CYkrj-750x750.jpg',
-                'alt' => 'Blue mountains'
-            ),
-            array(
-                'url' => 'http://media.smashingmagazine.com/images/fantastic-hdr-pictures/hdr-10.jpg',
-                'alt' => 'Sun, Clouds, Stuff'
-            ),
-            array(
-                'url' => 'http://farm3.static.flickr.com/2139/1524795919_62631ab870.jpg',
-                'alt' => 'Two lone trees'
-            ),
-            array(
-                'url' => 'http://www.bigpicture.in/wp-content/uploads/2010/12/HDR-Photography-By-Paul-21-660x494.jpg',
-                'alt' => 'Bridge'
-            )
-        );
-
         $offset = (int)$request->query->get('offset', 0);
         $limit = (int)$request->query->get('limit', 8);
         $images = $this->getImagesByName($request->query->get('searchInput'), $offset, $limit);
@@ -190,10 +152,6 @@ abstract class ImageController
             $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $image->getName()), true);
             $data[] = array('url' => $url, 'alt' => $image->getName());
         }
-
-        $data = array(
-            'assets' => $data,
-        );
 
         $data = array(
             'offset' => $offset,
