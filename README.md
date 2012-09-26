@@ -47,6 +47,10 @@ application's kernel:
         );
     }
 
+
+Configuration
+=============
+
 Add a mapping to the `config.yml` and enable a controller
 
         symfony_cmf_create:
@@ -58,15 +62,15 @@ Add a mapping to the `config.yml` and enable a controller
             cms_path: /cms/content/static
             # stanbol_url: custom stanbol url, otherwise defaults to the demo install
 
-You need to implement an ImageController and override the ``symfony_cmf_create.controller.image``
+You need to implement an ImageController and override the ``symfony_cmf_create.image.controller``
 service accordingly.
 
 Finally add the relevant routing to your configuration
 
-        <import resource="symfony_cmf_create.phpcr.controller" type="rest" />
+        <import resource="symfony_cmf_create.rest.controller" type="rest" />
 
         createjs:
-            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/phpcr_odm.xml"
+            resource: "@SymfonyCmfCreateBundle/Resources/config/routing/rest.xml"
 
 Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
 
@@ -129,16 +133,17 @@ Developing hallo editor
 
 You can develop the hallo editor inside the Create bundle. By default, a minimized
 version of hallo that is bundled with create is used. To develop the actual code,
-you'll need to checkout the full hallo repository first. You can do this by running
+you will need to checkout the full hallo repository first. You can do this by running
 the following commenad from the command line:
-``app/console cmf:create:init-hallo-devel``
-Then, set the ``symfony_cmf_create: use_coffee`` option to true, it will include
-the coffee script files from ``Resources/public/vendor/hallo/src`` with assetic,
-rather than the precompiled javascript from ``Resources/public/vendor/create/deps/hallo-min.js`.
-This also means that if you have a mapping for coffeescript in your assetic
-configuration, you need to have the coffee compiler set up correctly. In the
-sandbox we did a little hack to not trigger coffee script compiling. In
-config.yml we make the coffee extension configurable:
+
+    app/console cmf:create:init-hallo-devel
+
+Then, set the ``use_coffee`` option to true in config.yml. This tells the
+jsloader to include the coffee script files from
+``Resources/public/vendor/hallo/src`` with assetic, rather than the precompiled
+javascript from ``Resources/public/vendor/create/deps/hallo-min.js`.
+This also means that you need to add a mapping for coffeescript in your assetic
+configuration and you need the [coffee compiler set up correctly](http://coffeescript.org/#installation).
 
     assetic:
         filters:
@@ -152,12 +157,15 @@ config.yml we make the coffee extension configurable:
         # set this to true if you want to develop hallo and edit the coffee files
         use_coffee: true|false
 
-Now if the parameters.yml sets ``coffee.extension`` to ``\.coffee`` the
-coffeescript is compiled and the coffee compiler needs to be installed.
-If you set it to anything else like ``\.nocoffee`` then you do not need the
-coffee compiler installed.
+In the cmf sandbox we did a little hack to not trigger coffee script compiling.
+In config.yml we make the coffee extension configurable. Now if the
+parameters.yml sets ``coffee.extension`` to ``\.coffee`` the coffeescript is
+compiled and the coffee compiler needs to be installed. If you set it to
+anything else like ``\.nocoffee`` then you do not need the coffee compiler
+installed.
 
 The default values for the three parameters are:
-coffee.bin: /usr/local/bin/coffee
-coffee.node: /usr/local/bin/node
-coffee.extension: \.coffee
+
+    coffee.bin: /usr/local/bin/coffee
+    coffee.node: /usr/local/bin/node
+    coffee.extension: \.coffee
