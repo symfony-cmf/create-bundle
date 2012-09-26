@@ -7,8 +7,10 @@
     <services>
 
         <service id="symfony_cmf_create.image.controller.base" class="%symfony_cmf_create.image.controller_class%">
-            <argument type="service" id="doctrine_phpcr.odm.default_document_manager" />
+            <argument />
+            <argument>%symfony_cmf_create.manager_name%</argument>
             <argument type="service" id="router" />
+            <argument type="service" id="fos_rest.view_handler"/>
             <argument>%symfony_cmf_create.image.model_class%</argument>
         </service>
 

@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
                 //         success: successCallback
                 //     });
                 // },
-                uploadUrl: hallo_image_upload,
+                uploadUrl: cmfCreateHalloImageUpload,
                 'vie': this.vie
             },
             'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },

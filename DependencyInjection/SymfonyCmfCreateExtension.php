@@ -3,6 +3,7 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -27,11 +28,11 @@ class SymfonyCmfCreateExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         if (!empty($config['phpcr_odm'])) {
             $loader->load('phpcr_odm.xml');
+            $documentManagerName = 'default';
+            $managerRegistry = 'doctrine_phpcr';
             if (is_string($config['phpcr_odm'])) {
+                $documentManagerName = $config['phpcr_odm'];
                 $phpcr_odm = $container->getDefinition('symfony_cmf_create.object_mapper');
-                $phpcr_odm->replaceArgument(3, $config['phpcr_odm']);
-            }
-        }
                 $phpcr_odm->replaceArgument(3, $documentManagerName);
             }
 
@@ -61,8 +62,10 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        if (isset($config['image'])) {
+        if (isset($config['image']) && isset($managerRegistry)) {
             $loader->load('image.xml');
+            $definition = $container->getDefinition('symfony_cmf_create.image.controller.base');
+            $definition->replaceArgument(0, new Reference($managerRegistry));
             $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
             $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
         } else {
