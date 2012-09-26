@@ -124,15 +124,17 @@ sure you instantiate all those bundles in your kernel and properly configure
 assetic.
 
 
-Developping hallo editor
+Developing hallo editor
 ========================
 
-TODO: for this to work you would also have to put the hallo repository into
-the right place. Please update this section if you happen to use this again.
-
-You can develop the hallo editor inside the Create bundle. If you set the
-``symfony_cmf_create: use_coffee`` option to true, it will include the coffee script
-files with assetic, rather than the precompiled javascript.
+You can develop the hallo editor inside the Create bundle. By default, a minimized
+version of hallo that is bundled with create is used. To develop the actual code,
+you'll need to checkout the full hallo repository first. You can do this by running
+the following commenad from the command line:
+``app/console cmf:create:init-hallo-devel``
+Then, set the ``symfony_cmf_create: use_coffee`` option to true, it will include
+the coffee script files from ``Resources/public/vendor/hallo/src`` with assetic,
+rather than the precompiled javascript from ``Resources/public/vendor/create/deps/hallo-min.js`.
 This also means that if you have a mapping for coffeescript in your assetic
 configuration, you need to have the coffee compiler set up correctly. In the
 sandbox we did a little hack to not trigger coffee script compiling. In
@@ -154,3 +156,8 @@ Now if the parameters.yml sets ``coffee.extension`` to ``\.coffee`` the
 coffeescript is compiled and the coffee compiler needs to be installed.
 If you set it to anything else like ``\.nocoffee`` then you do not need the
 coffee compiler installed.
+
+The default values for the three parameters are:
+coffee.bin: /usr/local/bin/coffee
+coffee.node: /usr/local/bin/node
+coffee.extension: \.coffee
