@@ -97,9 +97,10 @@ content is editable.
 
 Create xml files in the paths you configured in rdf_config_dirs named after the
 full classname of your model classes with ``\\`` replaced by ``.``. For an
-example mapping see the files in the cmf-sandbox.
+example mapping see the files in the cmf-sandbox. Reference documentation is in
+the [createphp library repository](https://github.com/flack/createphp).
 
-To render your model, use the createphp tag:
+To render your model, use the createphp twig tag:
 
     {% createphp page as="rdf" %}
     {{ rdf|raw }}
@@ -128,8 +129,8 @@ sure you instantiate all those bundles in your kernel and properly configure
 assetic.
 
 
-Developing hallo editor
-========================
+Developing the hallo wysiwyg editor
+===================================
 
 You can develop the hallo editor inside the Create bundle. By default, a minimized
 version of hallo that is bundled with create is used. To develop the actual code,
@@ -141,7 +142,7 @@ the following commenad from the command line:
 Then, set the ``use_coffee`` option to true in config.yml. This tells the
 jsloader to include the coffee script files from
 ``Resources/public/vendor/hallo/src`` with assetic, rather than the precompiled
-javascript from ``Resources/public/vendor/create/deps/hallo-min.js`.
+javascript from ``Resources/public/vendor/create/deps/hallo-min.js``.
 This also means that you need to add a mapping for coffeescript in your assetic
 configuration and you need the [coffee compiler set up correctly](http://coffeescript.org/#installation).
 
