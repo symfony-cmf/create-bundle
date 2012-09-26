@@ -25,14 +25,6 @@ class SymfonyCmfCreateExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        if (!empty($config['phpcr'])) {
-            throw new \Exception('todo: build a phpcr mapper');
-            $loader->load('phpcr.xml');
-            if (is_string($config['phpcr'])) {
-                $phpcr = $container->getDefinition('symfony_cmf_create.object_mapper');
-                $phpcr->replaceArgument(3, $config['phpcr']);
-            }
-        }
         if (!empty($config['phpcr_odm'])) {
             $loader->load('phpcr_odm.xml');
             if (is_string($config['phpcr_odm'])) {
@@ -40,13 +32,10 @@ class SymfonyCmfCreateExtension extends Extension
                 $phpcr_odm->replaceArgument(3, $config['phpcr_odm']);
             }
         }
-        if (!empty($config['orm'])) {
-            throw new \Exception('todo: build an orm mapper');
-            $loader->load('orm.xml');
-            if (is_string($config['orm'])) {
-                $phpcr = $container->getDefinition('symfony_cmf_create.object_mapper');
-                $phpcr->replaceArgument(3, $config['orm']);
+                $phpcr_odm->replaceArgument(3, $documentManagerName);
             }
+
+            $container->setParameter($this->getAlias().'.manager_name', $documentManagerName);
         }
 
         $container->setParameter($this->getAlias().'.map', $config['map']);
