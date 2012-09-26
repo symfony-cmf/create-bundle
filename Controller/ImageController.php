@@ -15,8 +15,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 abstract class ImageController
 {
@@ -40,12 +42,31 @@ abstract class ImageController
      */
     protected $imageClass;
 
-    public function __construct(ManagerRegistry $registry, $managerName, RouterInterface $router, ViewHandlerInterface $viewHandler, $imageClass)
-    {
+    /**
+     * @var string the role name for the security check
+     */
+    protected $requiredRole;
+
+    /**
+     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     */
+    protected $securityContext;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        $managerName,
+        RouterInterface $router,
+        ViewHandlerInterface $viewHandler,
+        $imageClass,
+        $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
+        SecurityContextInterface $securityContext = null
+    ) {
         $this->manager = $registry->getManager($managerName);
         $this->router = $router;
         $this->viewHandler = $viewHandler;
         $this->imageClass = $imageClass;
+        $this->requiredRole = $requiredRole;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -104,6 +125,10 @@ abstract class ImageController
 
     public function uploadAction(Request $request)
     {
+        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+            throw new AccessDeniedException();
+        }
+
         $files = $request->files;
 
         /** @var UploadedFile $file  */
