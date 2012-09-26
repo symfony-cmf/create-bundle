@@ -4,7 +4,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-use Imagine\Image\ImageInterface;
+use Symfony\Cmf\Bundle\CreateBundle\Document\ImageInterface;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\View\View;
@@ -12,7 +12,6 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,6 +63,12 @@ abstract class ImageController
     abstract protected function generateName(UploadedFile $file);
 
     /**
+     * @param string $id
+     * @return mixed name
+     */
+    abstract protected function getNameFromId($id);
+
+    /**
      * Generate the response for the uploaded images
      *
      * @param array $ids
@@ -71,11 +76,9 @@ abstract class ImageController
      * @param array $files
      * @return Response
      */
-    protected function generateUploadResponse(array $ids, array $images, FileBag $files)
+    protected function generateUploadResponse($id, ImageInterface $image, UploadedFile $file)
     {
-        $name = basename($ids[0]);
-
-        return new RedirectResponse($this->router->generate('symfony_cmf_create_image_display', array('name' => $name)));
+        return new RedirectResponse($this->router->generate('symfony_cmf_create_image_display', array('name' => $this->getNameFromId($id))));
     }
 
     protected function validateImage($file)
@@ -103,35 +106,51 @@ abstract class ImageController
     {
         $files = $request->files;
 
-        $ids = $images = array();
-        $imageClass = $this->imageClass;
-        foreach ($files->all() as $file) {
-            if (!$this->validateImage($file)) {
-                continue;
-            }
+        /** @var UploadedFile $file  */
+        $file = $files->getIterator()->current();
+        $this->validateImage($file);
 
-            $name = $this->generateName($file);
-            $ids[] = $id = $this->generateId($name);
-            $image = $this->manager->find(null, $id);
-            if ($image) {
-                throw new HttpException(Codes::HTTP_CONFLICT, "An image with the name '$name' already exists and can therefore not be stored at '$id'");
-            }
-
-            $image = new $imageClass();
-            $image->setId($id);
-
-            $image->setName($file->getClientOriginalName());
-            $image->setContent(fopen($file->getPathname(), 'r'));
-            $image->setMimeType($file->getClientMimeType());
-            $image->setTags(explode(',', $request->get('tags', array())));
-
-            $this->manager->persist($image);
-            $images[] = $image;
+        $id = $this->generateId($this->generateName($file));
+        $image = $this->manager->find(null, $id);
+        if ($image) {
+            throw new HttpException(Codes::HTTP_CONFLICT, "An image already exists at '$id'");
         }
+
+        /** @var ImageInterface $image */
+        $imageClass = $this->imageClass;
+        $image = new $imageClass();
+        $image->setId($id);
+
+        $caption = strlen($request->get('caption')) ? $request->get('caption') : $file->getClientOriginalName();
+        $image->setCaption($caption);
+        $image->setContent(fopen($file->getPathname(), 'r'));
+        $image->setMimeType($file->getClientMimeType());
+        $image->setTags(explode(',', $request->get('tags', array())));
+
+        $this->manager->persist($image);
 
         $this->manager->flush();
 
-        return $this->generateUploadResponse($ids, $images, $files);
+        return $this->generateUploadResponse($id, $image, $file);
+    }
+
+    private function processResults($images, $offset)
+    {
+        $data = array();
+
+        foreach ($images as $image) {
+            $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $this->getNameFromId($image->getId())), true);
+            $data[] = array('url' => $url, 'alt' => $image->getCaption());
+        }
+
+        $data = array(
+            'offset' => $offset,
+            'total' => count($data),
+            'assets' => $data,
+        );
+
+        $view = View::create($data);
+        return $this->viewHandler->handle($view);
     }
 
     /**
@@ -147,21 +166,7 @@ abstract class ImageController
         $query = $request->query->get('query');
         $images = $this->getImagesByName($query, $offset, $limit);
 
-        $data = array();
-
-        foreach ($images as $image) {
-            $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $image->getName()), true);
-            $data[] = array('url' => $url, 'alt' => $image->getName());
-        }
-
-        $data = array(
-            'offset' => $offset,
-            'total' => count($data),
-            'assets' => $data,
-        );
-
-        $view = View::create($data);
-        return $this->viewHandler->handle($view);
+        return $this->processResults($images, $offset);
     }
 
     abstract protected function getImagesByName($name, $offset, $limit);
@@ -176,22 +181,12 @@ abstract class ImageController
     {
         $tags = $request->query->get('tags');
         $tags = explode(',', $tags);
+        $offset = (int)$request->query->get('offset', 0);
+        $limit = (int)$request->query->get('limit', 8);
 
-        $images = $this->getImagesByTag($tags, 0, -1);
+        $images = $this->getImagesByTag($tags, $offset, $limit);
 
-        $data = array();
-
-        foreach ($images as $image) {
-            $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $image->getName()), true);
-            $data[] = array('url' => $url, 'alt' => $image->getName());
-        }
-
-        $data = array(
-            'assets' => $data,
-        );
-
-        $view = View::create($data);
-        return $this->viewHandler->handle($view);
+        return $this->processResults($images, $offset);
     }
 
     abstract protected function getImagesByTag(array $tags, $offset, $limit);
