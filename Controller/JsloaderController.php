@@ -12,7 +12,7 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 class JsloaderController
 {
     /**
-     * @var FOS\RestBundle\View\ViewHandlerInterface
+     * @var \FOS\RestBundle\View\ViewHandlerInterface
      */
     private $viewHandler;
 
