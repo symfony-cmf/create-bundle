@@ -23,6 +23,7 @@ class ScriptHandler
         chdir(__DIR__.DIRECTORY_SEPARATOR.'..');
         exec('git submodule sync', $output, $status);
         if ($status) {
+            chdir($dir);
             die("Running git submodule sync failed with $status\n");
         }
         exec('git submodule update --init --recursive', $output, $status);
