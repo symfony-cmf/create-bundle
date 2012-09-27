@@ -31,5 +31,4 @@ a.create-ui-toggle {
 [contenteditable].inEditMode{
     cursor: auto;
     outline: 3px solid black;
-    outline-offset: 10px;
 }

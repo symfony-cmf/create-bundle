@@ -3,15 +3,12 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response,
-    Symfony\Component\Routing\Exception\ResourceNotFoundException,
+    Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\Security\Core\Exception\AccessDeniedException,
-    Symfony\Component\Security\Core\SecurityContextInterface,
-    Symfony\Component\Validator\ValidatorInterface;
+    Symfony\Component\Security\Core\SecurityContextInterface;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
-    FOS\RestBundle\View\View,
-    FOS\Rest\Util\Codes;
+    FOS\RestBundle\View\View;
 
 use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\RestService,
@@ -38,11 +35,6 @@ class RestController
     protected $requiredRole;
 
     /**
-     * @var ValidatorInterface
-     */
-    protected $validator;
-
-    /**
      * @var RdfMapperInterface
      */
     protected $rdfMapper;
@@ -54,7 +46,6 @@ class RestController
 
     /**
      * @param \FOS\RestBundle\View\ViewHandlerInterface $viewHandler
-     * @param \Symfony\Component\Validator\ValidatorInterface $validator
      * @param \Midgard\CreatePHP\RdfMapperInterface $rdfMapper
      * @param \Midgard\CreatePHP\Metadata\RdfTypeFactory $typeFactory
      * @param \Midgard\CreatePHP\RestService $restHandler
@@ -67,7 +58,6 @@ class RestController
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ValidatorInterface $validator,
         RdfMapperInterface $rdfMapper,
         RdfTypeFactory $typeFactory,
         RestService $restHandler,
@@ -75,7 +65,6 @@ class RestController
         SecurityContextInterface $securityContext = null
     ) {
         $this->viewHandler = $viewHandler;
-        $this->validator = $validator;
         $this->rdfMapper = $rdfMapper;
         $this->typeFactory = $typeFactory;
         $this->restHandler = $restHandler;
@@ -93,9 +82,8 @@ class RestController
         }
 
         $model = $this->rdfMapper->getBySubject($subject);
-
         if (empty($model)) {
-            throw new ResourceNotFoundException($subject.' not found');
+            throw new NotFoundHttpException($subject.' not found');
         }
 
         $type = $this->typeFactory->getType(get_class($model));

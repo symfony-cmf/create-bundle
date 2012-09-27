@@ -12,6 +12,8 @@
             <argument type="service" id="router" />
             <argument type="service" id="fos_rest.view_handler"/>
             <argument>%symfony_cmf_create.image.model_class%</argument>
+            <argument>%symfony_cmf_create.role%</argument>
+            <argument type="service" id="security.context" on-invalid="ignore"/>
         </service>
 
     </services>

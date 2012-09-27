@@ -21,7 +21,6 @@
 
         <service id="symfony_cmf_create.rest.controller" class="%symfony_cmf_create.rest.controller.class%">
             <argument type="service" id="fos_rest.view_handler"/>
-            <argument type="service" id="validator"/>
             <argument type="service" id="symfony_cmf_create.object_mapper"/>
             <argument type="service" id="symfony_cmf_create.rdf_type_factory"/>
             <argument type="service" id="symfony_cmf_create.rest.handler"/>
