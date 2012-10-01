@@ -4,6 +4,8 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * This controller includes the correct twig file to bootstrap the javascript
@@ -12,9 +14,19 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 class JsloaderController
 {
     /**
-     * @var \FOS\RestBundle\View\ViewHandlerInterface
+     * @var SecurityContextInterface
      */
-    private $viewHandler;
+    protected $securityContext;
+
+    /**
+     * @var ViewHandlerInterface
+     */
+    protected $viewHandler;
+
+    /**
+     * @var string the role name for the security check
+     */
+    protected $requiredRole;
 
     /**
      * @var string
@@ -38,12 +50,20 @@ class JsloaderController
      * @param string $imageClass used to determine whether image upload should be activated
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      */
-    public function __construct(ViewHandlerInterface $viewHandler, $stanbolUrl, $imageClass, $useCoffee = false)
-    {
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        $stanbolUrl,
+        $imageClass,
+        $useCoffee = false,
+        $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
+        SecurityContextInterface $securityContext = null
+    ) {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
         $this->imageClass = $imageClass;
         $this->coffee = $useCoffee;
+        $this->requiredRole = $requiredRole;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -57,6 +77,10 @@ class JsloaderController
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
+        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+            return new Response('');
+        }
+
         // We could inject a list of names to template mapping for this
         // to allow adding other editors without changing this bundle
 
