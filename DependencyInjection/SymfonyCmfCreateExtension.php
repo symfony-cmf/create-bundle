@@ -47,9 +47,6 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.use_coffee', $config['use_coffee']);
 
-        $container->setParameter($this->getAlias().'.base_path', $config['base_path']);
-        $container->setParameter($this->getAlias().'.cms_path', $config['cms_path']);
-
         if ($config['auto_mapping']) {
             foreach ($container->getParameter('kernel.bundles') as $class) {
                 $bundle = new \ReflectionClass($class);
