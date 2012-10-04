@@ -72,6 +72,16 @@ class RestController
         $this->securityContext = $securityContext;
     }
 
+    protected function getModelBySubject(Request $request, $subject)
+    {
+        $model = $this->rdfMapper->getBySubject($subject);
+        if (empty($model)) {
+            throw new NotFoundHttpException($subject.' not found');
+        }
+
+        return $model;
+    }
+
     /**
      * Handle article PUT
      */
@@ -81,10 +91,7 @@ class RestController
             throw new AccessDeniedException();
         }
 
-        $model = $this->rdfMapper->getBySubject($subject);
-        if (empty($model)) {
-            throw new NotFoundHttpException($subject.' not found');
-        }
+        $model = $this->getModelBySubject($request, $subject);
 
         $type = $this->typeFactory->getType(get_class($model));
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_PUT);
