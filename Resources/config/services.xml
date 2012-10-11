@@ -42,6 +42,7 @@
         <service id="symfony_cmf_create.rdf_type_factory" class="%symfony_cmf_create.rdf_type_factory_class%" public="true">
             <argument type="service" id="symfony_cmf_create.object_mapper"/>
             <argument type="service" id="symfony_cmf_create.rdf_driver"/>
+            <argument>%symfony_cmf_create.map%</argument>
         </service>
 
         <service id="symfony_cmf_create.rest.handler" class="%symfony_cmf_create.rest.handler_class%" public="true">

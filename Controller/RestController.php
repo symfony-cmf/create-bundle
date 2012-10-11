@@ -73,13 +73,11 @@ class RestController
     }
 
     /**
-     * Handle article PUT
+     * Handle article PUT (article update)
      */
     public function putDocumentAction(Request $request, $subject)
     {
-        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
-            throw new AccessDeniedException();
-        }
+        $this->performSecurityChecks();
 
         $model = $this->rdfMapper->getBySubject($subject);
         if (empty($model)) {
@@ -91,5 +89,40 @@ class RestController
 
         $view = View::create($result)->setFormat('json');
         return $this->viewHandler->handle($view, $request);
+    }
+
+    /**
+     * Handle article POST (new article)
+     */
+    public function postDocumentAction(Request $request, $subject)
+    {
+        $this->performSecurityChecks();
+
+        $parentSubject = $this->restHandler->getParentSubject($request->request->all());
+
+        $parentModel = $this->rdfMapper->getBySubject($parentSubject);
+
+        if (empty($parentModel)) {
+            throw new NotFoundHttpException($subject.' not found');
+        }
+
+        $type = $this->typeFactory->getType(get_class($parentModel));
+
+        $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
+
+        $view = View::create($result)->setFormat('json');
+        return $this->viewHandler->handle($view, $request);
+    }
+
+    /**
+     * Check if the action can be performed
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    protected function performSecurityChecks()
+    {
+        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+            throw new AccessDeniedException();
+        }
     }
 }
