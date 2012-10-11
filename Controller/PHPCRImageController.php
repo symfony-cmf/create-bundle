@@ -24,7 +24,8 @@ class PHPCRImageController extends ImageController
 
     protected function getNameFromId($id)
     {
-        return basename($id);
+        $path = explode('/', $id);
+        return array_pop($path);
     }
 
     protected function generateName(UploadedFile $file)
