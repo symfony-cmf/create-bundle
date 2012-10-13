@@ -33,15 +33,15 @@ class PHPCRImageController extends ImageController
         return $file->getClientOriginalName();
     }
 
-    protected function getImagesByName($name, $offset, $limit)
+    protected function getImagesByCaption($caption, $offset, $limit)
     {
         $sql = 'SELECT * FROM [nt:unstructured]
                     WHERE ISDESCENDANTNODE([nt:unstructured], ' . $this->manager->quote($this->staticPath) . ')
                         AND [nt:unstructured].[phpcr:class] = ' . $this->manager->quote($this->imageClass);
 
-        if (strlen($name)) {
+        if (strlen($caption)) {
             $sql.= '
-                AND [nt:unstructured].name LIKE ' . $this->manager->quote($name.'%');
+                AND [nt:unstructured].caption LIKE ' . $this->manager->quote($caption.'%');
         }
 
         $query = $this->manager->createQuery($sql, QueryInterface::JCR_SQL2);

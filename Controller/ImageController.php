@@ -189,12 +189,12 @@ abstract class ImageController
         $offset = (int)$request->query->get('offset', 0);
         $limit = (int)$request->query->get('limit', 8);
         $query = $request->query->get('query');
-        $images = $this->getImagesByName($query, $offset, $limit);
+        $images = $this->getImagesByCaption($query, $offset, $limit);
 
         return $this->processResults($images, $offset);
     }
 
-    abstract protected function getImagesByName($name, $offset, $limit);
+    abstract protected function getImagesByCaption($name, $offset, $limit);
 
     /**
      * List Images from Repo
