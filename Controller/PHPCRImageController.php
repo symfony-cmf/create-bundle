@@ -37,8 +37,12 @@ class PHPCRImageController extends ImageController
     {
         $sql = 'SELECT * FROM [nt:unstructured]
                     WHERE ISDESCENDANTNODE([nt:unstructured], ' . $this->manager->quote($this->staticPath) . ')
-                        AND [nt:unstructured].[phpcr:class] = ' . $this->manager->quote($this->imageClass) . '
-                        AND [nt:unstructured].name LIKE ' . $this->manager->quote($name.'%');
+                        AND [nt:unstructured].[phpcr:class] = ' . $this->manager->quote($this->imageClass);
+
+        if (strlen($name)) {
+            $sql.= '
+                AND [nt:unstructured].name LIKE ' . $this->manager->quote($name.'%');
+        }
 
         $query = $this->manager->createQuery($sql, QueryInterface::JCR_SQL2);
         $query->setLimit($offset);
