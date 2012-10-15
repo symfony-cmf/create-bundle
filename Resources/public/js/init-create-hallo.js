@@ -49,7 +49,8 @@ jQuery(document).ready(function() {
                 uploadUrl: cmfCreateHalloImageUpload,
                 'vie': this.vie
             },
-            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath }
+            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
+            'halloindicator': {}
         }
     });
 
