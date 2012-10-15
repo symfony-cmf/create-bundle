@@ -15,17 +15,15 @@ jQuery(document).ready(function() {
 
     jQuery('body').midgardCreate('configureEditor', 'title', 'halloWidget', {
         plugins: {
-            'hallooverlay': {},
-            'hallotoolbarlinebreak': {},
-            'halloindicator': {}
-        },
-        floating: false,
-        fixed: true,
-        parentElement: "body",
-        showAlways: true
+            'halloblacklist': {'tags': ['br']}
+        }
     });
     jQuery('body').midgardCreate('configureEditor', 'default', 'halloWidget', {
         plugins: {
+            'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
+            'halloblock': {},
+            'hallolists': {'lists': {'ordered': false}},
+            'hallojustify': {},
             'halloimage': {
                 search: function (query, limit, offset, successCallback) {
                     limit = limit || 8;
@@ -51,19 +49,8 @@ jQuery(document).ready(function() {
                 uploadUrl: cmfCreateHalloImageUpload,
                 'vie': this.vie
             },
-            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
-            'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
-            'halloblock': {},
-            'hallolists': {'lists': {'ordered': false}},
-            'hallojustify': {},
-            'hallotoolbarlinebreak': { 'breakAfter': ['hallolink'] },
-            'hallooverlay': {},
-            'halloindicator': {}
-        },
-        floating: false,
-        fixed: true,
-        parentElement: "body",
-        showAlways: true
+            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath }
+        }
     });
 
     jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:title', 'title');
