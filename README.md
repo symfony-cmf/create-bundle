@@ -15,4 +15,4 @@ This is part of the Symfony Cmf: <https://github.com/symfony-cmf/symfony-cmf>
 
 ## Documentation
 
-http://symfony-cmf.readthedocs.org/en/latest/bundles/create.html
+http://symfony.com/doc/master/cmf/bundles/create.html
