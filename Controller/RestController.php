@@ -99,18 +99,15 @@ class RestController
         $this->performSecurityChecks();
 
         $parentSubject = $this->restHandler->getParentSubject($request->request->all());
-
         $parentModel = $this->rdfMapper->getBySubject($parentSubject);
-
         if (empty($parentModel)) {
             throw new NotFoundHttpException($subject.' not found');
         }
 
         $type = $this->typeFactory->getType(get_class($parentModel));
-
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
-
         $view = View::create($result)->setFormat('json');
+
         return $this->viewHandler->handle($view, $request);
     }
 
