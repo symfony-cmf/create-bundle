@@ -85,6 +85,10 @@ body > .hallotoolbar {
     background: url('/bundles/symfonycmfcreate/img/arrow.png');
 }
 
+.halloimage-dialog .rotationWrapper .hintArrow {
+    background: transparent url('/bundles/symfonycmfcreate/img/drop_left.png') no-repeat -2px -2px;
+}
+
 /* Drag n Drop */
 /* TODO: get rid of this when https://github.com/bergie/hallo/pull/36 is merged */
 [contenteditable] .tmp {

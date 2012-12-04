@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="symfony_cmf_create.image.controller.base" class="%symfony_cmf_create.image.controller_class%">
+        <service id="symfony_cmf_create.image.controller" class="%symfony_cmf_create.image.controller_class%">
             <argument />
             <argument>%symfony_cmf_create.manager_name%</argument>
             <argument type="service" id="router" />
