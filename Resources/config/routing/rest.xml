@@ -14,7 +14,6 @@
     <route id="symfony_cmf_create_post_document" pattern="/{_locale}/symfony-cmf/create/document/{subject}">
         <default key="_controller">symfony_cmf_create.rest.controller:postDocumentAction</default>
         <default key="_format">json</default>
-        <requirement key="subject">.+</requirement>
         <requirement key="_method">POST</requirement>
     </route>
 

@@ -12,7 +12,8 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 
 use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\RestService,
-    Midgard\CreatePHP\RdfMapperInterface;
+    Midgard\CreatePHP\RdfMapperInterface,
+    Midgard\CreatePHP\Helper\NamespaceHelper;
 
 /**
  * Controller to handle content update callbacks
@@ -83,35 +84,38 @@ class RestController
     }
 
     /**
-     * Handle article PUT (article update)
+     * Handle document PUT (update)
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $subject URL of the subject, ie: cms/simple/news/news-name
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function putDocumentAction(Request $request, $subject)
     {
         $this->performSecurityChecks();
 
         $model = $this->getModelBySubject($request, $subject);
+        $type = $this->typeFactory->getTypeByObject($model);
 
-        $type = $this->typeFactory->getType(get_class($model));
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_PUT);
-
         $view = View::create($result)->setFormat('json');
+
         return $this->viewHandler->handle($view, $request);
     }
 
     /**
-     * Handle article POST (new article)
+     * Handle document POST (creation)
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function postDocumentAction(Request $request, $subject)
+    public function postDocumentAction(Request $request)
     {
         $this->performSecurityChecks();
 
-        $parentSubject = $this->restHandler->getParentSubject($request->request->all());
-        $parentModel = $this->rdfMapper->getBySubject($parentSubject);
-        if (empty($parentModel)) {
-            throw new NotFoundHttpException($subject.' not found');
-        }
+        $rdfType = trim($request->request->get('@type'), '<>');
+        $type = $this->typeFactory->getTypeByRdf($rdfType);
 
-        $type = $this->typeFactory->getType(get_class($parentModel));
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
         $view = View::create($result)->setFormat('json');
 
