@@ -49,6 +49,8 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
 
+        $container->setParameter($this->getAlias().'.title_type', $config['title_type']);
+
         if ($config['auto_mapping']) {
             foreach ($container->getParameter('kernel.bundles') as $class) {
                 $bundle = new \ReflectionClass($class);

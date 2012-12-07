@@ -44,6 +44,12 @@ class JsloaderController
     private $fixedToolbar;
 
     /**
+     * @var string
+     */
+    private $titleType;
+
+
+    /**
      * Create the Controller
      *
      * When using hallo, the controller can include the compiled js files from
@@ -62,6 +68,7 @@ class JsloaderController
         $imageClass,
         $useCoffee = false,
         $fixedToolbar = true,
+        $titleType = 'dcterms:title',
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null
     ) {
@@ -70,6 +77,7 @@ class JsloaderController
         $this->imageClass = $imageClass;
         $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
+        $this->titleType = $titleType;
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
     }
@@ -110,7 +118,8 @@ class JsloaderController
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
-                'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar)
+                'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
+                'cmfCreateHalloTitleType' => $this->titleType)
         );
 
         return $this->viewHandler->handle($view);
