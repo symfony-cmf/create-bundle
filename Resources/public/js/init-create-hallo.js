@@ -51,7 +51,9 @@ jQuery(document).ready(function() {
             },
             'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
             'halloindicator': {}
-        }
+        },
+        toolbarState: cmfCreateHalloFixedToolbar,
+        parentElement: cmfCreateHalloParentElement
     });
 
     jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:title', 'title');
