@@ -5,7 +5,8 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\Security\Core\Exception\AccessDeniedException,
-    Symfony\Component\Security\Core\SecurityContextInterface;
+    Symfony\Component\Security\Core\SecurityContextInterface,
+    Symfony\Component\HttpFoundation\Response;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
@@ -106,8 +107,8 @@ class RestController
     /**
      * Handle document POST (creation)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
     public function postDocumentAction(Request $request)
     {
@@ -117,9 +118,13 @@ class RestController
         $type = $this->typeFactory->getTypeByRdf($rdfType);
 
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
-        $view = View::create($result)->setFormat('json');
 
-        return $this->viewHandler->handle($view, $request);
+        if (!is_null($result)) {
+            $view = View::create($result)->setFormat('json');
+            return $this->viewHandler->handle($view, $request);
+        }
+
+        return Response::create('The document could not be created', 500);
     }
 
     /**
