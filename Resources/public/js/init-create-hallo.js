@@ -15,6 +15,7 @@ jQuery(document).ready(function() {
 
     jQuery('body').midgardCreate('configureEditor', 'title', 'halloWidget', {
         plugins: {
+            'hallooverlay': {},
             'halloblacklist': {'tags': ['br']}
         }
     });
@@ -50,6 +51,7 @@ jQuery(document).ready(function() {
                 'vie': this.vie
             },
             'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
+            'hallooverlay': {},
             'halloindicator': {}
         },
         toolbarState: cmfCreateHalloFixedToolbar,
