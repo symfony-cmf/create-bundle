@@ -17,6 +17,8 @@
             <argument>%symfony_cmf_create.stanbol_url%</argument>
             <argument>%symfony_cmf_create.image.model_class%</argument>
             <argument>%symfony_cmf_create.use_coffee%</argument>
+            <argument>%symfony_cmf_create.fixed_toolbar%</argument>
+            <argument>%symfony_cmf_create.title_type%</argument>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
         </service>

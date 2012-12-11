@@ -11,6 +11,15 @@
     {%  endif %}
     var cmfCreatePutDocument = '{{ path('symfony_cmf_create_put_document_base') }}';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';
+
+    {%  if cmfCreateHalloFixedToolbar %}
+    var cmfCreateHalloFixedToolbar = 'halloToolbarFixed';
+    var cmfCreateHalloParentElement = '.create-ui-toolbar-dynamictoolarea .create-ui-tool-freearea';
+    {% else %}
+    var cmfCreateHalloFixedToolbar = 'halloToolbarContextual';
+    var cmfCreateHalloParentElement = 'body';
+    {%  endif %}
+    var cmfCreateHalloTitleType = '{{ cmfCreateHalloTitleType }}';
 </script>
 
 {% javascripts output="js/create.js"
