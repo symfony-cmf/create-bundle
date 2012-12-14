@@ -58,6 +58,8 @@ jQuery(document).ready(function() {
         parentElement: cmfCreateHalloParentElement
     });
 
-    jQuery('body').midgardCreate('setEditorForProperty', cmfCreateHalloTitleType, 'title');
+    jQuery(cmfCreateHalloPlainTextTypes).each(function(index, value) {
+        jQuery('body').midgardCreate('setEditorForProperty', value, 'title');
+    });
     jQuery('body').midgardCreate('setEditorForProperty', 'default', 'default');
 });
