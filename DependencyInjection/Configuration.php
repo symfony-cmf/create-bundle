@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('use_coffee')->defaultFalse()->end()
                 ->scalarNode('fixed_toolbar')->defaultTrue()->end()
                 ->arrayNode('plain_text_types')
-                    ->useAttributeAsKey('title')
+                    ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
                 ->end()
                 ->arrayNode('rdf_config_dirs')

@@ -71,7 +71,7 @@ class JsloaderController
         $imageClass,
         $useCoffee = false,
         $fixedToolbar = true,
-        $plainTextTypes = array('dcterms:title'),
+        $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null
     ) {
@@ -80,10 +80,6 @@ class JsloaderController
         $this->imageClass = $imageClass;
         $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
-
-        if (count($plainTextTypes) === 0) {
-            $plainTextTypes = array('dcterms:title');
-        }
         $this->plainTextTypes = $plainTextTypes;
 
         $this->requiredRole = $requiredRole;
@@ -123,11 +119,12 @@ class JsloaderController
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
+
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
-                'cmfCreateHalloPlainTextTypes' =>  json_encode($this->plainTextTypes))
+                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes))
         );
 
         return $this->viewHandler->handle($view);
