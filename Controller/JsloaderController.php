@@ -44,9 +44,9 @@ class JsloaderController
     private $fixedToolbar;
 
     /**
-     * @var string
+     * @var array
      */
-    private $titleType;
+    private $plainTextTypes;
 
 
     /**
@@ -61,6 +61,9 @@ class JsloaderController
      * @param string $imageClass used to determine whether image upload should be activated
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
+     * @param array $plainTextTypes RDFa types to edit in raw text only
+     * @param string $requiredRole
+     * @param SecurityContextInterface $securityContext
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -68,7 +71,7 @@ class JsloaderController
         $imageClass,
         $useCoffee = false,
         $fixedToolbar = true,
-        $titleType = 'dcterms:title',
+        $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null
     ) {
@@ -77,7 +80,8 @@ class JsloaderController
         $this->imageClass = $imageClass;
         $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
-        $this->titleType = $titleType;
+        $this->plainTextTypes = $plainTextTypes;
+
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
     }
@@ -115,11 +119,12 @@ class JsloaderController
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
+
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
-                'cmfCreateHalloTitleType' => $this->titleType)
+                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes))
         );
 
         return $this->viewHandler->handle($view);

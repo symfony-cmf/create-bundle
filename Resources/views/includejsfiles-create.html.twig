@@ -19,7 +19,7 @@
     var cmfCreateHalloFixedToolbar = 'halloToolbarContextual';
     var cmfCreateHalloParentElement = 'body';
     {%  endif %}
-    var cmfCreateHalloTitleType = '{{ cmfCreateHalloTitleType }}';
+    var cmfCreateHalloPlainTextTypes = {{ cmfCreateHalloPlainTextTypes|raw }};
 </script>
 
 {% javascripts output="js/create.js"

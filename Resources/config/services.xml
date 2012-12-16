@@ -18,7 +18,7 @@
             <argument>%symfony_cmf_create.image.model_class%</argument>
             <argument>%symfony_cmf_create.use_coffee%</argument>
             <argument>%symfony_cmf_create.fixed_toolbar%</argument>
-            <argument>%symfony_cmf_create.title_type%</argument>
+            <argument>%symfony_cmf_create.plain_text_types%</argument>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
         </service>
@@ -44,6 +44,7 @@
         <service id="symfony_cmf_create.rdf_type_factory" class="%symfony_cmf_create.rdf_type_factory_class%" public="true">
             <argument type="service" id="symfony_cmf_create.object_mapper"/>
             <argument type="service" id="symfony_cmf_create.rdf_driver"/>
+            <argument>%symfony_cmf_create.map%</argument>
         </service>
 
         <service id="symfony_cmf_create.rest.handler" class="%symfony_cmf_create.rest.handler_class%" public="true">
