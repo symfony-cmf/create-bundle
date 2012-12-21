@@ -19,6 +19,7 @@
             <argument>%symfony_cmf_create.use_coffee%</argument>
             <argument>%symfony_cmf_create.fixed_toolbar%</argument>
             <argument>%symfony_cmf_create.plain_text_types%</argument>
+            <argument>%symfony_cmf_create.create_routes%</argument>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
         </service>

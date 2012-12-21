@@ -48,6 +48,11 @@ class JsloaderController
      */
     private $plainTextTypes;
 
+    /**
+     * @var Boolean
+     */
+    private $createRoutes;
+
 
     /**
      * Create the Controller
@@ -62,6 +67,7 @@ class JsloaderController
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
      * @param array $plainTextTypes RDFa types to edit in raw text only
+     * @param Boolean $createRoutes whether the routes need to be created after content creation
      * @param string $requiredRole
      * @param SecurityContextInterface $securityContext
      */
@@ -72,6 +78,7 @@ class JsloaderController
         $useCoffee = false,
         $fixedToolbar = true,
         $plainTextTypes = array(),
+        $createRoutes = false,
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null
     ) {
@@ -81,7 +88,7 @@ class JsloaderController
         $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
         $this->plainTextTypes = $plainTextTypes;
-
+        $this->createRoutes = $createRoutes;
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
     }
@@ -124,7 +131,8 @@ class JsloaderController
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
-                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes))
+                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes),
+                'cmfCreateCreateRoutes' => (boolean) $this->createRoutes)
         );
 
         return $this->viewHandler->handle($view);

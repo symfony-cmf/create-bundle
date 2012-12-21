@@ -43,6 +43,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('create_routes')->defaultFalse()->end()
                 ->arrayNode('rdf_config_dirs')
                     ->useAttributeAsKey('dir')
                     ->prototype('scalar')->end()
