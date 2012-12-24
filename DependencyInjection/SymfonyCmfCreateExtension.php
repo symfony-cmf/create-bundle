@@ -74,7 +74,7 @@ class SymfonyCmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
 
             if ('doctrine_phpcr' === $managerRegistry) {
-                $definition->addMethodCall('setStaticPath', array('%symfony_cmf_content.static_basepath%'));
+                $definition->addMethodCall('setStaticPath', array($config['image']['static_basepath']));
             }
         } else {
             $container->setParameter($this->getAlias().'.image.model_class', false);

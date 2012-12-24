@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('model_class')->cannotBeEmpty()->end()
                         ->scalarNode('controller_class')->cannotBeEmpty()->end()
+                        ->scalarNode('static_basepath')->defaultValue('/cms/content/static')->end()
                     ->end()
                 ->end()
                 ->scalarNode('phpcr_odm')->defaultFalse()->end()
