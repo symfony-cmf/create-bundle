@@ -50,9 +50,9 @@ class JsloaderController
     private $plainTextTypes;
 
     /**
-     * @var Boolean
+     * @var array
      */
-    private $createRoutes;
+    private $createRoutesForTypes;
 
     /**
      * @var ContainerInterface
@@ -73,7 +73,7 @@ class JsloaderController
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
      * @param array $plainTextTypes RDFa types to edit in raw text only
-     * @param Boolean $createRoutes whether the routes need to be created after content creation
+     * @param array $createRoutesForTypes types for which it is needed to create a route
      * @param string $requiredRole
      * @param SecurityContextInterface $securityContext
      */
@@ -84,7 +84,7 @@ class JsloaderController
         $useCoffee = false,
         $fixedToolbar = true,
         $plainTextTypes = array(),
-        $createRoutes = false,
+        $createRoutesForTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null,
         ContainerInterface $container
@@ -95,7 +95,7 @@ class JsloaderController
         $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
         $this->plainTextTypes = $plainTextTypes;
-        $this->createRoutes = $createRoutes;
+        $this->createRoutesForTypes = $createRoutesForTypes;
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
         $this->container = $container;
@@ -142,7 +142,7 @@ class JsloaderController
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
                 'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes),
-                'cmfCreateCreateRoutes' => (boolean) $this->createRoutes,
+                'cmfCreateCreateRoutesTypes' => json_encode($this->createRoutesForTypes),
                 'cmfCreateLocales' => json_encode($this->container->getParameter('locales')),
                 'cmfCreateContentPrefix' => $this->container->getParameter('symfony_cmf_content.content_basepath'),
                 'cmfCreateRoutesPrefix' => $this->container->getParameter('symfony_cmf_routing_extra.routing_repositoryroot')

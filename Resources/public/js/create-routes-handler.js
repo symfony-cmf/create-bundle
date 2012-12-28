@@ -7,8 +7,16 @@ jQuery(document).ready(function() {
         //an entity has been saved and the response of the backend received
         $('body').bind('midgardstoragesavedentity', function (event, options) {
 
-            //create the routes only when new content has been saved
-            if (!needRouteCreation || options.entity.id.indexOf(cmfCreateRoutesPrefix, 1) == 1) {
+            var createdType = options.entity.attributes["@type"];
+            var createRoutes = false;
+            for(var i in cmfCreateCreateRoutesTypes) {
+                if (createdType == "<" + cmfCreateCreateRoutesTypes[i] + ">") {
+                    createRoutes = true;
+                    break;
+                }
+            }
+
+            if (!createRoutes || !needRouteCreation) {
                 return;
             }
 

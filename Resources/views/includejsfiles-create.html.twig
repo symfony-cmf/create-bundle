@@ -20,13 +20,11 @@
     var cmfCreateHalloParentElement = 'body';
     {%  endif %}
     var cmfCreateHalloPlainTextTypes = {{ cmfCreateHalloPlainTextTypes|raw }};
-
-    {%  if cmfCreateCreateRoutes %}
+    var cmfCreateCreateRoutesTypes = {{ cmfCreateCreateRoutesTypes|raw }};
     var cmfCreateLocales = {{ cmfCreateLocales|raw }};
     var cmfCreateContentPrefix = '{{ cmfCreateContentPrefix }}';
     var cmfCreateRoutesPrefix = '{{ cmfCreateRoutesPrefix }}';
     var cmfCreateRouteRdfType = "http://cmf.symfony.com/CmfRoute";
-    {%  endif %}
 
 </script>
 
@@ -41,17 +39,10 @@
     '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
     '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/annotate-min.js'
     '@SymfonyCmfCreateBundle/Resources/public/vendor/create/examples/create-min.js'
+    '@SymfonyCmfCreateBundle/Resources/public/js/create-routes-handler.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
-{%  if cmfCreateCreateRoutes %}
-{% javascripts output="js/create.js"
-    '@SymfonyCmfCreateBundle/Resources/public/js/create-routes-handler.js'
-%}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{%  endif %}
 
 {#
 to develop create use this instead of create-min
