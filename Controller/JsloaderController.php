@@ -6,6 +6,7 @@ use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * This controller includes the correct twig file to bootstrap the javascript
@@ -53,6 +54,11 @@ class JsloaderController
      */
     private $createRoutes;
 
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
 
     /**
      * Create the Controller
@@ -80,7 +86,8 @@ class JsloaderController
         $plainTextTypes = array(),
         $createRoutes = false,
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
-        SecurityContextInterface $securityContext = null
+        SecurityContextInterface $securityContext = null,
+        ContainerInterface $container
     ) {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
@@ -91,12 +98,13 @@ class JsloaderController
         $this->createRoutes = $createRoutes;
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
+        $this->container = $container;
     }
 
     /**
      * Render js inclusion for create.js and dependencies and bootstrap code.
      *
-     * THe hallo editor is bundled with create.js and available automatically.
+     * The hallo editor is bundled with create.js and available automatically.
      * To use aloha, you need to download the zip, as explained in step 8 of
      * the README.
      *
@@ -127,13 +135,18 @@ class JsloaderController
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
 
+
+
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
                 'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes),
-                'cmfCreateCreateRoutes' => (boolean) $this->createRoutes)
-        );
+                'cmfCreateCreateRoutes' => (boolean) $this->createRoutes,
+                'cmfCreateLocales' => json_encode($this->container->getParameter('locales')),
+                'cmfCreateContentPrefix' => $this->container->getParameter('symfony_cmf_content.content_basepath'),
+                'cmfCreateRoutesPrefix' => $this->container->getParameter('symfony_cmf_routing_extra.routing_repositoryroot')
+        ));
 
         return $this->viewHandler->handle($view);
     }

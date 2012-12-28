@@ -22,10 +22,9 @@
     var cmfCreateHalloPlainTextTypes = {{ cmfCreateHalloPlainTextTypes|raw }};
 
     {%  if cmfCreateCreateRoutes %}
-    //TODO: get all these parameters from the config
-    var cmfCreateLocales = ['en', 'fr', 'de'];
-    var cmfCreateContentPrefix = '/cms/content';
-    var cmfCreateRoutesPrefix = '/cms/routes';
+    var cmfCreateLocales = {{ cmfCreateLocales|raw }};
+    var cmfCreateContentPrefix = '{{ cmfCreateContentPrefix }}';
+    var cmfCreateRoutesPrefix = '{{ cmfCreateRoutesPrefix }}';
     var cmfCreateRouteRdfType = "http://cmf.symfony.com/CmfRoute";
     {%  endif %}
 
