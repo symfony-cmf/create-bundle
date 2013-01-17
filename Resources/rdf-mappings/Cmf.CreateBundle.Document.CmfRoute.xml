@@ -6,7 +6,7 @@
         typeof="cmf:CmfRoute"
         itemtype="http://cmf.symfony.com/CmfRoute"
 >
-    <rev>dcterms:partOf</rev>Symfony\Cmf\Bundle\CreateBundle\Document
+    <rev>dcterms:partOf</rev>
     <children>
         <property property="route:Parent" identifier="parent">
             <config key="doctrine:reference" value=""/>
