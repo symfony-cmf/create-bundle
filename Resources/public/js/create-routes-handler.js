@@ -2,23 +2,20 @@ jQuery(document).ready(function() {
 
     (function(){
 
-        var needRouteCreation = false; //internal trigger for savedentity event
+        var createRouteForTypes = []; //types currently needing a route creation
 
         //an entity has been saved and the response of the backend received
         $('body').bind('midgardstoragesavedentity', function (event, options) {
 
             var createdType = options.entity.attributes["@type"];
-            var createRoutes = false;
-            for(var i in cmfCreateCreateRoutesTypes) {
-                if (createdType == "<" + cmfCreateCreateRoutesTypes[i] + ">") {
-                    createRoutes = true;
-                    break;
-                }
-            }
+            //remove the enclosing <>
+            createdType = createdType.substring(1, createdType.length - 1);
 
-            if (!createRoutes || !needRouteCreation) {
+            if (!$.inArray(createdType, createRouteForTypes)) {
                 return;
             }
+            //reset the types for which route creation is currently needed
+            createRouteForTypes.splice($.inArray(createdType, createRouteForTypes),1);
 
             var vie = options.entity.vie;
 
@@ -62,8 +59,10 @@ jQuery(document).ready(function() {
 
         //an entity will be saved and sent to the backend
         $('body').bind('midgardstoragesaveentity', function (event, options) {
-            //TODO: handle the case where new content and updated content is saved at the same time
-            needRouteCreation = options.entity.isNew();
+            if (options.entity.isNew() &&
+                $.inArray(options.entity.attributes['@type'], cmfCreateCreateRoutesTypes)) {
+                createRouteForTypes.push(options.entity.attributes['@type']);
+            }
         });
     })()
 });
