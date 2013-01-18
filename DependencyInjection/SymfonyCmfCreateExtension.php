@@ -41,6 +41,8 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.map', $config['map']);
 
+        $container->setParameter($this->getAlias().'.rdfmapper', $config['rdfmapper']);
+
         $container->setParameter($this->getAlias().'.stanbol_url', $config['stanbol_url']);
 
         $container->setParameter($this->getAlias().'.role', $config['role']);

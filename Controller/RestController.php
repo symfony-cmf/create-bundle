@@ -115,8 +115,8 @@ class RestController
         $this->performSecurityChecks();
 
         $rdfType = trim($request->request->get('@type'), '<>');
-        $type = $this->typeFactory->getTypeByRdf($rdfType);
 
+        $type = $this->typeFactory->getTypeByRdf($rdfType);
         $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
 
         if (!is_null($result)) {
