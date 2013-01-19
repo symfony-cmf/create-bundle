@@ -44,14 +44,6 @@
             <argument>%symfony_cmf_create.rdf_config_dirs%</argument>
         </service>
 
-        <!--
-        <service id="symfony_cmf_create.rdf_type_factory" class="%symfony_cmf_create.rdf_type_factory_class%" public="true">
-            <argument type="service" id="symfony_cmf_create.object_mapper"/>
-            <argument type="service" id="symfony_cmf_create.rdf_driver"/>
-            <argument>%symfony_cmf_create.map%</argument>
-        </service>
-        -->
-
         <service id="symfony_cmf_create.container_rdf_type_factory" class="%symfony_cmf_create.container_rdf_type_factory_class%" public="true">
             <argument type="service" id="symfony_cmf_create.object_mapper"/>
             <argument type="service" id="symfony_cmf_create.rdf_driver"/>

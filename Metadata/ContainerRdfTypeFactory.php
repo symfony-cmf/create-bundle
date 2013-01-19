@@ -12,8 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Midgard\CreatePHP\Metadata\RdfDriverInterface;
 
 /**
- * TODO: comment ...
- * Use container to get instances of mappers instead of class names
+ * Factory for createphp types based on class names. If available, the mappers
+ * for the requested class are loaded from the Symfony service container.
  */
 class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareInterface
 {
@@ -24,8 +24,6 @@ class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareIn
 
     /**
      * @var ContainerInterface
-     *
-     * @api
      */
     protected $container;
 
@@ -41,8 +39,7 @@ class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareIn
     }
 
     /**
-     * TODO: update the comment
-     * Get the mapper for type $name, or the defaultMapper if there is no specific mapper.
+     * Get the mapper for type $name in the $symfony container, or the defaultMapper if there is no specific one
      *
      * @param string $name the type name for which to get the mapper
      *
@@ -58,7 +55,7 @@ class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareIn
     }
 
     /**
-     * @api
+     * @see ContainerAwareInterface::setContainer()
      */
     public function setContainer(ContainerInterface $container = null)
     {
