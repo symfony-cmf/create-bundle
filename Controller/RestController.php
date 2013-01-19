@@ -117,14 +117,20 @@ class RestController
         $rdfType = trim($request->request->get('@type'), '<>');
 
         $type = $this->typeFactory->getTypeByRdf($rdfType);
-        $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
+
+        $result = null;
+        try {
+            $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
+        } catch (\Exception $e) {
+            return Response::create("The document of type \"$rdfType\" could not be created: " . $e->getMessage(), 500);
+        }
 
         if (!is_null($result)) {
             $view = View::create($result)->setFormat('json');
             return $this->viewHandler->handle($view, $request);
         }
 
-        return Response::create('The document could not be created', 500);
+        return Response::create("The document \"$rdfType\" could not be created", 500);
     }
 
     /**

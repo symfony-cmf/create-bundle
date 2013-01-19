@@ -4,14 +4,17 @@ jQuery(document).ready(function() {
 
         var createRouteForTypes = []; //types currently needing a route creation
 
+        //remove the enclosing <>
+        function trimAttribute(value) {
+            return value.substring(1, value.length - 1);
+        }
+
         //an entity has been saved and the response of the backend received
         $('body').bind('midgardstoragesavedentity', function (event, options) {
 
-            var createdType = options.entity.attributes["@type"];
-            //remove the enclosing <>
-            createdType = createdType.substring(1, createdType.length - 1);
+            var createdType = trimAttribute(options.entity.attributes["@type"]);
 
-            if (!$.inArray(createdType, createRouteForTypes)) {
+            if ($.inArray(createdType, createRouteForTypes) == -1) {
                 return;
             }
             //reset the types for which route creation is currently needed
@@ -53,15 +56,28 @@ jQuery(document).ready(function() {
                 var routeEntity = new vie.Entity();
                 routeEntity.set(routeRequest);
                 vie.entities.add(routeEntity);
-                jQuery('body').midgardStorage('saveRemote', routeEntity, options);
+                jQuery('body').midgardStorage('saveRemote', routeEntity, {
+                    success: function (m, err) {
+                        jQuery('body').midgardNotifications('create', {
+                            body: 'Route ' + m.attributes[routeContentType] + ' created successfully'
+                        });
+                    },
+                    error: function (m, err) {
+                        jQuery('body').midgardNotifications('create', {
+                            body: 'Error during creation of route ' + m.attributes[partOfType] + '/' + m.attributes[nameType] + '. ' + err.responseText,
+                            timeout: 0
+                        });
+                    }
+                });
             }
         });
 
         //an entity will be saved and sent to the backend
         $('body').bind('midgardstoragesaveentity', function (event, options) {
+            var type = trimAttribute(options.entity.attributes['@type']);
             if (options.entity.isNew() &&
-                $.inArray(options.entity.attributes['@type'], cmfCreateCreateRoutesTypes)) {
-                createRouteForTypes.push(options.entity.attributes['@type']);
+                $.inArray(type, cmfCreateCreateRoutesTypes) != -1) {
+                createRouteForTypes.push(type);
             }
         });
     })()
