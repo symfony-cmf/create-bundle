@@ -55,9 +55,19 @@ class JsloaderController
     private $createRoutesForTypes;
 
     /**
-     * @var ContainerInterface
+     * @var array locales of the application
      */
-    private $container;
+    private $locales;
+
+    /**
+     * @var string content prefix in the repository path, like /cms/content
+     */
+    private $contentPrefix;
+
+    /**
+     * @var string routes prefix in the repository path, like /cms/routes
+     */
+    private $routesPrefix;
 
 
     /**
@@ -74,8 +84,11 @@ class JsloaderController
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
      * @param array $plainTextTypes RDFa types to edit in raw text only
      * @param array $createRoutesForTypes types for which it is needed to create a route
-     * @param string $requiredRole
+     * @param string $requiredRole the role name for the security check
      * @param SecurityContextInterface $securityContext
+     * @param array $locales the locales of the application
+     * @param string $contentPrefix content prefix in the repository path
+     * @param string $routesPrefix routes prefix in the repository path
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -83,11 +96,13 @@ class JsloaderController
         $imageClass,
         $useCoffee = false,
         $fixedToolbar = true,
-        $plainTextTypes = array(),
-        $createRoutesForTypes = array(),
+        array $plainTextTypes = array(),
+        array $createRoutesForTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null,
-        ContainerInterface $container
+        array $locales,
+        $contentPrefix,
+        $routesPrefix
     ) {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
@@ -98,7 +113,9 @@ class JsloaderController
         $this->createRoutesForTypes = $createRoutesForTypes;
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
-        $this->container = $container;
+        $this->locales = $locales;
+        $this->contentPrefix = $contentPrefix;
+        $this->routesPrefix = $routesPrefix;
     }
 
     /**
@@ -143,9 +160,9 @@ class JsloaderController
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
                 'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes),
                 'cmfCreateCreateRoutesTypes' => json_encode($this->createRoutesForTypes),
-                'cmfCreateLocales' => json_encode($this->container->getParameter('locales')),
-                'cmfCreateContentPrefix' => $this->container->getParameter('symfony_cmf_content.content_basepath'),
-                'cmfCreateRoutesPrefix' => $this->container->getParameter('symfony_cmf_routing_extra.routing_repositoryroot')
+                'cmfCreateLocales' => json_encode($this->locales),
+                'cmfCreateContentPrefix' => $this->contentPrefix,
+                'cmfCreateRoutesPrefix' => $this->routesPrefix
         ));
 
         return $this->viewHandler->handle($view);

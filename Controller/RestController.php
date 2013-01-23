@@ -130,7 +130,7 @@ class RestController
             return $this->viewHandler->handle($view, $request);
         }
 
-        return Response::create("The document \"$rdfType\" could not be created", 500);
+        return Response::create("The document '$rdfType' could not be created", 500);
     }
 
     /**

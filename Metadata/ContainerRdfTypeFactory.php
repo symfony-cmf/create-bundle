@@ -18,7 +18,7 @@ use Midgard\CreatePHP\Metadata\RdfDriverInterface;
 class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareInterface
 {
     /**
-     * @var array service names of the mappers
+     * @var array service names of the mappers per type
      */
     private $mapperServices;
 
@@ -30,9 +30,9 @@ class ContainerRdfTypeFactory extends RdfTypeFactory implements ContainerAwareIn
     /**
      * @param RdfMapperInterface $defaultMapper the default mapper to use if there is no specific one
      * @param RdfDriverInterface $driver the driver to load types from
-     * @param array $mappers rdf mappers per service name
+     * @param array $mapperServices rdf mappers service names per type
      */
-    public function __construct(RdfMapperInterface $defaultMapper, RdfDriverInterface $driver, $mapperServices = array())
+    public function __construct(RdfMapperInterface $defaultMapper, RdfDriverInterface $driver, array $mapperServices = array())
     {
         $this->mapperServices = $mapperServices;
         parent::__construct($defaultMapper, $driver);

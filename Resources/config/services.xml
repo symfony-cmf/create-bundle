@@ -23,7 +23,9 @@
             <argument>%symfony_cmf_create.create_routes_types%</argument>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
-            <argument type="service" id="service_container" />
+            <argument>%locales%</argument>
+            <argument>%symfony_cmf_content.content_basepath%</argument>
+            <argument>%symfony_cmf_routing_extra.routing_repositoryroot%</argument>
         </service>
 
         <service id="symfony_cmf_create.rest.controller" class="%symfony_cmf_create.rest.controller.class%">
