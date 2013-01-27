@@ -150,7 +150,7 @@ abstract class ImageController
         $image->setCaption($caption);
         $image->setContent(fopen($file->getPathname(), 'r'));
         $image->setMimeType($file->getClientMimeType());
-        $image->setTags(explode(',', $request->get('tags', array())));
+        $image->setTags(explode(',', $request->get('tags', '')));
 
         $this->manager->persist($image);
 
