@@ -6,6 +6,10 @@ jQuery(document).ready(function() {
 
         //remove the enclosing <>
         function trimAttribute(value) {
+            if (value instanceof Array) {
+                //Create.js sometimes adds the owl#Thing type without reasons
+                value = value[value.length - 1];
+            }
             return value.substring(1, value.length - 1);
         }
 
