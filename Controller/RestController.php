@@ -122,7 +122,7 @@ class RestController
         try {
             $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_POST);
         } catch (\Exception $e) {
-            return Response::create("The document of type \"$rdfType\" could not be created: " . $e->getMessage(), 500);
+            return Response::create("The document '$rdfType' could not be created: " . $e->getMessage(), 500);
         }
 
         if (!is_null($result)) {
