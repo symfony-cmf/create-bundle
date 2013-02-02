@@ -12,7 +12,7 @@
 
     <route id="symfony_cmf_create_image_display" pattern="/symfony-cmf/create/image/{name}">
         <default key="_controller">symfony_cmf_create.image.controller:displayAction</default>
-        <default key="name">[A-Za-z0-9\.]+</default>
+        <requirement key="name">[A-Za-z0-9\.]+</default>
         <requirement key="_method">GET</requirement>
     </route>
 
