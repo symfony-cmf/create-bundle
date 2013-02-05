@@ -89,11 +89,9 @@ class JsloaderController
     /**
      * Render js inclusion for create.js and dependencies and bootstrap code.
      *
-     * THe hallo editor is bundled with create.js and available automatically.
-     * To use aloha, you need to download the zip, as explained in step 8 of
-     * the README.
+     * The hallo editor is bundled with create.js and available automatically.
      *
-     * @param string $editor the name of the editor to load, currently hallo and aloha are supported
+     * @param string $editor the name of the editor to load, currently only hallo is supported
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
@@ -112,9 +110,6 @@ class JsloaderController
                 } else {
                     $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-hallo.html.twig');
                 }
-                break;
-            case 'aloha':
-                $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-aloha.html.twig');
                 break;
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
