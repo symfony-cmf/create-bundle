@@ -101,24 +101,13 @@ class JsloaderController
             return new Response('');
         }
 
-        // We could inject a list of names to template mapping for this
-        // to allow adding other editors without changing this bundle
-
         $view = new View();
-        switch ($editor) {
-            case 'hallo':
-                if ($this->coffee) {
-                    $view->setTemplate('SymfonyCmfCreateBundle::includecoffeefiles-hallo.html.twig');
-                } else {
-                    $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-hallo.html.twig');
-                }
-                break;
-            case 'aloha':
-                $view->setTemplate('SymfonyCmfCreateBundle::includejsfiles-aloha.html.twig');
-                break;
-            default:
-                throw new \InvalidArgumentException("Unknown editor '$editor' requested");
-        }
+        $templateName = 'SymfonyCmfCreateBundle::include%type%files-%editor%.html.twig';
+
+        $view->setTemplate(strtr($templateName, array(
+            '%type%' => $this->coffee ? 'coffee' : 'js',
+            '%editor%' => $editor,
+        )));
 
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
