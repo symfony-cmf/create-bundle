@@ -102,12 +102,10 @@ class JsloaderController
         }
 
         $view = new View();
-        $templateName = 'SymfonyCmfCreateBundle::include%type%files-%editor%.html.twig';
 
-        $view->setTemplate(strtr($templateName, array(
-            '%type%' => $this->coffee ? 'coffee' : 'js',
-            '%editor%' => $editor,
-        )));
+        $view->setTemplate(
+            sprintf('SymfonyCmfCreateBundle::include%sfiles-%s.html.twig', $this->coffee ? 'coffee' : 'js', $editor)
+        );
 
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
