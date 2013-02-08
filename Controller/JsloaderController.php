@@ -36,11 +36,6 @@ class JsloaderController
     /**
      * @var Boolean
      */
-    private $coffee;
-
-    /**
-     * @var Boolean
-     */
     private $fixedToolbar;
 
     /**
@@ -52,14 +47,9 @@ class JsloaderController
     /**
      * Create the Controller
      *
-     * When using hallo, the controller can include the compiled js files from
-     * hallo's examples folder or use the assetic coffee filter.
-     * When developing hallo, make sure to use the coffee filter.
-     *
      * @param ViewHandlerInterface $viewHandler view handler
      * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
      * @param string $imageClass used to determine whether image upload should be activated
-     * @param Boolean $useCoffee whether assetic is set up to use coffee script
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
      * @param array $plainTextTypes RDFa types to edit in raw text only
      * @param string $requiredRole
@@ -69,7 +59,6 @@ class JsloaderController
         ViewHandlerInterface $viewHandler,
         $stanbolUrl,
         $imageClass,
-        $useCoffee = false,
         $fixedToolbar = true,
         $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
@@ -78,7 +67,6 @@ class JsloaderController
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
         $this->imageClass = $imageClass;
-        $this->coffee = $useCoffee;
         $this->fixedToolbar = $fixedToolbar;
         $this->plainTextTypes = $plainTextTypes;
 
@@ -89,9 +77,16 @@ class JsloaderController
     /**
      * Render js inclusion for create.js and dependencies and bootstrap code.
      *
-     * THe hallo editor is bundled with create.js and available automatically.
-     * To use aloha, you need to download the zip, as explained in step 8 of
-     * the README.
+     * The hallo editor is bundled with create.js and available automatically.
+     *
+     * When using hallo, the controller can include the compiled js files from
+     * hallo's examples folder or use the assetic coffee filter.
+     * When developing hallo, make sure to use the coffee filter (pass 'hallo-coffee' as 
+     * editor).
+     *
+     * To use another editor simply create a template following the naming below:
+     *   SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig
+     * and pass the appropriate parameter.
      *
      * @param string $editor the name of the editor to load, currently hallo and aloha are supported
      */
@@ -103,9 +98,7 @@ class JsloaderController
 
         $view = new View();
 
-        $view->setTemplate(
-            sprintf('SymfonyCmfCreateBundle::include%sfiles-%s.html.twig', $this->coffee ? 'coffee' : 'js', $editor)
-        );
+        $view->setTemplate(sprintf('SymfonyCmfCreateBundle::includejsfiles-%s.html.twig', $editor));
 
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,

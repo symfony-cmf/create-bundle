@@ -45,8 +45,6 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.role', $config['role']);
 
-        $container->setParameter($this->getAlias().'.use_coffee', $config['use_coffee']);
-
         $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
 
         if (empty($config['plain_text_types'])) {
