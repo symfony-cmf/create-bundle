@@ -18,7 +18,7 @@
         "symfony/framework-bundle": ">=2.1,<2.3-dev",
         "symfony/assetic-bundle": ">=2.1,<2.3-dev",
         "friendsofsymfony/rest-bundle": "dev-master",
-        "jms/serializer-bundle": "1.0.*",
+        "jms/serializer-bundle": "0.11.*",
         "midgard/createphp": "dev-master"
     },
     "autoload": {

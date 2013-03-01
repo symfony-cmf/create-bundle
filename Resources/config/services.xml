@@ -16,7 +16,6 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument>%symfony_cmf_create.stanbol_url%</argument>
             <argument>%symfony_cmf_create.image.model_class%</argument>
-            <argument>%symfony_cmf_create.use_coffee%</argument>
             <argument>%symfony_cmf_create.fixed_toolbar%</argument>
             <argument>%symfony_cmf_create.plain_text_types%</argument>
             <argument>%symfony_cmf_create.role%</argument>

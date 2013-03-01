@@ -38,7 +38,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('phpcr_odm')->defaultFalse()->end()
                 ->scalarNode('stanbol_url')->defaultValue('http://dev.iks-project.eu:8081')->end()
-                ->scalarNode('use_coffee')->defaultFalse()->end()
                 ->scalarNode('fixed_toolbar')->defaultTrue()->end()
                 ->arrayNode('plain_text_types')
                     ->useAttributeAsKey('name')
