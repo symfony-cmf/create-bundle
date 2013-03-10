@@ -33,7 +33,7 @@ class SymfonyCmfCreateExtension extends Extension
             if (is_string($config['phpcr_odm'])) {
                 $documentManagerName = $config['phpcr_odm'];
                 $phpcr_odm = $container->getDefinition('symfony_cmf_create.object_mapper');
-                $phpcr_odm->replaceArgument(3, $documentManagerName);
+                $phpcr_odm->replaceArgument(2, $documentManagerName);
             }
 
             $container->setParameter($this->getAlias().'.manager_name', $documentManagerName);
