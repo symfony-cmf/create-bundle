@@ -105,7 +105,8 @@ class JsloaderController
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
-                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes))
+                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes)
+            )
         );
 
         return $this->viewHandler->handle($view);
