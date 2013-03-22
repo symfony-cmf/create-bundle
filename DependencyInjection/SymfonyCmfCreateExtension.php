@@ -33,7 +33,7 @@ class SymfonyCmfCreateExtension extends Extension
             if (is_string($config['phpcr_odm'])) {
                 $documentManagerName = $config['phpcr_odm'];
                 $phpcr_odm = $container->getDefinition('symfony_cmf_create.object_mapper');
-                $phpcr_odm->replaceArgument(3, $documentManagerName);
+                $phpcr_odm->replaceArgument(2, $documentManagerName);
             }
 
             $container->setParameter($this->getAlias().'.manager_name', $documentManagerName);
@@ -46,8 +46,6 @@ class SymfonyCmfCreateExtension extends Extension
         $container->setParameter($this->getAlias().'.stanbol_url', $config['stanbol_url']);
 
         $container->setParameter($this->getAlias().'.role', $config['role']);
-
-        $container->setParameter($this->getAlias().'.use_coffee', $config['use_coffee']);
 
         $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
 
@@ -78,7 +76,7 @@ class SymfonyCmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
 
             if ('doctrine_phpcr' === $managerRegistry) {
-                $definition->addMethodCall('setStaticPath', array('%symfony_cmf_content.static_basepath%'));
+                $definition->addMethodCall('setStaticPath', array($config['image']['static_basepath']));
             }
         } else {
             $container->setParameter($this->getAlias().'.image.model_class', false);

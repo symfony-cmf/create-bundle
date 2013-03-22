@@ -150,7 +150,7 @@ abstract class ImageController
         $image->setCaption($caption);
         $image->setContent(fopen($file->getPathname(), 'r'));
         $image->setMimeType($file->getClientMimeType());
-        $image->setTags(explode(',', $request->get('tags', array())));
+        $image->setTags(explode(',', $request->get('tags', '')));
 
         $this->manager->persist($image);
 
@@ -161,17 +161,10 @@ abstract class ImageController
 
     private function processResults($images, $offset)
     {
-        $data = array();
-
-        foreach ($images as $image) {
-            $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $this->getNameFromId($image->getId())), true);
-            $data[] = array('url' => $url, 'alt' => $image->getCaption());
-        }
-
         $data = array(
             'offset' => $offset,
-            'total' => count($data),
-            'assets' => $data,
+            'total' => count($images),
+            'assets' => $images
         );
 
         $view = View::create($data);
