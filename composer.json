@@ -18,7 +18,8 @@
         "symfony/framework-bundle": ">=2.1,<2.3-dev",
         "symfony/assetic-bundle": ">=2.1,<2.3-dev",
         "kriswallsmith/assetic": ">=1.1.0-alpha4@alpha",
-        "friendsofsymfony/rest-bundle": "0.11.*",
+        "friendsofsymfony/rest-bundle": "0.12.*",
+        "jms/serializer-bundle": "0.12.*",
         "midgard/createphp": "dev-master"
     },
     "autoload": {
