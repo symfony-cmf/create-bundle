@@ -39,7 +39,7 @@ class ScriptHandler
 
         // directory where the repository should be clone into
         if (isset($extra['ckeditor-directory'])) {
-            $directory = $extra['ckeditor-directory'];
+            $directory = getcwd() . '/' . $extra['ckeditor-directory'];
         } else {
             $directory = __DIR__ . '/../Resources/public/vendor/ckeditor';
         }
