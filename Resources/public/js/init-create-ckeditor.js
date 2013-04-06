@@ -26,10 +26,10 @@ jQuery(document).ready(function() {
         }
     });
 
-    window.CKEDITOR.basePath = "/bundles/symfonycmfcreate/vendor/ckeditor/";
-    window.CKEDITOR.plugins.basePath = "/bundles/symfonycmfcreate/vendor/ckeditor/plugins/";
-    window.CKEDITOR.config.skin = "moono,/bundles/symfonycmfcreate/vendor/ckeditor/skins/moono/";
-    window.CKEDITOR.config.customConfig = "/bundles/symfonycmfcreate/vendor/ckeditor/config.js";
+    window.CKEDITOR.basePath = window.CKEDITOR_BASEPATH;
+    window.CKEDITOR.plugins.basePath = window.CKEDITOR_BASEPATH + "/plugins/";
+    window.CKEDITOR.config.skin = "moono," + window.CKEDITOR_BASEPATH + "/skins/moono/";
+    window.CKEDITOR.config.customConfig = window.CKEDITOR_BASEPATH + "/config.js";
     window.CKEDITOR.config.removePlugins = 'smiley,flash,horizontalrule,magicline,pagebreak,iframe,wsc';
     window.CKEDITOR.config.toolbarGroups = [
         { name: 'clipboard' },

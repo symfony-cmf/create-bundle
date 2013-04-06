@@ -35,35 +35,55 @@ class ScriptHandler
 
     public static function downloadCkeditor($event)
     {
-        $directory = __DIR__ . '/../Resources/public/vendor';
-        $repository = 'https://github.com/ckeditor/ckeditor-releases.git';
-        $commitId = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+        $extra = $event->getComposer()->getPackage()->getExtra();
 
-        ScriptHandler::gitSynchronize($directory, $repository, 'ckeditor', $commitId);
+        // directory where the repository should be clone into
+        if (isset($extra['ckeditor-directory'])) {
+            $directory = $extra['ckeditor-directory'];
+        } else {
+            $directory = __DIR__ . '/../Resources/public/vendor/ckeditor';
+        }
+
+        // git repository
+        if (isset($extra['ckeditor-repository'])) {
+            $repository = $extra['ckeditor-repository'];
+        } else {
+            $repository = 'https://github.com/ckeditor/ckeditor-releases.git';
+        }
+
+        // commit id
+        if (isset($extra['ckeditor-commit'])) {
+            $commit = $extra['ckeditor-commit'];
+        } else {
+            $commit = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+        }
+
+        ScriptHandler::gitSynchronize($directory, $repository, $commit);
     }
 
     /**
-     * @param string $directory The parent directory where the repository should be clone into
+     * @param string $directory The directory where the repository should be clone into
      * @param string $repository The git repository
-     * @param string $name The name of the clone
      * @param string $commitId The commit id
      */
-    public static function gitSynchronize($directory, $repository, $name, $commitId)
+    public static function gitSynchronize($directory, $repository, $commitId)
     {
         $currentDirectory = getcwd();
+        $parentDirectory = dirname($directory);
+        $projectDirectory = basename($directory);
 
         $status = null;
         $output = array();
-        chdir($directory);
+        chdir($parentDirectory);
 
-        if (is_dir($name)) {
-            chdir($name);
+        if (is_dir($projectDirectory)) {
+            chdir($projectDirectory);
             exec("git remote update", $output, $status);
             if ($status) {
                 die("Running git pull $repository failed with $status\n");
             }
         } else {
-            exec("git clone $repository $name", $output, $status);
+            exec("git clone $repository $projectDirectory", $output, $status);
             if ($status) {
                 die("Running git clone $repository failed with $status\n");
             }
