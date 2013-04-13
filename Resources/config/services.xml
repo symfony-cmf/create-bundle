@@ -20,6 +20,7 @@
             <argument>%symfony_cmf_create.plain_text_types%</argument>
             <argument>%symfony_cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
+            <argument>%symfony_cmf_create.editor_base_path%</argument>
         </service>
 
         <service id="symfony_cmf_create.rest.controller" class="%symfony_cmf_create.rest.controller.class%">

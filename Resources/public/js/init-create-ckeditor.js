@@ -11,10 +11,6 @@ jQuery(document).ready(function() {
         },
         stanbolUrl: cmfCreateStanbolUrl,
         tags: true,
-        editorWidgets: {
-            'default': 'ckeditor',
-            'dcterms:description': null
-        },
         editorOptions: {
             ckeditor: {
                 widget: 'ckeditorWidget'
@@ -26,5 +22,5 @@ jQuery(document).ready(function() {
         }
     });
 
-    window.CKEDITOR.basePath = window.CKEDITOR_BASEPATH;
+    window.CKEDITOR.basePath = cmfCreateEditorBasePath;
 });
