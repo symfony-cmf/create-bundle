@@ -43,6 +43,11 @@ class JsloaderController
      */
     private $plainTextTypes;
 
+    /**
+     * @var string
+     */
+    private $editorBasePath;
+
 
     /**
      * Create the Controller
@@ -62,13 +67,15 @@ class JsloaderController
         $fixedToolbar = true,
         $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
-        SecurityContextInterface $securityContext = null
+        SecurityContextInterface $securityContext = null,
+        $editorBasePath = null
     ) {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
         $this->imageClass = $imageClass;
         $this->fixedToolbar = $fixedToolbar;
         $this->plainTextTypes = $plainTextTypes;
+        $this->editorBasePath = $editorBasePath;
 
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
@@ -105,7 +112,8 @@ class JsloaderController
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
                 'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
-                'cmfCreateHalloPlainTextTypes' => json_encode($this->plainTextTypes)
+                'cmfCreatePlainTextTypes' => json_encode($this->plainTextTypes),
+                'cmfCreateEditorBasePath' => $this->editorBasePath,
             )
         );
 

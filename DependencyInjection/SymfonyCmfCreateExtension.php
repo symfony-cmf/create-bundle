@@ -47,6 +47,8 @@ class SymfonyCmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
 
+        $container->setParameter($this->getAlias().'.editor_base_path', $config['editor_base_path']);
+
         if (empty($config['plain_text_types'])) {
             $config['plain_text_types'][] = 'dcterms:title';
         }
