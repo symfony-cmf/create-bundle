@@ -36,6 +36,7 @@ class ScriptHandler
     public static function downloadCkeditor($event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
+        $event->getIO()->write("<info>Download or update ckeditor</info>");
 
         // directory where the repository should be clone into
         if (isset($extra['ckeditor-directory'])) {
@@ -83,13 +84,14 @@ class ScriptHandler
                 die("Running git pull $repository failed with $status\n");
             }
         } else {
-            exec("git clone $repository $projectDirectory", $output, $status);
+            exec("git clone $repository $projectDirectory -q", $output, $status);
             if ($status) {
                 die("Running git clone $repository failed with $status\n");
             }
+            chdir($projectDirectory);
         }
 
-        exec("git checkout $commitId", $output, $status);
+        exec("git checkout $commitId -q", $output, $status);
         if ($status) {
             die("Running git clone $repository failed with $status\n");
         }

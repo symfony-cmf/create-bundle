@@ -22,5 +22,5 @@ jQuery(document).ready(function() {
         }
     });
 
-    window.CKEDITOR.basePath = cmfCreateEditorBasePath;
+    window.CKEDITOR.basePath = window.CKEDITOR_BASEPATH;
 });
