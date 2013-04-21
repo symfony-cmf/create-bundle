@@ -15,6 +15,10 @@ use Symfony\Component\Process\PhpExecutableFinder;
  */
 class ScriptHandler
 {
+    const CREATE_COMMIT_ID = '271e0114a039ab256ffcceacdf7f361803995e05';
+
+    const CKEDITOR_COMMIT_ID = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+
     public static function downloadCreateAndCkeditor($event)
     {
         ScriptHandler::downloadCreate($event);
@@ -44,13 +48,13 @@ class ScriptHandler
         if (isset($extra['create-commit'])) {
             $commit = $extra['create-commit'];
         } else {
-            $commit = '271e0114a039ab256ffcceacdf7f361803995e05';
+            $commit = ScriptHandler::CREATE_COMMIT_ID;
         }
 
         ScriptHandler::gitSynchronize($directory, $repository, $commit);
     }
 
-    public static function downloadCkeditor($event)
+git     public static function downloadCkeditor($event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
         $event->getIO()->write("<info>Download or update ckeditor</info>");
@@ -73,7 +77,7 @@ class ScriptHandler
         if (isset($extra['ckeditor-commit'])) {
             $commit = $extra['ckeditor-commit'];
         } else {
-            $commit = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+            $commit = ScriptHandler::CKEDITOR_COMMIT_ID;
         }
 
         ScriptHandler::gitSynchronize($directory, $repository, $commit);
