@@ -21,6 +21,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('symfony_cmf_create');
 
         $rootNode
+            ->fixXmlConfig('plain_text_type', 'plain_text_types')
+            ->fixXmlConfig('rdf_config_dir', 'rdf_config_dirs')
             ->children()
                 ->scalarNode('rest_controller_class')->defaultFalse()->end()
                 ->arrayNode('map')
