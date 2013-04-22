@@ -86,4 +86,9 @@ class SymfonyCmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
         }
     }
+
+    public function getNamespace()
+    {
+        return 'http://cmf.symfony.com/schema/dic/create';
+    }
 }
