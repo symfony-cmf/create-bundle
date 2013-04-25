@@ -11,6 +11,9 @@ jQuery(document).ready(function() {
         },
         stanbolUrl: cmfCreateStanbolUrl,
         tags: true,
+        editorWidgets: {
+            'default': 'ckeditor'
+        },
         editorOptions: {
             ckeditor: {
                 widget: 'ckeditorWidget'
