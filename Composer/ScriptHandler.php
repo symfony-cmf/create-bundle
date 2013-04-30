@@ -54,7 +54,7 @@ class ScriptHandler
         ScriptHandler::gitSynchronize($directory, $repository, $commit);
     }
 
-git     public static function downloadCkeditor($event)
+    public static function downloadCkeditor($event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
         $event->getIO()->write("<info>Download or update ckeditor</info>");
