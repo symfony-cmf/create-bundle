@@ -15,22 +15,43 @@ use Symfony\Component\Process\PhpExecutableFinder;
  */
 class ScriptHandler
 {
-    public static function initSubmodules($event)
+    const CREATE_COMMIT_ID = '271e0114a039ab256ffcceacdf7f361803995e05';
+
+    const CKEDITOR_COMMIT_ID = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+
+    public static function downloadCreateAndCkeditor($event)
     {
-        $status = null;
-        $output = array();
-        $dir = getcwd();
-        chdir(__DIR__.DIRECTORY_SEPARATOR.'..');
-        exec('git submodule sync', $output, $status);
-        if ($status) {
-            chdir($dir);
-            die("Running git submodule sync failed with $status\n");
+        ScriptHandler::downloadCreate($event);
+        ScriptHandler::downloadCkeditor($event);
+    }
+
+    public static function downloadCreate($event)
+    {
+        $extra = $event->getComposer()->getPackage()->getExtra();
+        $event->getIO()->write("<info>Download or update create</info>");
+
+        // directory where the repository should be clone into
+        if (isset($extra['create-directory'])) {
+            $directory = getcwd() . '/' . $extra['create-directory'];
+        } else {
+            $directory = __DIR__ . '/../Resources/public/vendor/create';
         }
-        exec('git submodule update --init --recursive', $output, $status);
-        chdir($dir);
-        if ($status) {
-            die("Running git submodule --init --recursive failed with $status\n");
+
+        // git repository
+        if (isset($extra['create-repository'])) {
+            $repository = $extra['create-repository'];
+        } else {
+            $repository = 'https://github.com/bergie/create.git';
         }
+
+        // commit id
+        if (isset($extra['create-commit'])) {
+            $commit = $extra['create-commit'];
+        } else {
+            $commit = ScriptHandler::CREATE_COMMIT_ID;
+        }
+
+        ScriptHandler::gitSynchronize($directory, $repository, $commit);
     }
 
     public static function downloadCkeditor($event)
@@ -56,7 +77,7 @@ class ScriptHandler
         if (isset($extra['ckeditor-commit'])) {
             $commit = $extra['ckeditor-commit'];
         } else {
-            $commit = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+            $commit = ScriptHandler::CKEDITOR_COMMIT_ID;
         }
 
         ScriptHandler::gitSynchronize($directory, $repository, $commit);
