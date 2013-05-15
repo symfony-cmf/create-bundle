@@ -78,10 +78,11 @@ abstract class ImageController
     abstract protected function generateId($name);
 
     /**
+     * @param Request $request
      * @param UploadedFile $file
      * @return mixed name
      */
-    abstract protected function generateName(UploadedFile $file);
+    abstract protected function generateName(Request $request, UploadedFile $file);
 
     /**
      * @param string $id
@@ -135,7 +136,8 @@ abstract class ImageController
         $file = $files->getIterator()->current();
         $this->validateImage($file);
 
-        $id = $this->generateId($this->generateName($file));
+        $caption = $this->generateName($request, $file);
+        $id = $this->generateId($caption);
         $image = $this->manager->find(null, $id);
         if ($image) {
             throw new HttpException(Codes::HTTP_CONFLICT, "An image already exists at '$id'");
@@ -146,7 +148,6 @@ abstract class ImageController
         $image = new $imageClass();
         $image->setId($id);
 
-        $caption = strlen($request->get('caption')) ? $request->get('caption') : $file->getClientOriginalName();
         $image->setCaption($caption);
         $image->setContent(fopen($file->getPathname(), 'r'));
         $image->setMimeType($file->getClientMimeType());
