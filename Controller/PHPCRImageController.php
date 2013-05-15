@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\FileBag;
 
 use PHPCR\Query\QueryInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class PHPCRImageController extends ImageController
 {
@@ -28,9 +29,9 @@ class PHPCRImageController extends ImageController
         return array_pop($path);
     }
 
-    protected function generateName(UploadedFile $file)
+    protected function generateName(Request $request, UploadedFile $file)
     {
-        return $file->getClientOriginalName();
+        return strlen($request->get('caption')) ? $request->get('caption') : $file->getClientOriginalName();
     }
 
     protected function getImagesByCaption($caption, $offset, $limit)
