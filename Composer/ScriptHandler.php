@@ -84,9 +84,10 @@ class ScriptHandler
     }
 
     /**
-     * @param string $directory The directory where the repository should be clone into
+     * @throws \RuntimeException
+     * @param string $directory  The directory where the repository should be clone into
      * @param string $repository The git repository
-     * @param string $commitId The commit id
+     * @param string $commitId   The commit id
      */
     public static function gitSynchronize($directory, $repository, $commitId)
     {
@@ -102,19 +103,19 @@ class ScriptHandler
             chdir($projectDirectory);
             exec("git remote update", $output, $status);
             if ($status) {
-                die("Running git pull $repository failed with $status\n");
+                throw new \RuntimeException("Running git pull $repository failed with $status\n");
             }
         } else {
             exec("git clone $repository $projectDirectory -q", $output, $status);
             if ($status) {
-                die("Running git clone $repository failed with $status\n");
+                throw new \RuntimeException("Running git clone $repository failed with $status\n");
             }
             chdir($projectDirectory);
         }
 
         exec("git checkout $commitId -q", $output, $status);
         if ($status) {
-            die("Running git clone $repository failed with $status\n");
+            throw new \RuntimeException("Running git clone $repository failed with $status\n");
         }
 
         chdir($currentDirectory);
