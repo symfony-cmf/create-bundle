@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('symfony_cmf_create');
+        $rootNode = $treeBuilder->root('cmf_create');
 
         $rootNode
             ->fixXmlConfig('plain_text_type', 'plain_text_types')

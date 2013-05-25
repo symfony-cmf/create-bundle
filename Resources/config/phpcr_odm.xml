@@ -5,13 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="symfony_cmf_create.phpcr_odm_mapper_class">Midgard\CreatePHP\Mapper\DoctrinePhpcrOdmMapper</parameter>
+        <parameter key="cmf_create.phpcr_odm_mapper_class">Midgard\CreatePHP\Mapper\DoctrinePhpcrOdmMapper</parameter>
     </parameters>
 
     <services>
 
-        <service id="symfony_cmf_create.object_mapper" class="%symfony_cmf_create.phpcr_odm_mapper_class%" public="false">
-            <argument>%symfony_cmf_create.map%</argument>
+        <service id="cmf_create.object_mapper" class="%cmf_create.phpcr_odm_mapper_class%" public="false">
+            <argument>%cmf_create.map%</argument>
             <argument type="service" id="doctrine_phpcr"/>
             <argument>null</argument>
         </service>

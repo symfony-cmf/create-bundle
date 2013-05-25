@@ -100,7 +100,7 @@ abstract class ImageController
      */
     protected function generateUploadResponse($id, ImageInterface $image, UploadedFile $file)
     {
-        return new RedirectResponse($this->router->generate('symfony_cmf_create_image_display', array('name' => $this->getNameFromId($id))));
+        return new RedirectResponse($this->router->generate('cmf_create_image_display', array('name' => $this->getNameFromId($id))));
     }
 
     protected function validateImage($file)

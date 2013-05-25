@@ -1,9 +1,9 @@
-{% include "SymfonyCmfCreateBundle::includejsfiles-create.html.twig" %}
+{% include "CmfCreateBundle::includejsfiles-create.html.twig" %}
 
 {# hallo.js is already included in the create deps #}
 {% javascripts output="js/hallo-extra.js"
-    '@SymfonyCmfCreateBundle/Resources/public/js/init-create-hallo.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/hallo-min.js'
+    '@CmfCreateBundle/Resources/public/js/init-create-hallo.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/hallo-min.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

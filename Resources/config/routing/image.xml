@@ -4,31 +4,31 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="symfony_cmf_create_image_upload" pattern="/symfony-cmf/create/image/upload">
-        <default key="_controller">symfony_cmf_create.image.controller:uploadAction</default>
+    <route id="cmf_create_image_upload" pattern="/symfony-cmf/create/image/upload">
+        <default key="_controller">cmf_create.image.controller:uploadAction</default>
         <default key="_format">json</default>
         <requirement key="_method">POST</requirement>
     </route>
-    <route id="symfony_cmf_create_image_search" pattern="/symfony-cmf/create/image/search/">
-        <default key="_controller">symfony_cmf_create.image.controller:searchAction</default>
+    <route id="cmf_create_image_search" pattern="/symfony-cmf/create/image/search/">
+        <default key="_controller">cmf_create.image.controller:searchAction</default>
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="symfony_cmf_create_image_related" pattern="/symfony-cmf/create/image/related/">
-        <default key="_controller">symfony_cmf_create.image.controller:showRelatedAction</default>
+    <route id="cmf_create_image_related" pattern="/symfony-cmf/create/image/related/">
+        <default key="_controller">cmf_create.image.controller:showRelatedAction</default>
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="symfony_cmf_create_image_list" pattern="/symfony-cmf/create/image/list/">
-        <default key="_controller">symfony_cmf_create.image.controller:listAction</default>
+    <route id="cmf_create_image_list" pattern="/symfony-cmf/create/image/list/">
+        <default key="_controller">cmf_create.image.controller:listAction</default>
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="symfony_cmf_create_image_display" pattern="/symfony-cmf/create/image/{name}">
-        <default key="_controller">symfony_cmf_create.image.controller:displayAction</default>
+    <route id="cmf_create_image_display" pattern="/symfony-cmf/create/image/{name}">
+        <default key="_controller">cmf_create.image.controller:displayAction</default>
         <requirement key="_method">GET</requirement>
         <requirement key="name">.+</requirement>
     </route>

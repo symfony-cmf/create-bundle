@@ -31,7 +31,7 @@ class Handler
      */
     public function serializeImageToJson(JsonSerializationVisitor $visitor, Image $image)
     {
-        $url = $this->router->generate('symfony_cmf_create_image_display', array('name' => $this->getNameFromId($image->getId())), true);
+        $url = $this->router->generate('cmf_create_image_display', array('name' => $this->getNameFromId($image->getId())), true);
         return array('id' => $image->getId(), 'url' => $url, 'alt' => $image->getCaption());
     }
 
