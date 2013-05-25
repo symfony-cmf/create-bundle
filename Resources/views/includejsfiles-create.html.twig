@@ -5,11 +5,11 @@
     var cmfCreateHalloImageSearch = false;
     var cmfCreateHalloLinkRelatedPath = false;
     {%  if cmfCreateImageUploadEnabled %}
-    cmfCreateHalloImageUpload = '{{ path('symfony_cmf_create_image_upload') }}';
-    cmfCreateHalloImageSearch = '{{ path('symfony_cmf_create_image_search') }}';
-    cmfCreateHalloLinkRelatedPath = '{{ path('symfony_cmf_create_image_related') }}';
+    cmfCreateHalloImageUpload = '{{ path('cmf_create_image_upload') }}';
+    cmfCreateHalloImageSearch = '{{ path('cmf_create_image_search') }}';
+    cmfCreateHalloLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
     {%  endif %}
-    var cmfCreatePutDocument = '{{ path('symfony_cmf_create_put_document_base') }}';
+    var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';
 
     {%  if cmfCreateHalloFixedToolbar %}
@@ -23,42 +23,42 @@
 </script>
 
 {% javascripts output="js/create.js"
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/jquery-1.7.1.min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.18.custom.min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/underscore-min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/backbone-min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/rangy-core-1.2.3.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/vie-min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/jquery.rdfquery.min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/deps/annotate-min.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/examples/create-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-1.7.1.min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.18.custom.min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/underscore-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/backbone-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/rangy-core-1.2.3.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/vie-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.rdfquery.min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/deps/annotate-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/examples/create-min.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
 {#
 to develop create use this instead of create-min
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/create/src/*.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/src/*.js'
 
 to develop on vie, clone the vie bundle into vendor and add the following instead of vie-min.js
 (explicitly listed as the order is relevant)
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/lib/rdfquery/latest/jquery.rdfquery.debug.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/VIE.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Able.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Util.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Entity.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Collection.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Type.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Attribute.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Namespace.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/Classic.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/service/*.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/vie/src/view/*.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/lib/rdfquery/latest/jquery.rdfquery.debug.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/VIE.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Able.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Util.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Entity.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Collection.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Type.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Attribute.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Namespace.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/Classic.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/service/*.js'
+    '@CmfCreateBundle/Resources/public/vendor/vie/src/view/*.js'
 
 to develop on hallo, clone the hallo bundle into vendor and add the following instead of hallo.js
 and set up assetic to handle coffee script files
-    '@SymfonyCmfCreateBundle/Resources/public/js/init-vie-hallo.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/hallo.coffee'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/plugins/*.coffee'
+    '@CmfCreateBundle/Resources/public/js/init-vie-hallo.js'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/hallo.coffee'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/plugins/*.coffee'
 #}

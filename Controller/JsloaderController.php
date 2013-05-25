@@ -92,7 +92,7 @@ class JsloaderController
      * editor).
      *
      * To use another editor simply create a template following the naming below:
-     *   SymfonyCmfCreateBundle::includejsfiles-%editor%.html.twig
+     *   CmfCreateBundle::includejsfiles-%editor%.html.twig
      * and pass the appropriate parameter.
      *
      * @param string $editor the name of the editor to load, currently only
@@ -106,7 +106,7 @@ class JsloaderController
 
         $view = new View();
 
-        $view->setTemplate(sprintf('SymfonyCmfCreateBundle::includejsfiles-%s.html.twig', $editor));
+        $view->setTemplate(sprintf('CmfCreateBundle::includejsfiles-%s.html.twig', $editor));
 
         $view->setData(array(
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,

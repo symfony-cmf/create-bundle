@@ -1,9 +1,9 @@
-{% include "SymfonyCmfCreateBundle::includejsfiles-create.html.twig" %}
+{% include "CmfCreateBundle::includejsfiles-create.html.twig" %}
 
 <script>window.CKEDITOR_BASEPATH = '{{ cmfCreateEditorBasePath }}';</script>
 {% javascripts output="/js/ckeditor.js"
-    '@SymfonyCmfCreateBundle/Resources/public/js/init-create-ckeditor.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/ckeditor/ckeditor.js'
+    '@CmfCreateBundle/Resources/public/js/init-create-ckeditor.js'
+    '@CmfCreateBundle/Resources/public/vendor/ckeditor/ckeditor.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

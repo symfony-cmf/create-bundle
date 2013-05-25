@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class SymfonyCmfCreateExtension extends Extension
+class CmfCreateExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -32,7 +32,7 @@ class SymfonyCmfCreateExtension extends Extension
             $managerRegistry = 'doctrine_phpcr';
             if (is_string($config['phpcr_odm'])) {
                 $documentManagerName = $config['phpcr_odm'];
-                $phpcr_odm = $container->getDefinition('symfony_cmf_create.object_mapper');
+                $phpcr_odm = $container->getDefinition('cmf_create.object_mapper');
                 $phpcr_odm->replaceArgument(2, $documentManagerName);
             }
 
@@ -68,7 +68,7 @@ class SymfonyCmfCreateExtension extends Extension
 
         if (isset($config['image']) && isset($managerRegistry)) {
             $loader->load('image.xml');
-            $definition = $container->getDefinition('symfony_cmf_create.image.controller');
+            $definition = $container->getDefinition('cmf_create.image.controller');
             $definition->replaceArgument(0, new Reference($managerRegistry));
             $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
             $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);

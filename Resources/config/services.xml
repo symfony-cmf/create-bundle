@@ -5,50 +5,50 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="symfony_cmf_create.jsloader.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController</parameter>
-        <parameter key="symfony_cmf_create.rest.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\RestController</parameter>
-        <parameter key="symfony_cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
-        <parameter key="symfony_cmf_create.rest.handler_class">Midgard\CreatePHP\RestService</parameter>
+        <parameter key="cmf_create.jsloader.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController</parameter>
+        <parameter key="cmf_create.rest.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\RestController</parameter>
+        <parameter key="cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
+        <parameter key="cmf_create.rest.handler_class">Midgard\CreatePHP\RestService</parameter>
     </parameters>
 
     <services>
-        <service id="symfony_cmf_create.jsloader.controller" class="%symfony_cmf_create.jsloader.controller.class%">
+        <service id="cmf_create.jsloader.controller" class="%cmf_create.jsloader.controller.class%">
             <argument type="service" id="fos_rest.view_handler" />
-            <argument>%symfony_cmf_create.stanbol_url%</argument>
-            <argument>%symfony_cmf_create.image.model_class%</argument>
-            <argument>%symfony_cmf_create.fixed_toolbar%</argument>
-            <argument>%symfony_cmf_create.plain_text_types%</argument>
-            <argument>%symfony_cmf_create.role%</argument>
+            <argument>%cmf_create.stanbol_url%</argument>
+            <argument>%cmf_create.image.model_class%</argument>
+            <argument>%cmf_create.fixed_toolbar%</argument>
+            <argument>%cmf_create.plain_text_types%</argument>
+            <argument>%cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
-            <argument>%symfony_cmf_create.editor_base_path%</argument>
+            <argument>%cmf_create.editor_base_path%</argument>
         </service>
 
-        <service id="symfony_cmf_create.rest.controller" class="%symfony_cmf_create.rest.controller.class%">
+        <service id="cmf_create.rest.controller" class="%cmf_create.rest.controller.class%">
             <argument type="service" id="fos_rest.view_handler"/>
-            <argument type="service" id="symfony_cmf_create.object_mapper"/>
-            <argument type="service" id="symfony_cmf_create.rdf_type_factory"/>
-            <argument type="service" id="symfony_cmf_create.rest.handler"/>
-            <argument>%symfony_cmf_create.role%</argument>
+            <argument type="service" id="cmf_create.object_mapper"/>
+            <argument type="service" id="cmf_create.rdf_type_factory"/>
+            <argument type="service" id="cmf_create.rest.handler"/>
+            <argument>%cmf_create.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
         </service>
 
-        <service id="symfony_cmf_create.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
-            <argument type="service" id="symfony_cmf_create.rdf_type_factory"/>
+        <service id="cmf_create.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
+            <argument type="service" id="cmf_create.rdf_type_factory"/>
             <tag name="twig.extension"/>
         </service>
 
-        <service id="symfony_cmf_create.rdf_driver" class="Midgard\CreatePHP\Metadata\RdfDriverXml">
-            <argument>%symfony_cmf_create.rdf_config_dirs%</argument>
+        <service id="cmf_create.rdf_driver" class="Midgard\CreatePHP\Metadata\RdfDriverXml">
+            <argument>%cmf_create.rdf_config_dirs%</argument>
         </service>
 
-        <service id="symfony_cmf_create.rdf_type_factory" class="%symfony_cmf_create.rdf_type_factory_class%" public="true">
-            <argument type="service" id="symfony_cmf_create.object_mapper"/>
-            <argument type="service" id="symfony_cmf_create.rdf_driver"/>
-            <argument>%symfony_cmf_create.map%</argument>
+        <service id="cmf_create.rdf_type_factory" class="%cmf_create.rdf_type_factory_class%" public="true">
+            <argument type="service" id="cmf_create.object_mapper"/>
+            <argument type="service" id="cmf_create.rdf_driver"/>
+            <argument>%cmf_create.map%</argument>
         </service>
 
-        <service id="symfony_cmf_create.rest.handler" class="%symfony_cmf_create.rest.handler_class%" public="true">
-            <argument type="service" id="symfony_cmf_create.object_mapper"/>
+        <service id="cmf_create.rest.handler" class="%cmf_create.rest.handler_class%" public="true">
+            <argument type="service" id="cmf_create.object_mapper"/>
         </service>
 
     </services>

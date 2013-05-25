@@ -1,13 +1,13 @@
-{% include "SymfonyCmfCreateBundle::includejsfiles-create.html.twig" %}
+{% include "CmfCreateBundle::includejsfiles-create.html.twig" %}
 
 {# hallo.js is already included in the create deps #}
 {% javascripts output="js/hallo-coffee.js"
-    '@SymfonyCmfCreateBundle/Resources/public/js/init-create-hallo.js'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/src/hallo.coffee'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/src/toolbar/fixed.coffee'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/src/widgets/*.coffee'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/src/plugins/*.coffee'
-    '@SymfonyCmfCreateBundle/Resources/public/vendor/hallo/src/plugins/image/*.coffee'
+    '@CmfCreateBundle/Resources/public/js/init-create-hallo.js'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/src/hallo.coffee'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/src/toolbar/fixed.coffee'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/src/widgets/*.coffee'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/src/plugins/*.coffee'
+    '@CmfCreateBundle/Resources/public/vendor/hallo/src/plugins/image/*.coffee'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
