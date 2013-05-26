@@ -1,7 +1,7 @@
 /* Create toolbar */
 /******************/
 a.create-ui-toggle {
-    background-image: url("/bundles/symfonycmfcreate/img/createbundle.png");
+    background-image: url("/bundles/cmfcreate/img/createbundle.png");
 }
 
 /* General contenteditable before editing */
