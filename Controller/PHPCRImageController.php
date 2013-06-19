@@ -38,11 +38,11 @@ class PHPCRImageController extends ImageController
     {
         $sql = 'SELECT * FROM [nt:unstructured]
                     WHERE ISDESCENDANTNODE([nt:unstructured], ' . $this->manager->quote($this->staticPath) . ')
-                        AND [nt:unstructured].[phpcr:class] = ' . $this->manager->quote($this->imageClass);
+                        AND [phpcr:class] = ' . $this->manager->quote($this->imageClass);
 
         if (strlen($caption)) {
             $sql.= '
-                AND [nt:unstructured].caption LIKE ' . $this->manager->quote($caption.'%');
+                AND caption LIKE ' . $this->manager->quote($caption.'%');
         }
 
         $query = $this->manager->createQuery($sql, QueryInterface::JCR_SQL2);
@@ -55,7 +55,7 @@ class PHPCRImageController extends ImageController
     {
         $sql = 'SELECT * FROM [nt:unstructured]
                     WHERE ISDESCENDANTNODE([nt:unstructured], ' . $this->manager->quote($this->staticPath) . ')
-                        AND [nt:unstructured].[phpcr:class] = ' . $this->manager->quote($this->imageClass);
+                        AND [phpcr:class] = ' . $this->manager->quote($this->imageClass);
 
         if (!empty($tags)) {
             foreach ($tags as $i => $tag) {
