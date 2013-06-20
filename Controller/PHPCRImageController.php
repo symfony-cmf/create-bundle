@@ -48,7 +48,8 @@ class PHPCRImageController extends ImageController
         $query = $this->manager->createQuery($sql, QueryInterface::JCR_SQL2);
         $query->setFirstResult($offset);
         $query->setMaxResults($limit);
-        return $this->manager->getDocumentsByPhpcrQuery($query->getPhpcrQuery());
+
+        return array_values($this->manager->getDocumentsByPhpcrQuery($query->getPhpcrQuery())->toArray());
     }
 
     protected function getImagesByTag(array $tags, $offset, $limit)
@@ -68,6 +69,7 @@ class PHPCRImageController extends ImageController
         $query = $this->manager->createQuery($sql, QueryInterface::JCR_SQL2);
         $query->setFirstResult($offset);
         $query->setMaxResults($limit);
-        return $this->manager->getDocumentsByPhpcrQuery($query->getPhpcrQuery());
+
+        return array_values($this->manager->getDocumentsByPhpcrQuery($query->getPhpcrQuery())->toArray());
     }
 }
