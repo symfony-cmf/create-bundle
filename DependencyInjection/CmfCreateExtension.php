@@ -66,19 +66,16 @@ class CmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        if (!empty($config['image']['enabled']) && isset($managerRegistry)) {
+        if (isset($config['image']['enabled']) && isset($managerRegistry)) {
             $loader->load('image.xml');
             $definition = $container->getDefinition('cmf_create.image.controller');
             $definition->replaceArgument(0, new Reference($managerRegistry));
-            $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
-            $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
-            $container->setParameter($this->getAlias().'.image.static_basepath', $config['image']['static_basepath']);
-
-            if ('doctrine_phpcr' === $managerRegistry) {
-                $definition->addMethodCall('setStaticPath', array($config['image']['static_basepath']));
-            }
+            $container->setParameter($this->getAlias() . '.image_enabled', true);
+            $container->setParameter($this->getAlias() . '.image_class', $config['image']['model_class']);
+            $container->setParameter($this->getAlias() . '.image.controller_class', $config['image']['controller_class']);
+            $container->setParameter($this->getAlias() . '.image_basepath', $config['image']['basepath']);
         } else {
-            $container->setParameter($this->getAlias().'.image.model_class', false);
+            $container->setParameter($this->getAlias() . '.image_enabled', false);
         }
 
         $loader->load('services.xml');

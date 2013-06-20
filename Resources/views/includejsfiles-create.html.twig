@@ -1,13 +1,13 @@
 {# basic js files needed for vie #}
 
 <script type="text/javascript">
-    var cmfCreateHalloImageUpload = false;
-    var cmfCreateHalloImageSearch = false;
-    var cmfCreateHalloLinkRelatedPath = false;
+    var cmfCreateImageUpload = false;
+    var cmfCreateImageSearch = false;
+    var cmfCreateLinkRelatedPath = false;
     {%  if cmfCreateImageUploadEnabled %}
-    cmfCreateHalloImageUpload = '{{ path('cmf_create_image_upload') }}';
-    cmfCreateHalloImageSearch = '{{ path('cmf_create_image_search') }}';
-    cmfCreateHalloLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
+    cmfCreateImageUpload = '{{ path('cmf_create_image_upload', { editor: cmfCreateEditor }) }}';
+    cmfCreateImageSearch = '{{ path('cmf_create_image_search') }}';
+    cmfCreateLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
     {%  endif %}
     var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';

@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
                     offset = offset || 0;
                     jQuery.ajax({
                         type: "GET",
-                        url: cmfCreateHalloImageSearch,
+                        url: cmfCreateImageSearch,
                         data: "query="+query+"&offset="+offset+"&limit="+limit,
                         success: successCallback
                     });
@@ -47,10 +47,10 @@ jQuery(document).ready(function() {
                 //         success: successCallback
                 //     });
                 // },
-                uploadUrl: cmfCreateHalloImageUpload,
+                uploadUrl: cmfCreateImageUpload,
                 'vie': this.vie
             },
-            'hallolink': { 'relatedUrl': cmfCreateHalloLinkRelatedPath },
+            'hallolink': { 'relatedUrl': cmfCreateLinkRelatedPath },
             'hallooverlay': {},
             'halloindicator': {}
         },

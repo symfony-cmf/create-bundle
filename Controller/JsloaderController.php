@@ -48,13 +48,18 @@ class JsloaderController
      */
     private $editorBasePath;
 
+    /**
+     * @var Boolean
+     */
+    private $imageUploadEnabled;
+
 
     /**
      * Create the Controller
      *
      * @param ViewHandlerInterface $viewHandler view handler
      * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
-     * @param string $imageClass used to determine whether image upload should be activated
+     * @param Boolean $imageUploadEnabled used to determine whether image upload should be activated
      * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
      * @param array $plainTextTypes RDFa types to edit in raw text only
      * @param string $requiredRole
@@ -63,7 +68,7 @@ class JsloaderController
     public function __construct(
         ViewHandlerInterface $viewHandler,
         $stanbolUrl,
-        $imageClass,
+        $imageUploadEnabled = false,
         $fixedToolbar = true,
         $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
@@ -72,7 +77,7 @@ class JsloaderController
     ) {
         $this->viewHandler = $viewHandler;
         $this->stanbolUrl = $stanbolUrl;
-        $this->imageClass = $imageClass;
+        $this->imageUploadEnabled = $imageUploadEnabled;
         $this->fixedToolbar = $fixedToolbar;
         $this->plainTextTypes = $plainTextTypes;
         $this->editorBasePath = $editorBasePath;
@@ -113,8 +118,9 @@ class JsloaderController
         $view->setTemplate(sprintf('CmfCreateBundle::includejsfiles-%s.html.twig', $editor));
 
         $view->setData(array(
+                'cmfCreateEditor' => $editor,
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
-                'cmfCreateImageUploadEnabled' => (boolean) $this->imageClass,
+                'cmfCreateImageUploadEnabled' => (boolean) $this->imageUploadEnabled,
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
                 'cmfCreatePlainTextTypes' => json_encode($this->plainTextTypes),
                 'cmfCreateEditorBasePath' => $this->editorBasePath,
