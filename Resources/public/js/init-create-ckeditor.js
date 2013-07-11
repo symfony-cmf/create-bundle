@@ -25,5 +25,7 @@ jQuery(document).ready(function() {
         }
     });
 
+    window.CKEDITOR.config.filebrowserImageUploadUrl = cmfCreateHalloImageUpload;
+
     window.CKEDITOR.basePath = window.CKEDITOR_BASEPATH;
 });
