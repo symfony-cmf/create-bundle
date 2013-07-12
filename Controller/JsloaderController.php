@@ -100,7 +100,11 @@ class JsloaderController
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
-        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+        if ($this->securityContext
+            && (null === $this->securityContext->getToken()
+                || false === $this->securityContext->isGranted($this->requiredRole)
+               )
+        ) {
             return new Response('');
         }
 
