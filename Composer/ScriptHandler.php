@@ -17,7 +17,7 @@ class ScriptHandler
 {
     const CREATE_COMMIT_ID = '271e0114a039ab256ffcceacdf7f361803995e05';
 
-    const CKEDITOR_COMMIT_ID = 'bba29309f93a1ace1e2e3a3bd086025975abbad0';
+    const CKEDITOR_COMMIT_ID = '0fb9d534634a06af386027bd7dea2c9dcfb8bb99';
 
     public static function downloadCreateAndCkeditor($event)
     {
