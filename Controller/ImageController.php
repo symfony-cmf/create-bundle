@@ -157,7 +157,17 @@ abstract class ImageController
 
         $this->manager->flush();
 
-        return $this->generateUploadResponse($id, $image, $file);
+        // file upload via CKEditor
+        if ($request->query->get('CKEditor')) {
+            $response = $this->generateUploadResponse($id, $image, $file);
+            $data = "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(" . $request->query->get('CKEditorFuncNum') . ", '" . $response->getTargetUrl() . "', 'success');</script>";
+
+            $response = new Response($data);
+            $response->headers->set('Content-Type', 'text/html');
+            return $response;
+        } else {
+            return $this->generateUploadResponse($id, $image, $file);
+        }
     }
 
     private function processResults($images, $offset)
