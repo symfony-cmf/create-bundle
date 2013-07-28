@@ -66,7 +66,7 @@ class CmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        if (isset($config['image']) && isset($managerRegistry)) {
+        if (!empty($config['image']['enabled']) && isset($managerRegistry)) {
             $loader->load('image.xml');
             $definition = $container->getDefinition('cmf_create.image.controller');
             $definition->replaceArgument(0, new Reference($managerRegistry));

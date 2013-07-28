@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('image')
                     ->canBeUnset()
                     ->children()
+                        ->scalarNode('enabled')->defaultNull()->end()
                         ->scalarNode('model_class')->cannotBeEmpty()->end()
                         ->scalarNode('controller_class')->cannotBeEmpty()->end()
                         ->scalarNode('static_basepath')->defaultValue('/cms/content/static')->end()
