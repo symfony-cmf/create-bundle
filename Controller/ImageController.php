@@ -5,6 +5,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 use Symfony\Cmf\Bundle\CreateBundle\Model\ImageInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 use FOS\Rest\Util\Codes;
 use FOS\RestBundle\View\View;
@@ -265,11 +266,11 @@ abstract class ImageController
 
         $links = array();
         foreach ($pages as $page) {
-            if ($page instanceof RouteObjectInterface && $page->getRouteContent()) {
-                $url = $this->router->generate('', array('_locale' => $lang, 'content' => $page->getRouteContent()), true);
+            if ($page instanceof RouteObjectInterface && $page->getContent()) {
+                $url = $this->router->generate('', array('_locale' => $lang, 'content' => $page->getContent()), true);
 
                 if (preg_replace('/^\/|\/$/', '', $url) !== preg_replace('/^\/|\/$/', '', $currentUrl)) {
-                    $label = $page->getRouteContent()->title;
+                    $label = $page->getContent()->title;
                     $links[] = array('url' => $url, 'label' => $label);
                 }
             }
