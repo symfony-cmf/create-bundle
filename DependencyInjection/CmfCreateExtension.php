@@ -72,6 +72,7 @@ class CmfCreateExtension extends Extension
             $definition->replaceArgument(0, new Reference($managerRegistry));
             $container->setParameter($this->getAlias().'.image.model_class', $config['image']['model_class']);
             $container->setParameter($this->getAlias().'.image.controller_class', $config['image']['controller_class']);
+            $container->setParameter($this->getAlias().'.image.static_basepath', $config['image']['static_basepath']);
 
             if ('doctrine_phpcr' === $managerRegistry) {
                 $definition->addMethodCall('setStaticPath', array($config['image']['static_basepath']));
