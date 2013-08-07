@@ -7,10 +7,10 @@
 This bundle is part of the [Symfony Content Management Framework (CMF)](http://cmf.symfony.com/)
 and licensed under the [MIT License](LICENSE).
 
-The CreateBundle integrates CreateJS and the CreatePHP helper library into
-Symfony2.
+The CreateBundle integrates [Create.js](http://createjs.org/) and the
+[CreatePHP](https://github.com/flack/createphp) helper library into Symfony2.
 
-CreateJS is a comprehensive web editing interface for Content Management
+Create.js is a comprehensive web editing interface for Content Management
 Systems. Using RDFa annotations in the content, it makes any content editable
 directly in the front end.
 
@@ -21,7 +21,7 @@ and entities.
 ## Requirements
 
 * Symfony 2.2.x
-* CreateJS (included in this project as a git submodule)
+* Create.js (included in this project as a git submodule)
 * See also the `require` section of [composer.json](composer.json)
 
 
