@@ -14,7 +14,7 @@ CreateJS is a comprehensive web editing interface for Content Management
 Systems. Using RDFa annotations in the content, it makes any content editable
 directly in the front end.
 
-Createphp is a PHP library to help with RDFa annotation of documents
+CreatePHP is a PHP library to help with RDFa annotation of documents
 and entities.
 
 
