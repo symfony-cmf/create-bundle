@@ -3,6 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony Bundle for createphp and create.js. The easiest way to make any site editable and have semantic annotations with RDFa.",
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Liip AG",
@@ -17,7 +18,7 @@
         "php": ">=5.3.3",
         "symfony/framework-bundle": "~2.1",
         "symfony/assetic-bundle": "~2.1",
-        "friendsofsymfony/rest-bundle": "0.12.*",
+        "friendsofsymfony/rest-bundle": ">=0.12.0,<0.14.0",
         "jms/serializer-bundle": "0.12.*",
         "midgard/createphp": "dev-master"
     },
