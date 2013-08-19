@@ -22,6 +22,9 @@
         "jms/serializer-bundle": "0.12.*",
         "midgard/createphp": "dev-master"
     },
+    "suggest": {
+        "symfony-cmf/media-bundle": "When using the default image support"
+    },
     "autoload": {
         "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
     },

@@ -15,7 +15,7 @@
         <service id="cmf_create.jsloader.controller" class="%cmf_create.jsloader.controller.class%">
             <argument type="service" id="fos_rest.view_handler" />
             <argument>%cmf_create.stanbol_url%</argument>
-            <argument>%cmf_create.image.model_class%</argument>
+            <argument>%cmf_create.image_enabled%</argument>
             <argument>%cmf_create.fixed_toolbar%</argument>
             <argument>%cmf_create.plain_text_types%</argument>
             <argument>%cmf_create.role%</argument>
