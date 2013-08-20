@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('enabled')->defaultNull()->end()
                                         ->scalarNode('model_class')->cannotBeEmpty()->end()
                                         ->scalarNode('controller_class')->defaultValue('Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController')->end()
-                                        ->scalarNode('basepath')->defaultNull()->end()
+                                        ->scalarNode('basepath')->defaultValue('/cms/media')->end()
                                     ->end()
                                 ->end()
                             ->end()
