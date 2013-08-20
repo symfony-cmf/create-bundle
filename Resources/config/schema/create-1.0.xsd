@@ -10,14 +10,12 @@
     <xsd:complexType name="config">
         <xsd:sequence>
             <xsd:element name="map" type="name" minOccurs="0" />
-            <xsd:element name="image" type="image" minOccurs="0" />
             <xsd:element name="plain-text-type" type="name" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="rdf-config-dir" type="rdf_config_dir" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="persistence" type="persistence" minOccurs="0" />
         </xsd:sequence>
-
         <xsd:attribute name="rest-controller-class" type="xsd:string" />
         <xsd:attribute name="role" type="xsd:string" />
-        <xsd:attribute name="phpcr-odm" type="xsd:string" />
         <xsd:attribute name="fixed-toolbar" type="xsd:string" />
         <xsd:attribute name="editor-base-path" type="xsd:string" />
         <xsd:attribute name="auto-mapping" type="xsd:string" />
@@ -31,17 +29,31 @@
         </xsd:simpleContent>
     </xsd:complexType>
 
-    <xsd:complexType name="image">
-        <xsd:attribute name="model-class" type="xsd:string" use="required" />
-        <xsd:attribute name="controller-class" type="xsd:string" use="required" />
-        <xsd:attribute name="static-basepath" type="xsd:string" />
-    </xsd:complexType>
-
     <xsd:complexType name="rdf_config_dir">
         <xsd:simpleContent>
             <xsd:extension base="xsd:string">
                 <xsd:attribute name="dir" type="xsd:string" />
             </xsd:extension>
         </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="persistence">
+        <xsd:sequence>
+            <xsd:element name="phpcr" type="phpcr" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="phpcr">
+        <xsd:sequence>
+            <xsd:element name="image" type="image" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="enabled" type="xsd:string" />
+        <xsd:attribute name="manager-name" type="xsd:string" />
+    </xsd:complexType>
+
+    <xsd:complexType name="image">
+        <xsd:attribute name="model-class" type="xsd:string" use="required" />
+        <xsd:attribute name="controller-class" type="xsd:string" use="required" />
+        <xsd:attribute name="basepath" type="xsd:string" />
     </xsd:complexType>
 </xsd:schema>

@@ -2,12 +2,13 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -25,19 +26,9 @@ class CmfCreateExtension extends Extension
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
 
+        // load config
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        if (!empty($config['phpcr_odm'])) {
-            $loader->load('phpcr_odm.xml');
-            $documentManagerName = 'default';
-            $managerRegistry = 'doctrine_phpcr';
-            if (is_string($config['phpcr_odm'])) {
-                $documentManagerName = $config['phpcr_odm'];
-                $phpcr_odm = $container->getDefinition('cmf_create.object_mapper');
-                $phpcr_odm->replaceArgument(2, $documentManagerName);
-            }
-
-            $container->setParameter($this->getAlias().'.manager_name', $documentManagerName);
-        }
+        $loader->load('services.xml');
 
         $container->setParameter($this->getAlias().'.map', $config['map']);
 
@@ -66,22 +57,32 @@ class CmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
-        if (isset($config['image']['enabled']) && isset($managerRegistry)) {
-            $loader->load('image.xml');
-            $definition = $container->getDefinition('cmf_create.image.controller');
-            $definition->replaceArgument(0, new Reference($managerRegistry));
-            $container->setParameter($this->getAlias() . '.image_enabled', true);
-            $container->setParameter($this->getAlias() . '.image_class', $config['image']['model_class']);
-            $container->setParameter($this->getAlias() . '.image.controller_class', $config['image']['controller_class']);
-            $container->setParameter($this->getAlias() . '.image_basepath', $config['image']['basepath']);
+        if ($config['rest_controller_class']) {
+            $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
+        }
+
+        if (!empty($config['persistence']['phpcr']['enabled'])) {
+            $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
         } else {
             $container->setParameter($this->getAlias() . '.image_enabled', false);
         }
+    }
 
-        $loader->load('services.xml');
+    public function loadPhpcr($config, XmlFileLoader $loader, ContainerBuilder $container)
+    {
+        $container->setParameter($this->getAlias() . '.backend_type_phpcr', true);
 
-        if ($config['rest_controller_class']) {
-            $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
+        $container->setParameter($this->getAlias().'.persistence.phpcr.manager_name', $config['manager_name']);
+
+        $loader->load('persistence-phpcr.xml');
+
+        if (isset($config['image']['enabled'])) {
+            $loader->load('controller-image-phpcr.xml');
+
+            $container->setParameter($this->getAlias() . '.image_enabled', true);
+            $container->setParameter($this->getAlias() . '.persistence.phpcr.image.class', $config['image']['model_class']);
+            $container->setParameter($this->getAlias() . '.persistence.phpcr.image_controller.class', $config['image']['controller_class']);
+            $container->setParameter($this->getAlias() . '.persistence.phpcr.image_basepath', $config['image']['basepath']);
         }
     }
 
