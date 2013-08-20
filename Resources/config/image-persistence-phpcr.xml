@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--<parameters>-->
+    <!--</parameters>-->
+
+    <services>
+        <service id="cmf_create.image.controller" class="%cmf_create.persistence.phpcr.image_controller.class%">
+            <argument type="service" id="doctrine_phpcr" />
+            <argument>%cmf_create.persistence.phpcr.manager_name%</argument>
+            <argument>%cmf_create.persistence.phpcr.image.class%</argument>
+            <argument>%cmf_create.persistence.phpcr.image_basepath%</argument>
+            <argument type="service" id="cmf_media.persistence.phpcr.manager" />
+            <argument type="service" id="cmf_media.upload_image_helper" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument>%cmf_create.role%</argument>
+            <argument type="service" id="security.context" on-invalid="ignore" />
+        </service>
+    </services>
+
+</container>
