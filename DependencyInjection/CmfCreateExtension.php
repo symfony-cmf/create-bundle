@@ -83,6 +83,8 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias() . '.persistence.phpcr.image.class', $config['image']['model_class']);
             $container->setParameter($this->getAlias() . '.persistence.phpcr.image_controller.class', $config['image']['controller_class']);
             $container->setParameter($this->getAlias() . '.persistence.phpcr.image_basepath', $config['image']['basepath']);
+        } else {
+            $container->setParameter($this->getAlias() . '.image_enabled', false);
         }
     }
 
