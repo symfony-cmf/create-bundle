@@ -4,6 +4,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
+use Symfony\Cmf\Bundle\MediaBundle\File\BrowserFileHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -53,6 +54,11 @@ class JsloaderController
      */
     private $imageUploadEnabled;
 
+    /**
+     * @var BrowserFileHelper
+     */
+    private $browserFileHelper;
+
 
     /**
      * Create the Controller
@@ -73,17 +79,18 @@ class JsloaderController
         $plainTextTypes = array(),
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null,
-        $editorBasePath = null
+        $editorBasePath = null,
+        BrowserFileHelper $browserFileHelper = null
     ) {
-        $this->viewHandler = $viewHandler;
-        $this->stanbolUrl = $stanbolUrl;
+        $this->viewHandler        = $viewHandler;
+        $this->stanbolUrl         = $stanbolUrl;
         $this->imageUploadEnabled = $imageUploadEnabled;
-        $this->fixedToolbar = $fixedToolbar;
-        $this->plainTextTypes = $plainTextTypes;
-        $this->editorBasePath = $editorBasePath;
-
-        $this->requiredRole = $requiredRole;
-        $this->securityContext = $securityContext;
+        $this->fixedToolbar       = $fixedToolbar;
+        $this->plainTextTypes     = $plainTextTypes;
+        $this->editorBasePath     = $editorBasePath;
+        $this->requiredRole       = $requiredRole;
+        $this->securityContext    = $securityContext;
+        $this->browserFileHelper  = $browserFileHelper;
     }
 
     /**
@@ -117,6 +124,13 @@ class JsloaderController
 
         $view->setTemplate(sprintf('CmfCreateBundle::includejsfiles-%s.html.twig', $editor));
 
+        if ($this->browserFileHelper) {
+            $helper = $this->browserFileHelper->getEditorHelper($editor);
+            $browseUrl = $helper ? $helper->getUrl() : false;
+        } else {
+            $browseUrl = false;
+        }
+
         $view->setData(array(
                 'cmfCreateEditor' => $editor,
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
@@ -124,6 +138,7 @@ class JsloaderController
                 'cmfCreateHalloFixedToolbar' => (boolean) $this->fixedToolbar,
                 'cmfCreatePlainTextTypes' => json_encode($this->plainTextTypes),
                 'cmfCreateEditorBasePath' => $this->editorBasePath,
+                'cmfCreateBrowseUrl' => $browseUrl,
             )
         );
 
