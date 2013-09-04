@@ -27,5 +27,9 @@ jQuery(document).ready(function() {
 
     window.CKEDITOR.config.filebrowserImageUploadUrl = cmfCreateImageUpload;
 
+    if (cmfCreateBrowseUrl) {
+        window.CKEDITOR.config.filebrowserBrowseUrl = cmfCreateBrowseUrl;
+    }
+
     window.CKEDITOR.basePath = window.CKEDITOR_BASEPATH;
 });
