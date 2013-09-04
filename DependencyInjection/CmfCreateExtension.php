@@ -61,7 +61,7 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
         }
 
-        if (!empty($config['persistence']['phpcr']['enabled'])) {
+        if ($config['persistence']['phpcr']['enabled']) {
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
         } else {
             $container->setParameter($this->getAlias() . '.image_enabled', false);
