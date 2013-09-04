@@ -110,7 +110,7 @@ class JsloaderController
      * @param string $editor the name of the editor to load, currently only
      *      hallo and hallo-coffee are supported
      */
-    public function includeJSFilesAction($editor = 'hallo')
+    public function includeJSFilesAction($editor = 'ckeditor')
     {
         if ($this->securityContext
             && (null === $this->securityContext->getToken()

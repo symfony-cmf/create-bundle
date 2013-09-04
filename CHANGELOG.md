@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.0-RC1
+-----------
+
+* **2013-09-04**: make CKEditor the default
+
 1.0.0-beta4
 -----------
 
