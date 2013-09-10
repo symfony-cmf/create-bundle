@@ -76,7 +76,7 @@ class CmfCreateExtension extends Extension
 
         $loader->load('persistence-phpcr.xml');
 
-        if (isset($config['image']['enabled'])) {
+        if ($config['image']['enabled']) {
             $loader->load('controller-image-phpcr.xml');
 
             $container->setParameter($this->getAlias() . '.image_enabled', true);

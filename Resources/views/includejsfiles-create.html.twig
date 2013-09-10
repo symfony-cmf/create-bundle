@@ -1,26 +1,21 @@
 {# basic js files needed for vie #}
 
 <script type="text/javascript">
-    var cmfCreateImageUpload = false;
-    var cmfCreateImageSearch = false;
-    var cmfCreateLinkRelatedPath = false;
-    var cmfCreateBrowseUrl = false;
     {%  if cmfCreateImageUploadEnabled %}
-    cmfCreateImageUpload = '{{ path('cmf_create_image_upload', { editor: cmfCreateEditor }) }}';
-    cmfCreateImageSearch = '{{ path('cmf_create_image_search') }}';
-    cmfCreateLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
-    cmfCreateBrowseUrl = '{{ cmfCreateBrowseUrl }}';
-    {%  endif %}
+        var cmfCreateImageUpload = '{{ path('cmf_create_image_upload', { editor: cmfCreateEditor }) }}';
+        var cmfCreateImageSearch = '{{ path('cmf_create_image_search') }}';
+        var cmfCreateLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
+        var cmfCreateBrowseUrl = '{{ cmfCreateBrowseUrl }}';
+    {% else %}
+        var cmfCreateImageUpload = false;
+        var cmfCreateImageSearch = false;
+        var cmfCreateLinkRelatedPath = false;
+        var cmfCreateBrowseUrl = false;
+    {% endif %}
+
     var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';
 
-    {%  if cmfCreateHalloFixedToolbar %}
-    var cmfCreateHalloFixedToolbar = 'halloToolbarFixed';
-    var cmfCreateHalloParentElement = '.create-ui-toolbar-dynamictoolarea .create-ui-tool-freearea';
-    {% else %}
-    var cmfCreateHalloFixedToolbar = 'halloToolbarContextual';
-    var cmfCreateHalloParentElement = 'body';
-    {%  endif %}
     var cmfCreatePlainTextTypes = {{ cmfCreatePlainTextTypes|raw }};
 </script>
 

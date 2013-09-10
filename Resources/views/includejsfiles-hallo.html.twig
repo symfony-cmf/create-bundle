@@ -1,5 +1,15 @@
 {% include "CmfCreateBundle::includejsfiles-create.html.twig" %}
 
+<script type="text/javascript">
+    {%  if cmfCreateFixedToolbar %}
+        var cmfCreateHalloFixedToolbar = 'halloToolbarFixed';
+        var cmfCreateHalloParentElement = '.create-ui-toolbar-dynamictoolarea .create-ui-tool-freearea';
+    {% else %}
+        var cmfCreateHalloFixedToolbar = 'halloToolbarContextual';
+        var cmfCreateHalloParentElement = 'body';
+    {%  endif %}
+</script>
+
 {# hallo.js is already included in the create deps #}
 {% javascripts output="js/hallo-extra.js"
     '@CmfCreateBundle/Resources/public/js/init-create-hallo.js'
