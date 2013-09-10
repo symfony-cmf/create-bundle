@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
                 ->end()
-                ->scalarNode('role')->defaultValue('IS_AUTHENTICATED_ANONYMOUSLY')->end()
+                ->scalarNode('role')->defaultValue('ROLE_ADMIN')->end()
                 ->scalarNode('stanbol_url')->defaultValue('http://dev.iks-project.eu:8081')->end()
                 ->scalarNode('fixed_toolbar')->defaultTrue()->end()
                 ->scalarNode('editor_base_path')->defaultValue('/bundles/cmfcreate/vendor/ckeditor/')->end()
