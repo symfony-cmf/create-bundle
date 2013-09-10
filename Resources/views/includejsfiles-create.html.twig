@@ -20,16 +20,18 @@
 </script>
 
 {% javascripts output="js/create.js"
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-1.7.1.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.18.custom.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/underscore-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/backbone-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/rangy-core-1.2.3.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/vie-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.rdfquery.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/annotate-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/examples/create-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery/jquery.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-ui/jquery-ui.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/underscore/underscore.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/backbone/backbone.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/rangy/rangy-core.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/view/vie.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-rdfquery/jquery.rdfquery.core.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-rdfquery/jquery.rdfquery.rules.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery.tagsinput/jquery.tagsinput.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/annotate/annotate.js'
+
+    '@CmfCreateBundle/Resources/public/vendor/create/dist/create.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

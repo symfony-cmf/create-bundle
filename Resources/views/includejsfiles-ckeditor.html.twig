@@ -2,8 +2,9 @@
 
 <script>window.CKEDITOR_BASEPATH = '{{ cmfCreateEditorBasePath }}';</script>
 {% javascripts output="/js/ckeditor.js"
-    '@CmfCreateBundle/Resources/public/js/init-create-ckeditor.js'
     '@CmfCreateBundle/Resources/public/vendor/ckeditor/ckeditor.js'
+    '@CmfCreateBundle/Resources/public/js/init-create-ckeditor.js'
+    '@CmfCreateBundle/Resources/public/js/init-create-common.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

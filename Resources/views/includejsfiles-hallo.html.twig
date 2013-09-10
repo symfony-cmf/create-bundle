@@ -12,8 +12,10 @@
 
 {# hallo.js is already included in the create deps #}
 {% javascripts output="js/hallo-extra.js"
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-htmlclean/jquery.htmlClean.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/hallo/hallo.js'
     '@CmfCreateBundle/Resources/public/js/init-create-hallo.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/hallo-min.js'
+    '@CmfCreateBundle/Resources/public/js/init-create-common.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

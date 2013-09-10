@@ -15,7 +15,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
  */
 class ScriptHandler
 {
-    const CREATE_COMMIT_ID = '271e0114a039ab256ffcceacdf7f361803995e05';
+    const CREATE_COMMIT_ID = '8166a1db9ae4367611d9c85c8582305af15be0ca';
 
     const CKEDITOR_COMMIT_ID = '0fb9d534634a06af386027bd7dea2c9dcfb8bb99';
 
