@@ -16,7 +16,10 @@ jQuery(document).ready(function() {
         },
         editorOptions: {
             ckeditor: {
-                widget: 'ckeditorWidget'
+                widget: 'ckeditorWidget',
+                options: {
+                    filebrowserImageUploadUrl: cmfCreateImageUpload
+                }
             }
         },
         collectionWidgets: {
@@ -24,8 +27,6 @@ jQuery(document).ready(function() {
             'feature': 'midgardCollectionAdd'
         }
     });
-
-    window.CKEDITOR.config.filebrowserImageUploadUrl = cmfCreateImageUpload;
 
     if (cmfCreateBrowseUrl) {
         window.CKEDITOR.config.filebrowserBrowseUrl = cmfCreateBrowseUrl;

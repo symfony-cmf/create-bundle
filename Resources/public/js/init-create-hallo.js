@@ -13,12 +13,6 @@ jQuery(document).ready(function() {
         tags: true
     });
 
-    jQuery('body').midgardCreate('configureEditor', 'title', 'halloWidget', {
-        plugins: {
-            'hallooverlay': {},
-            'halloblacklist': {'tags': ['br']}
-        }
-    });
     jQuery('body').midgardCreate('configureEditor', 'default', 'halloWidget', {
         plugins: {
             'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
@@ -57,9 +51,4 @@ jQuery(document).ready(function() {
         toolbarState: cmfCreateHalloFixedToolbar,
         parentElement: cmfCreateHalloParentElement
     });
-
-    jQuery(cmfCreatePlainTextTypes).each(function(index, value) {
-        jQuery('body').midgardCreate('setEditorForProperty', value, 'title');
-    });
-    jQuery('body').midgardCreate('setEditorForProperty', 'default', 'default');
 });

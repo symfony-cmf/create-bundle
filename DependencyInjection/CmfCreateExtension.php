@@ -41,7 +41,7 @@ class CmfCreateExtension extends Extension
         $container->setParameter($this->getAlias().'.editor_base_path', $config['editor_base_path']);
 
         if (empty($config['plain_text_types'])) {
-            $config['plain_text_types'][] = 'dcterms:title';
+            $config['plain_text_types'] = array('dcterms:title', 'schema:headline');
         }
         $container->setParameter($this->getAlias().'.plain_text_types', $config['plain_text_types']);
 
@@ -76,7 +76,7 @@ class CmfCreateExtension extends Extension
 
         $loader->load('persistence-phpcr.xml');
 
-        if (isset($config['image']['enabled'])) {
+        if ($config['image']['enabled']) {
             $loader->load('controller-image-phpcr.xml');
 
             $container->setParameter($this->getAlias() . '.image_enabled', true);

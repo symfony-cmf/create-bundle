@@ -1,40 +1,37 @@
 {# basic js files needed for vie #}
 
 <script type="text/javascript">
-    var cmfCreateImageUpload = false;
-    var cmfCreateImageSearch = false;
-    var cmfCreateLinkRelatedPath = false;
-    var cmfCreateBrowseUrl = false;
     {%  if cmfCreateImageUploadEnabled %}
-    cmfCreateImageUpload = '{{ path('cmf_create_image_upload', { editor: cmfCreateEditor }) }}';
-    cmfCreateImageSearch = '{{ path('cmf_create_image_search') }}';
-    cmfCreateLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
-    cmfCreateBrowseUrl = '{{ cmfCreateBrowseUrl }}';
-    {%  endif %}
+        var cmfCreateImageUpload = '{{ path('cmf_create_image_upload', { editor: cmfCreateEditor }) }}';
+        var cmfCreateImageSearch = '{{ path('cmf_create_image_search') }}';
+        var cmfCreateLinkRelatedPath = '{{ path('cmf_create_image_related') }}';
+        var cmfCreateBrowseUrl = '{{ cmfCreateBrowseUrl }}';
+    {% else %}
+        var cmfCreateImageUpload = false;
+        var cmfCreateImageSearch = false;
+        var cmfCreateLinkRelatedPath = false;
+        var cmfCreateBrowseUrl = false;
+    {% endif %}
+
     var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';
 
-    {%  if cmfCreateHalloFixedToolbar %}
-    var cmfCreateHalloFixedToolbar = 'halloToolbarFixed';
-    var cmfCreateHalloParentElement = '.create-ui-toolbar-dynamictoolarea .create-ui-tool-freearea';
-    {% else %}
-    var cmfCreateHalloFixedToolbar = 'halloToolbarContextual';
-    var cmfCreateHalloParentElement = 'body';
-    {%  endif %}
     var cmfCreatePlainTextTypes = {{ cmfCreatePlainTextTypes|raw }};
 </script>
 
 {% javascripts output="js/create.js"
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-1.7.1.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.18.custom.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/underscore-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/backbone-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/rangy-core-1.2.3.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/vie-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.rdfquery.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/deps/annotate-min.js'
-    '@CmfCreateBundle/Resources/public/vendor/create/examples/create-min.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery/jquery.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-ui/jquery-ui.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/underscore/underscore.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/backbone/backbone.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/rangy/rangy-core.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/view/vie.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-rdfquery/jquery.rdfquery.core.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery-rdfquery/jquery.rdfquery.rules.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/jquery.tagsinput/jquery.tagsinput.js'
+    '@CmfCreateBundle/Resources/public/vendor/create/lib/annotate/annotate.js'
+
+    '@CmfCreateBundle/Resources/public/vendor/create/dist/create.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
