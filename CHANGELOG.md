@@ -1,13 +1,12 @@
 Changelog
 =========
 
-* **2013-09-10**: changed the default setting for the `role` option to ROLE_ADMIN.
-  You hopefully already configure this option. If you really want a public
-  writable page set the config option `cmf_create.role` to IS_AUTHENTICATED_ANONYMOUSLY
-
 1.0.0-RC1
 -----------
 
+* **2013-09-10**: changed the default setting for the `role` option to ROLE_ADMIN.
+  You hopefully already configure this option. If you really want a public
+  writable page set the config option `cmf_create.role` to IS_AUTHENTICATED_ANONYMOUSLY
 * **2013-09-04**: make CKEditor the default
 
 1.0.0-beta4
