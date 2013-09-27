@@ -48,16 +48,16 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->arrayNode('phpcr')
                             ->addDefaultsIfNotSet()
+                            ->canBeEnabled()
                             ->children()
-                                ->booleanNode('enabled')->defaultFalse()->end()
                                 ->scalarNode('manager_name')->defaultNull()->end()
                                 ->arrayNode('image')
                                     ->addDefaultsIfNotSet()
                                     ->canBeUnset()
+                                    ->canBeEnabled()
                                     ->children()
                                         // if the CmfMediaBundle is present, it will prepend configuration
                                         // to enable this and set its model_class
-                                        ->booleanNode('enabled')->defaultFalse()->end()
                                         ->scalarNode('model_class')->cannotBeEmpty()->end()
                                         ->scalarNode('controller_class')->defaultValue('Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController')->end()
                                         ->scalarNode('basepath')->defaultValue('/cms/media')->end()
