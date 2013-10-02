@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Controller\FileController;
-use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelper;
+use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,18 +17,18 @@ class ImageController extends FileController
     protected $viewHandler;
 
     /**
-     * @param ManagerRegistry          $registry
-     * @param string                   $managerName
-     * @param string                   $class            fully qualified class
-     *                                                   name of file
-     * @param string                   $rootPath         path where the
-     *                                                   filesystem is located
-     * @param UploadFileHelper         $uploadFileHelper
-     * @param RouterInterface          $router
-     * @param ViewHandlerInterface     $viewHandler
-     * @param string                   $requiredRole     the role name for the
-     *                                                   security check
-     * @param SecurityContextInterface $securityContext
+     * @param ManagerRegistry           $registry
+     * @param string                    $managerName
+     * @param string                    $class            fully qualified class
+     *      name of file
+     * @param string                    $rootPath         path where the
+     *      filesystem is located
+     * @param MediaManagerInterface     $mediaManager
+     * @param UploadFileHelperInterface $uploadFileHelper
+     * @param ViewHandlerInterface      $viewHandler
+     * @param string                    $requiredRole     the role name for the
+     *      security check
+     * @param SecurityContextInterface  $securityContext
      */
     public function __construct(
         ManagerRegistry $registry,
@@ -36,7 +36,7 @@ class ImageController extends FileController
         $class,
         $rootPath = '/',
         MediaManagerInterface $mediaManager,
-        UploadFileHelper $uploadFileHelper,
+        UploadFileHelperInterface $uploadFileHelper,
         ViewHandlerInterface $viewHandler,
         $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
         SecurityContextInterface $securityContext = null
