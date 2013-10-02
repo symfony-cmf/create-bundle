@@ -1,8 +1,13 @@
 Changelog
 =========
 
+1.0.0-RC2
+---------
+
+* **2013-10-02**: now requires MediaBundle 1.0.0-RC2 which added `UploadFileHelperInterface`
+
 1.0.0-RC1
------------
+---------
 
 * **2013-09-10**: changed the default setting for the `role` option to ROLE_ADMIN.
   You hopefully already configure this option. If you really want a public
