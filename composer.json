@@ -20,10 +20,10 @@
         "symfony/assetic-bundle": "~2.1",
         "friendsofsymfony/rest-bundle": ">=0.12.0,<2.0",
         "jms/serializer-bundle": "0.12.*",
-        "midgard/createphp": "dev-master"
+        "midgard/createphp": "0.9.*"
     },
     "suggest": {
-        "symfony-cmf/media-bundle": "When using the default image support, ~1.0.0-RC2"
+        "symfony-cmf/media-bundle": "When using the default image support, ~1.0.0"
     },
     "autoload": {
         "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
