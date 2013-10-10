@@ -6,6 +6,12 @@
 
     <parameters>
         <parameter key="cmf_create.jsloader.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController</parameter>
+        <parameter key="cmf_create.rest.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\RestController</parameter>
+        <parameter key="cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
+        <parameter key="cmf_create.rest.handler_class">Midgard\CreatePHP\RestService</parameter>
+        <parameter key="cmf_create.twig_extension.class">Midgard\CreatePHP\Extension\Twig\CreatephpExtension</parameter>
+        <parameter key="cmf_create.twig_extension.class">Midgard\CreatePHP\Extension\Twig\CreatephpExtension</parameter>
+        <parameter key="cmf_create.rdf_driver.class">Midgard\CreatePHP\Metadata\RdfDriverXml</parameter>
     </parameters>
 
     <services>
@@ -21,13 +27,32 @@
             <argument type="service" id="cmf_media.browser_file_helper" on-invalid="ignore"/>
         </service>
 
-        <service id="cmf_create.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
+        <service id="cmf_create.twig_extension" class="%cmf_create.twig_extension.class%">
             <argument type="service" id="cmf_create.rdf_type_factory"/>
             <tag name="twig.extension"/>
         </service>
 
-        <service id="cmf_create.rdf_driver" class="Midgard\CreatePHP\Metadata\RdfDriverXml">
+        <service id="cmf_create.rdf_driver" class="%cmf_create.rdf_driver.class%">
             <argument>%cmf_create.rdf_config_dirs%</argument>
+        </service>
+
+        <service id="cmf_create.rdf_type_factory" class="%cmf_create.rdf_type_factory_class%" public="true">
+            <argument type="service" id="cmf_create.object_mapper"/>
+            <argument type="service" id="cmf_create.rdf_driver"/>
+            <argument>%cmf_create.map%</argument>
+        </service>
+
+        <service id="cmf_create.rest.controller" class="%cmf_create.rest.controller.class%">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="cmf_create.object_mapper"/>
+            <argument type="service" id="cmf_create.rdf_type_factory"/>
+            <argument type="service" id="cmf_create.rest.handler"/>
+            <argument>%cmf_create.role%</argument>
+            <argument type="service" id="security.context" on-invalid="ignore"/>
+        </service>
+
+        <service id="cmf_create.rest.handler" class="%cmf_create.rest.handler_class%" public="true">
+            <argument type="service" id="cmf_create.object_mapper"/>
         </service>
 
     </services>

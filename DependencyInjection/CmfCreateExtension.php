@@ -2,6 +2,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -61,16 +62,27 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
         }
 
+        $hasMapper = false;
         if ($config['persistence']['phpcr']['enabled']) {
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
+            $hasMapper = true;
         } else {
+            // TODO: we should leverage the mediabundle here and not depend on phpcr
             $container->setParameter($this->getAlias() . '.image_enabled', false);
+        }
+        if (isset($config['object_mapper_service_id'])) {
+            $container->setAlias($this->getAlias() . '.object_mapper', $config['object_mapper_service_id']);
+            $hasMapper = true;
+        }
+        if (!$hasMapper) {
+            throw new InvalidConfigurationException('You need to either enable one of the persistence layers or set the cmf_create.object_mapper_service_id option');
         }
     }
 
     public function loadPhpcr($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
         $container->setParameter($this->getAlias() . '.backend_type_phpcr', true);
+        $container->setAlias($this->getAlias() . '.object_mapper', $this->getAlias() . '.persistence.phpcr.object_mapper');
 
         $container->setParameter($this->getAlias().'.persistence.phpcr.manager_name', $config['manager_name']);
 

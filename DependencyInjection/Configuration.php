@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('auto_mapping')->defaultTrue()->end()
+                ->scalarNode('object_mapper_service_id')->defaultNull()->end()
 
                 ->arrayNode('persistence')
                     ->addDefaultsIfNotSet()
