@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
                 if (this.id.charAt(0) == "<") {
                     return cmfCreatePutDocument + this.id.substring(1, this.id.length - 1);
                 }
-                return cmfCreatePutDocument + "/" + this.id;
+                return cmfCreatePutDocument + this.id;
             }
             return cmfCreatePutDocument;
         },
