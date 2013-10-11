@@ -13,7 +13,8 @@
         var cmfCreateBrowseUrl = false;
     {% endif %}
 
-    var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}';
+    {# we must add a trailing slash as the js code will concat the id which might not start with / #}
+    var cmfCreatePutDocument = '{{ path('cmf_create_put_document_base') }}/';
     var cmfCreateStanbolUrl = '{{ cmfCreateStanbolUrl }}';
 
     var cmfCreatePlainTextTypes = {{ cmfCreatePlainTextTypes|raw }};
