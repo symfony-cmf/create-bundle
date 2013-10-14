@@ -23,7 +23,7 @@
         "midgard/createphp": "0.9.*"
     },
     "suggest": {
-        "symfony-cmf/media-bundle": "When using the default image support, ~1.0.0"
+        "symfony-cmf/media-bundle": "When using the default image support, 1.0.*"
     },
     "autoload": {
         "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
