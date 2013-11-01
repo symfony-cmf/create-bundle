@@ -29,7 +29,7 @@ and entities.
 
 For the install guide and reference, see:
 
-* [CreateBundle documentation](http://symfony.com/doc/master/cmf/bundles/create.html)
+* [CreateBundle documentation](http://symfony.com/doc/master/cmf/bundles/create/index.html)
 
 See also:
 
