@@ -27,7 +27,10 @@ use Midgard\CreatePHP\Metadata\RdfTypeFactory,
     Midgard\CreatePHP\Helper\NamespaceHelper;
 
 /**
- * Controller to handle content update callbacks
+ * Controller to handle content update callbacks.
+ *
+ * The security context is optional to not fail with an exception if the
+ * controller is loaded in a context without a firewall.
  */
 class RestController
 {
@@ -57,16 +60,15 @@ class RestController
     protected $name;
 
     /**
-     * @param \FOS\RestBundle\View\ViewHandlerInterface $viewHandler
-     * @param \Midgard\CreatePHP\RdfMapperInterface $rdfMapper
-     * @param \Midgard\CreatePHP\Metadata\RdfTypeFactory $typeFactory
-     * @param \Midgard\CreatePHP\RestService $restHandler
-     * @param string $requiredRole the role to check with the securityContext
-     *      (if you pass one), defaults to everybody: IS_AUTHENTICATED_ANONYMOUSLY
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface|null $securityContext
-     *      the security context to use to check for the role. No security
-     *      check if this is null
-     *
+     * @param ViewHandlerInterface          $viewHandler
+     * @param RdfMapperInterface            $rdfMapper
+     * @param RdfTypeFactory                $typeFactory
+     * @param RestService                   $restHandler
+     * @param string|boolean                $requiredRole The role to check
+     *      with the securityContext (if you pass one), defaults to everybody.
+     *      No security check if false.
+     * @param SecurityContextInterface|null $securityContext The security
+     *      context to use to check for the role.
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -97,8 +99,9 @@ class RestController
     /**
      * Handle document PUT (update)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $subject URL of the subject, ie: cms/simple/news/news-name
+     * @param Request $request
+     * @param string  $subject URL of the subject, ie: cms/simple/news/news-name
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function putDocumentAction(Request $request, $subject)
@@ -118,6 +121,7 @@ class RestController
      * Handle document POST (creation)
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function postDocumentAction(Request $request)
@@ -138,13 +142,23 @@ class RestController
     }
 
     /**
-     * Check if the action can be performed
+     * Actions may be performed if the requiredRole is set to false (completely
+     * disable security check) or if there is a securityContext and it grants
+     * the required role.
      *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws AccessDeniedException If the current user is not allowed to edit
      */
     protected function performSecurityChecks()
     {
-        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+        if (false === $this->requiredRole) {
+            // security check is disabled
+            return;
+        }
+
+        if (!$this->securityContext
+            || !$this->securityContext->getToken()
+            || !$this->securityContext->isGranted($this->requiredRole)
+        ) {
             throw new AccessDeniedException();
         }
     }

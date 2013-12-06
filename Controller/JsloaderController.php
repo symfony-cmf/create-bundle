@@ -20,7 +20,11 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * This controller includes the correct twig file to bootstrap the javascript
- * files of create.js and its dependencies.
+ * files of create.js and its dependencies if the current user has the rights
+ * to use create.js.
+ *
+ * The security context is optional to not fail with an exception if the
+ * controller is loaded in a context without a firewall.
  */
 class JsloaderController
 {
@@ -73,13 +77,24 @@ class JsloaderController
     /**
      * Create the Controller
      *
-     * @param ViewHandlerInterface $viewHandler view handler
-     * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
-     * @param Boolean $imageUploadEnabled used to determine whether image upload should be activated
-     * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
-     * @param array $plainTextTypes RDFa types to edit in raw text only
-     * @param string $requiredRole
-     * @param SecurityContextInterface $securityContext
+     * @param ViewHandlerInterface     $viewHandler
+     * @param string                   $stanbolUrl         the url to use for
+     *      the semantic enhancer stanbol.
+     * @param Boolean                  $imageUploadEnabled used to determine
+     *      whether image upload should be activated.
+     * @param Boolean                  $fixedToolbar       whether the toolbar
+     *      is fixed or floating. Hallo editor specific.
+     * @param array                    $plainTextTypes     RDFa types to edit
+     *      in raw text only.
+     * @param string|boolean           $requiredRole       Role a user needs to
+     *      be granted in order to see the the editor. If set to false, the
+     *      editor is always loaded.
+     * @param SecurityContextInterface $securityContext    The security
+     *      context to use to check for the role.
+     * @param string                   $editorBasePath     Configuration for
+     *      ckeditor.
+     * @param BrowserFileHelper        $browserFileHelper  Used to determine
+     *      image editing for ckeditor.
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -104,29 +119,22 @@ class JsloaderController
     }
 
     /**
-     * Render js inclusion for create.js and dependencies and bootstrap code.
+     * Render javascript HTML tags for create.js and dependencies and bootstrap
+     * javscript code.
      *
-     * The hallo editor is bundled with create.js and available automatically.
+     * This bundle comes with templates for ckeditor, hallo and to develop on
+     * the hallo coffeescript files.
      *
-     * When using hallo, the controller can include the compiled js files from
-     * hallo's examples folder or use the assetic coffee filter.
-     * When developing hallo, make sure to use the coffee filter (pass 'hallo-coffee' as
-     * editor).
-     *
-     * To use another editor simply create a template following the naming below:
+     * To use a different editor simply create a template following the naming
+     * below:
      *   CmfCreateBundle::includejsfiles-%editor%.html.twig
-     * and pass the appropriate parameter.
+     * and pass the appropriate editor name.
      *
-     * @param string $editor the name of the editor to load, currently only
-     *      hallo and hallo-coffee are supported
+     * @param string $editor the name of the editor to load.
      */
     public function includeJSFilesAction($editor = 'ckeditor')
     {
-        if ($this->securityContext
-            && (null === $this->securityContext->getToken()
-                || false === $this->securityContext->isGranted($this->requiredRole)
-               )
-        ) {
+        if (!$this->performSecurityChecks()) {
             return new Response('');
         }
 
@@ -153,5 +161,29 @@ class JsloaderController
         );
 
         return $this->viewHandler->handle($view);
+    }
+
+    /**
+     * Actions may be performed if the requiredRole is set to false (completely
+     * disable security check) or if there is a securityContext and it grants
+     * the required role.
+     *
+     * @return boolean Whether the current user is allowed to edit.
+     */
+    protected function performSecurityChecks()
+    {
+        if (false === $this->requiredRole) {
+            // security check is disabled
+            return true;
+        }
+
+        if ($this->securityContext
+            && $this->securityContext->getToken()
+            && $this->securityContext->isGranted($this->requiredRole)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
