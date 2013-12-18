@@ -136,4 +136,53 @@ class RestController
 
         return Response::create('The document could not be created', 500);
     }
+
+    /**
+     * Handle document delete
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $subject URL of the subject, ie: cms/simple/news/news-name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteDocumentAction(Request $request, $subject)
+    {
+        $this->performSecurityChecks();
+
+        $model = $this->getModelBySubject($request, $subject);
+        $type = $this->typeFactory->getTypeByObject($model);
+
+        $result = $this->restHandler->run($request->request->all(), $type, $subject, RestService::HTTP_DELETE);
+        $view = View::create($result)->setFormat('json');
+
+        return $this->viewHandler->handle($view, $request);
+    }
+
+    /**
+     * Get available Workflows for a document
+     *
+     * @param Request $request
+     * @param $subject
+     * @return Response
+     */
+    public function workflowsAction(Request $request, $subject)
+    {
+        $this->performSecurityChecks();
+
+        $result = $this->restHandler->getWorkflows($subject);
+        $view = View::create($result)->setFormat('json');
+
+        return $this->viewHandler->handle($view, $request);
+    }
+
+    /**
+     * Check if the action can be performed
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    protected function performSecurityChecks()
+    {
+        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
+            throw new AccessDeniedException();
+        }
+    }
 }

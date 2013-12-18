@@ -7,12 +7,18 @@
     <parameters>
         <parameter key="cmf_create.persistence.phpcr.manager_name">null</parameter>
         <parameter key="cmf_create.persistence.phpcr.odm_mapper.class">Midgard\CreatePHP\Mapper\DoctrinePhpcrOdmMapper</parameter>
+        <parameter key="cmf_create.persistence.phpcr.delete_workflow.class">Symfony\Cmf\Bundle\CreateBundle\Workflow\DoctrinePhpcrDeleteWorkflow</parameter>
     </parameters>
 
     <services>
 
         <service id="cmf_create.persistence.phpcr.object_mapper" class="%cmf_create.persistence.phpcr.odm_mapper.class%" public="false">
             <argument>%cmf_create.map%</argument>
+            <argument type="service" id="doctrine_phpcr"/>
+            <argument>%cmf_create.persistence.phpcr.manager_name%</argument>
+        </service>
+
+        <service id="cmf_create.persistence.phpcr.delete_workflow" class="%cmf_create.persistence.phpcr.delete_workflow.class%" public="false">
             <argument type="service" id="doctrine_phpcr"/>
             <argument>%cmf_create.persistence.phpcr.manager_name%</argument>
         </service>

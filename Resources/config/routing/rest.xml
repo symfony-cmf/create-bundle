@@ -17,10 +17,25 @@
         <requirement key="_method">POST</requirement>
     </route>
 
+    <route id="cmf_create_delete_document" pattern="/{_locale}/symfony-cmf/create/document/{subject}">
+        <default key="_controller">cmf_create.rest.controller:deleteDocumentAction</default>
+        <default key="_format">json</default>
+        <requirement key="subject">.+</requirement>
+        <requirement key="_method">DELETE</requirement>
+    </route>
+
+    <route id="cmf_create_workflows" pattern="/{_locale}/symfony-cmf/create/workflows/{subject}">
+        <default key="_controller">cmf_create.rest.controller:workflowsAction</default>
+        <default key="_format">json</default>
+        <requirement key="subject">.+</requirement>
+        <requirement key="_method">GET</requirement>
+    </route>
+
     <!--
-      a variant of above route that would not work but can be used to concatenate actual routes in javascript
+      a variant of above routes that would not work but can be used to concatenate actual routes in javascript
       this route should never be used from the outside, only to be used inside "includejsfiles-create.html.twig
     -->
     <route id="cmf_create_put_document_base" pattern="/{_locale}/symfony-cmf/create/document" />
+    <route id="cmf_create_workflows_base" pattern="/{_locale}/symfony-cmf/create/workflows" />
 
 </routes>

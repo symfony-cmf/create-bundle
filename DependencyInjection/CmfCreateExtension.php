@@ -12,6 +12,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection;
 
+use Midgard\CreatePHP\RestService;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
@@ -120,6 +121,11 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias() . '.persistence.phpcr.image_basepath', $config['image']['basepath']);
         } else {
             $container->setParameter($this->getAlias() . '.image_enabled', false);
+        }
+
+        if ($config['delete']) {
+            $restHandler = $container->getDefinition('cmf_create.rest.handler');
+            $restHandler->addMethodCall('setWorkflow', array(RestService::HTTP_DELETE, new Reference('cmf_create.persistence.phpcr.delete_workflow')));
         }
     }
 
