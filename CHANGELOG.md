@@ -1,6 +1,13 @@
 Changelog
 =========
 
+* **2013-12-26**: 1.0 allowed everybody to edit content if there was no
+  firewall configured on a route. This version is more secure, preventing
+  editing if there is no firewall configured. If you want to allow everybody
+  to edit content, set `cmf_create.role: false`.
+  If you use this together with the MediaBundle, be sure to use at least 1.1.0
+  of MediaBundle or image upload will no longer be allowed.
+
 1.0.0-RC2
 ---------
 

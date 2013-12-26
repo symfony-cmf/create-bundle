@@ -15,30 +15,37 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\Controller\FileController;
 use Symfony\Cmf\Bundle\MediaBundle\File\UploadFileHelperInterface;
 use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class ImageController extends FileController
 {
+    /**
+     * @var ViewHandlerInterface
+     */
     protected $viewHandler;
+
+    /**
+     * @var AccessCheckerInterface
+     */
+    protected $accessChecker;
 
     /**
      * @param ManagerRegistry           $registry
      * @param string                    $managerName
-     * @param string                    $class            fully qualified class
-     *      name of file
-     * @param string                    $rootPath         path where the
-     *      filesystem is located
+     * @param string                    $class            FQN of image class
+     * @param string                    $rootPath         Repository path where the
+     *      images are located
      * @param MediaManagerInterface     $mediaManager
      * @param UploadFileHelperInterface $uploadFileHelper
      * @param ViewHandlerInterface      $viewHandler
-     * @param string                    $requiredRole     the role name for the
-     *      security check
-     * @param SecurityContextInterface  $securityContext
+     * @param AccessCheckerInterface    $accessChecker
      */
     public function __construct(
         ManagerRegistry $registry,
@@ -48,11 +55,8 @@ class ImageController extends FileController
         MediaManagerInterface $mediaManager,
         UploadFileHelperInterface $uploadFileHelper,
         ViewHandlerInterface $viewHandler,
-        $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
-        SecurityContextInterface $securityContext = null
+        AccessCheckerInterface $accessChecker
     ) {
-        $this->viewHandler      = $viewHandler;
-
         if (!is_subclass_of($class, 'Symfony\Cmf\Bundle\MediaBundle\ImageInterface')) {
             throw new \InvalidArgumentException(sprintf(
                 'The class "%s" does not implement Symfony\Cmf\Bundle\MediaBundle\ImageInterface',
@@ -60,8 +64,15 @@ class ImageController extends FileController
             ));
         }
 
+        // initialize parent. the security parameters should not be used as we overwrite
+        // the checkSecurityUpload method
         parent::__construct($registry, $managerName, $class, $rootPath,
-            $mediaManager, $uploadFileHelper, $requiredRole, $securityContext);
+            $mediaManager, $uploadFileHelper, 'THISSHOULDNEVERGETUSED', null
+        );
+
+        $this->viewHandler = $viewHandler;
+        $this->accessChecker = $accessChecker;
+
     }
 
     private function processResults($images, $offset)
@@ -126,5 +137,12 @@ class ImageController extends FileController
 
         $view = View::create($data);
         return $this->viewHandler->handle($view);
+    }
+
+    protected function checkSecurityUpload(Request $request)
+    {
+        if (!$this->accessChecker->check($request)) {
+            throw new AccessDeniedException();
+        }
     }
 }

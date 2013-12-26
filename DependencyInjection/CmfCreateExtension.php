@@ -45,8 +45,6 @@ class CmfCreateExtension extends Extension
 
         $container->setParameter($this->getAlias().'.stanbol_url', $config['stanbol_url']);
 
-        $container->setParameter($this->getAlias().'.role', $config['role']);
-
         $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
 
         $container->setParameter($this->getAlias().'.editor_base_path', $config['editor_base_path']);
@@ -72,6 +70,8 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
         }
 
+        $this->loadSecurity($config['security'], $loader, $container);
+
         $hasMapper = false;
         if ($config['persistence']['phpcr']['enabled']) {
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
@@ -87,6 +87,19 @@ class CmfCreateExtension extends Extension
         if (!$hasMapper) {
             throw new InvalidConfigurationException('You need to either enable one of the persistence layers or set the cmf_create.object_mapper_service_id option');
         }
+    }
+
+    protected function loadSecurity($config, XmlFileLoader $loader, ContainerBuilder $container)
+    {
+        $container->setParameter($this->getAlias().'.security.role', $config['role']);
+        if (isset($config['checker_service'])) {
+            $service = $config['checker_service'];
+        } elseif (false === $config['role']) {
+            $service = 'cmf_create.security.always_allow_checker';
+        } else {
+            $service = 'cmf_create.security.role_access_checker';
+        }
+        $container->setAlias($this->getAlias() . '.security.checker', $service);
     }
 
     public function loadPhpcr($config, XmlFileLoader $loader, ContainerBuilder $container)

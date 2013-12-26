@@ -12,42 +12,30 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
-    Symfony\Component\Security\Core\Exception\AccessDeniedException,
-    Symfony\Component\Security\Core\SecurityContextInterface,
-    Symfony\Component\HttpFoundation\Response;
+use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\HttpFoundation\Response;
 
-use FOS\RestBundle\View\ViewHandlerInterface,
-    FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use FOS\RestBundle\View\View;
 
-use Midgard\CreatePHP\Metadata\RdfTypeFactory,
-    Midgard\CreatePHP\RestService,
-    Midgard\CreatePHP\RdfMapperInterface,
-    Midgard\CreatePHP\Helper\NamespaceHelper;
+use Midgard\CreatePHP\Metadata\RdfTypeFactory;
+use Midgard\CreatePHP\RestService;
+use Midgard\CreatePHP\RdfMapperInterface;
+use Midgard\CreatePHP\Helper\NamespaceHelper;
 
 /**
  * Controller to handle content update callbacks.
- *
- * The security context is optional to not fail with an exception if the
- * controller is loaded in a context without a firewall.
  */
 class RestController
 {
     /**
-     * @var SecurityContextInterface
-     */
-    protected $securityContext;
-
-    /**
      * @var ViewHandlerInterface
      */
     protected $viewHandler;
-
-    /**
-     * @var string the role name for the security check
-     */
-    protected $requiredRole;
 
     /**
      * @var RdfMapperInterface
@@ -55,35 +43,39 @@ class RestController
     protected $rdfMapper;
 
     /**
-     * @var string
+     * @var RdfTypeFactory
      */
-    protected $name;
+    protected $typeFactory;
 
     /**
-     * @param ViewHandlerInterface          $viewHandler
-     * @param RdfMapperInterface            $rdfMapper
-     * @param RdfTypeFactory                $typeFactory
-     * @param RestService                   $restHandler
-     * @param string|boolean                $requiredRole The role to check
-     *      with the securityContext (if you pass one), defaults to everybody.
-     *      No security check if false.
-     * @param SecurityContextInterface|null $securityContext The security
-     *      context to use to check for the role.
+     * @var RestService
+     */
+    protected $restHandler;
+
+    /**
+     * @var AccessCheckerInterface
+     */
+    protected $accessChecker;
+
+    /**
+     * @param ViewHandlerInterface   $viewHandler
+     * @param RdfMapperInterface     $rdfMapper
+     * @param RdfTypeFactory         $typeFactory
+     * @param RestService            $restHandler
+     * @param AccessCheckerInterface $accessChecker
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         RdfMapperInterface $rdfMapper,
         RdfTypeFactory $typeFactory,
         RestService $restHandler,
-        $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
-        SecurityContextInterface $securityContext = null
+        AccessCheckerInterface $accessChecker
     ) {
         $this->viewHandler = $viewHandler;
         $this->rdfMapper = $rdfMapper;
         $this->typeFactory = $typeFactory;
         $this->restHandler = $restHandler;
-        $this->requiredRole = $requiredRole;
-        $this->securityContext = $securityContext;
+        $this->accessChecker = $accessChecker;
     }
 
     protected function getModelBySubject(Request $request, $subject)
@@ -106,7 +98,9 @@ class RestController
      */
     public function putDocumentAction(Request $request, $subject)
     {
-        $this->performSecurityChecks();
+        if (!$this->accessChecker->check($request)) {
+            throw new AccessDeniedException();
+        }
 
         $model = $this->getModelBySubject($request, $subject);
         $type = $this->typeFactory->getTypeByObject($model);
@@ -126,7 +120,9 @@ class RestController
      */
     public function postDocumentAction(Request $request)
     {
-        $this->performSecurityChecks();
+        if (!$this->accessChecker->check($request)) {
+            throw new AccessDeniedException();
+        }
 
         $rdfType = trim($request->request->get('@type'), '<>');
         $type = $this->typeFactory->getTypeByRdf($rdfType);
@@ -139,27 +135,5 @@ class RestController
         }
 
         return Response::create('The document could not be created', 500);
-    }
-
-    /**
-     * Actions may be performed if the requiredRole is set to false (completely
-     * disable security check) or if there is a securityContext and it grants
-     * the required role.
-     *
-     * @throws AccessDeniedException If the current user is not allowed to edit
-     */
-    protected function performSecurityChecks()
-    {
-        if (false === $this->requiredRole) {
-            // security check is disabled
-            return;
-        }
-
-        if (!$this->securityContext
-            || !$this->securityContext->getToken()
-            || !$this->securityContext->isGranted($this->requiredRole)
-        ) {
-            throw new AccessDeniedException();
-        }
     }
 }
