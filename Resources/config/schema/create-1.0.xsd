@@ -10,15 +10,17 @@
     <xsd:complexType name="config">
         <xsd:sequence>
             <xsd:element name="map" type="name" minOccurs="0" />
+            <xsd:element name="security" type="security" minOccurs="0"/>
             <xsd:element name="plain-text-type" type="name" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="rdf-config-dir" type="rdf_config_dir" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="persistence" type="persistence" minOccurs="0" />
         </xsd:sequence>
         <xsd:attribute name="rest-controller-class" type="xsd:string" />
-        <xsd:attribute name="role" type="xsd:string" />
+        <xsd:attribute name="stanbol-url" type="xsd:string" />
         <xsd:attribute name="fixed-toolbar" type="xsd:string" />
         <xsd:attribute name="editor-base-path" type="xsd:string" />
-        <xsd:attribute name="auto-mapping" type="xsd:string" />
+        <xsd:attribute name="auto-mapping" type="xsd:boolean" />
+        <xsd:attribute name="object-mapper-service-id" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="name">
@@ -27,6 +29,11 @@
                 <xsd:attribute name="name" type="xsd:string" />
             </xsd:extension>
         </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="security">
+        <xsd:attribute name="checker-service" type="xsd:string"/>
+        <xsd:attribute name="role" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="rdf_config_dir">

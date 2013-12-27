@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('stanbol_url')->defaultValue('http://dev.iks-project.eu:8081')->end()
-                ->scalarNode('fixed_toolbar')->defaultTrue()->end()
+                ->booleanNode('fixed_toolbar')->defaultTrue()->end()
                 ->scalarNode('editor_base_path')->defaultValue('/bundles/cmfcreate/vendor/ckeditor/')->end()
                 ->arrayNode('plain_text_types')
                     ->useAttributeAsKey('name')
@@ -57,7 +57,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('dir')
                     ->prototype('scalar')->end()
                 ->end()
-                ->scalarNode('auto_mapping')->defaultTrue()->end()
+                ->booleanNode('auto_mapping')->defaultTrue()->end()
                 ->scalarNode('object_mapper_service_id')->defaultNull()->end()
 
                 ->arrayNode('persistence')
