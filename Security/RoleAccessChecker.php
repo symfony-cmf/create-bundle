@@ -4,6 +4,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * An access check for the create bundle controllers that can decide whether
@@ -25,6 +26,11 @@ class RoleAccessChecker implements AccessCheckerInterface
     protected $requiredRole;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param string                        $requiredRole The role to check
      *      with the securityContext.
      * @param SecurityContextInterface|null $securityContext The security
@@ -33,10 +39,12 @@ class RoleAccessChecker implements AccessCheckerInterface
      */
     public function __construct(
         $requiredRole,
-        SecurityContextInterface $securityContext = null
+        SecurityContextInterface $securityContext = null,
+        LoggerInterface $logger = null
     ) {
         $this->requiredRole = $requiredRole;
         $this->securityContext = $securityContext;
+        $this->logger = $logger;
     }
 
     /**
@@ -53,6 +61,9 @@ class RoleAccessChecker implements AccessCheckerInterface
                 && $this->securityContext->isGranted($this->requiredRole)
             ;
         } catch(\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error($e);
+            }
             // ignore and return false
         }
 

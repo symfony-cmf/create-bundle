@@ -54,10 +54,10 @@
         <service id="cmf_create.security.role_access_checker" class="%cmf_create.security.role_access_checker.class%">
             <argument>%cmf_create.security.role%</argument>
             <argument type="service" id="security.context" on-invalid="ignore"/>
+            <argument type="service" id="logger"/>
         </service>
 
-        <service id="cmf_create.security.always_allow_checker" class="%cmf_create.security.always_allow_checker.class%">
-        </service>
+        <service id="cmf_create.security.always_allow_checker" class="%cmf_create.security.always_allow_checker.class%"/>
 
         <service id="cmf_create.rest.handler" class="%cmf_create.rest.handler_class%" public="true">
             <argument type="service" id="cmf_create.object_mapper"/>
