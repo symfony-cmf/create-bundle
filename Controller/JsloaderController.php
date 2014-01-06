@@ -14,30 +14,31 @@ namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
+use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\File\BrowserFileHelper;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * This controller includes the correct twig file to bootstrap the javascript
- * files of create.js and its dependencies.
+ * files of create.js and its dependencies if the current user has the rights
+ * to use create.js.
+ *
+ * The security context is optional to not fail with an exception if the
+ * controller is loaded in a context without a firewall.
  */
 class JsloaderController
 {
-    /**
-     * @var SecurityContextInterface
-     */
-    protected $securityContext;
-
     /**
      * @var ViewHandlerInterface
      */
     protected $viewHandler;
 
     /**
-     * @var string the role name for the security check
+     * @var AccessCheckerInterface
      */
-    protected $requiredRole;
+    protected $accessChecker;
 
     /**
      * @var string
@@ -73,60 +74,64 @@ class JsloaderController
     /**
      * Create the Controller
      *
-     * @param ViewHandlerInterface $viewHandler view handler
-     * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
-     * @param Boolean $imageUploadEnabled used to determine whether image upload should be activated
-     * @param Boolean $fixedToolbar whether the hallo toolbar is fixed or floating
-     * @param array $plainTextTypes RDFa types to edit in raw text only
-     * @param string $requiredRole
-     * @param SecurityContextInterface $securityContext
+     * @param ViewHandlerInterface     $viewHandler
+     * @param AccessCheckerInterface   $accessChecker
+     * @param string                   $stanbolUrl         the url to use for
+     *      the semantic enhancer stanbol.
+     * @param Boolean                  $imageUploadEnabled used to determine
+     *      whether image upload should be activated.
+     * @param Boolean                  $fixedToolbar       whether the toolbar
+     *      is fixed or floating. Hallo editor specific.
+     * @param array                    $plainTextTypes     RDFa types to edit
+     *      in raw text only.
+     * @param string|boolean           $requiredRole       Role a user needs to
+     *      be granted in order to see the the editor. If set to false, the
+     *      editor is always loaded.
+     * @param SecurityContextInterface $securityContext    The security
+     *      context to use to check for the role.
+     * @param string                   $editorBasePath     Configuration for
+     *      ckeditor.
+     * @param BrowserFileHelper        $browserFileHelper  Used to determine
+     *      image editing for ckeditor.
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        $stanbolUrl,
+        AccessCheckerInterface $accessChecker,
+        $stanbolUrl = false,
         $imageUploadEnabled = false,
         $fixedToolbar = true,
         $plainTextTypes = array(),
-        $requiredRole = "IS_AUTHENTICATED_ANONYMOUSLY",
-        SecurityContextInterface $securityContext = null,
         $editorBasePath = null,
         BrowserFileHelper $browserFileHelper = null
     ) {
         $this->viewHandler        = $viewHandler;
+        $this->accessChecker      = $accessChecker;
         $this->stanbolUrl         = $stanbolUrl;
         $this->imageUploadEnabled = $imageUploadEnabled;
         $this->fixedToolbar       = $fixedToolbar;
         $this->plainTextTypes     = $plainTextTypes;
         $this->editorBasePath     = $editorBasePath;
-        $this->requiredRole       = $requiredRole;
-        $this->securityContext    = $securityContext;
         $this->browserFileHelper  = $browserFileHelper;
     }
 
     /**
-     * Render js inclusion for create.js and dependencies and bootstrap code.
+     * Render javascript HTML tags for create.js and dependencies and bootstrap
+     * javscript code.
      *
-     * The hallo editor is bundled with create.js and available automatically.
+     * This bundle comes with templates for ckeditor, hallo and to develop on
+     * the hallo coffeescript files.
      *
-     * When using hallo, the controller can include the compiled js files from
-     * hallo's examples folder or use the assetic coffee filter.
-     * When developing hallo, make sure to use the coffee filter (pass 'hallo-coffee' as
-     * editor).
-     *
-     * To use another editor simply create a template following the naming below:
+     * To use a different editor simply create a template following the naming
+     * below:
      *   CmfCreateBundle::includejsfiles-%editor%.html.twig
-     * and pass the appropriate parameter.
+     * and pass the appropriate editor name.
      *
-     * @param string $editor the name of the editor to load, currently only
-     *      hallo and hallo-coffee are supported
+     * @param Request $request The request object for the AccessChecker.
+     * @param string  $editor  the name of the editor to load.
      */
-    public function includeJSFilesAction($editor = 'ckeditor')
+    public function includeJSFilesAction(Request $request, $editor = 'ckeditor')
     {
-        if ($this->securityContext
-            && (null === $this->securityContext->getToken()
-                || false === $this->securityContext->isGranted($this->requiredRole)
-               )
-        ) {
+        if (!$this->accessChecker->check($request)) {
             return new Response('');
         }
 
