@@ -51,4 +51,15 @@ jQuery(document).ready(function() {
         toolbarState: cmfCreateHalloFixedToolbar,
         parentElement: cmfCreateHalloParentElement
     });
+    
+    
+    jQuery('body').bind('halloenabled', null, function () {
+        $('.create-ui-toolbar-wrapper')
+            .addClass('editing');
+    });
+
+    jQuery('body').bind('hallodisabled', null, function () {
+        $('.create-ui-toolbar-wrapper')
+            .removeClass('editing');
+    });
 });

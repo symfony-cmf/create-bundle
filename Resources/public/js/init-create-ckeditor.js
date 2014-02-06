@@ -25,6 +25,17 @@ jQuery(document).ready(function() {
         collectionWidgets: {
             'default': null,
             'feature': 'midgardCollectionAdd'
+        },
+        statechange: function (event, params) {
+            if (params.hasOwnProperty('state') && params.state === 'edit') {
+                $('.create-ui-toolbar-wrapper')
+                    .addClass('editing');
+            }
+
+            if (params.hasOwnProperty('state') && params.state === 'browse') {
+                $('.create-ui-toolbar-wrapper')
+                    .removeClass('editing');
+            }
         }
     });
 

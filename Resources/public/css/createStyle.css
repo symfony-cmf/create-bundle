@@ -22,3 +22,9 @@ a.create-ui-toggle {
     cursor: auto;
     outline: 3px solid black;
 }
+
+/* Create ui toolbar while editing */
+/***********************************/
+.create-ui-toolbar-wrapper.editing {
+    background: rgba(160, 216, 56, 0.8);
+}
