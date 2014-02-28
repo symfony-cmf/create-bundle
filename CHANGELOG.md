@@ -1,8 +1,12 @@
 Changelog
 =========
 
-* **2014-02-28**: Updated the create commit for the create directory
-  bergie/create.git to the latest (a148ce9633535930d7b4b70cc1088102f5c5eb90)
+* **2014-02-28**: Updated the default create.js version to be installed by the
+  script handler to version a148ce9633535930d7b4b70cc1088102f5c5eb90 (2013-12-08)
+  The path to the vie.js file is now fixed and no longer `view/vie.js`.
+
+1.0.1
+-----
 
 * **2013-12-26**: 1.0 allowed everybody to edit content if there was no
   firewall configured on a route. This version is more secure, preventing
