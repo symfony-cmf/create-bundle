@@ -9,6 +9,11 @@ jQuery(document).ready(function() {
             }
             return cmfCreatePutDocument;
         },
+        workflows: {
+            url: function(model) {
+                return cmfCreateWorkflows + model.getSubjectUri();
+            }
+        },
         stanbolUrl: cmfCreateStanbolUrl,
         tags: true
     });

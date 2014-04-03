@@ -20,7 +20,7 @@
         "symfony/assetic-bundle": "~2.1",
         "friendsofsymfony/rest-bundle": "~1.0",
         "jms/serializer-bundle": ">=0.12,<0.14",
-        "midgard/createphp": "0.9.*"
+        "midgard/createphp": "1.0.*"
     },
     "require-dev": {
         "symfony-cmf/testing": "1.1.*"
