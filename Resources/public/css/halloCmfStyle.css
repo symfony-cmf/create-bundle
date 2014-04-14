@@ -90,11 +90,6 @@ body > .hallotoolbar {
 }
 
 /* Drag n Drop */
-/* TODO: get rid of this when https://github.com/bergie/hallo/pull/36 is merged */
-[contenteditable] .tmp {
-    opacity: 0.3
-}
-
 [contenteditable] .tmpLine{
     background-color: #ffffff;
     width: 98%;
