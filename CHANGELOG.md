@@ -1,6 +1,15 @@
 Changelog
 =========
 
+
+1.1.0-RC3
+---------
+
+* **2014-04-27**: Security was refactored to work consistently and reliably.
+  The RestController::performSecurityChecks method was removed and replaced
+  with the AccessCheckerInterface service. The configuration did not need to
+  be changed.
+
 1.1.0-RC2
 ---------
 
