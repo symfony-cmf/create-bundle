@@ -146,7 +146,9 @@ class RestController
      */
     public function deleteDocumentAction(Request $request, $subject)
     {
-        $this->performSecurityChecks();
+        if (!$this->accessChecker->check($request)) {
+            throw new AccessDeniedException();
+        }
 
         $model = $this->getModelBySubject($request, $subject);
         $type = $this->typeFactory->getTypeByObject($model);
@@ -166,7 +168,9 @@ class RestController
      */
     public function workflowsAction(Request $request, $subject)
     {
-        $this->performSecurityChecks();
+        if (!$this->accessChecker->check($request)) {
+            throw new AccessDeniedException();
+        }
 
         $result = $this->restHandler->getWorkflows($subject);
         $view = View::create($result)->setFormat('json');
@@ -177,6 +181,7 @@ class RestController
     /**
      * Check if the action can be performed
      *
+     * @deprecated keep it to preserve BC
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     protected function performSecurityChecks()
