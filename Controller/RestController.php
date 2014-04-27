@@ -16,7 +16,6 @@ use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -25,7 +24,6 @@ use FOS\RestBundle\View\View;
 use Midgard\CreatePHP\Metadata\RdfTypeFactory;
 use Midgard\CreatePHP\RestService;
 use Midgard\CreatePHP\RdfMapperInterface;
-use Midgard\CreatePHP\Helper\NamespaceHelper;
 
 /**
  * Controller to handle content update callbacks.
@@ -179,15 +177,16 @@ class RestController
     }
 
     /**
-     * Check if the action can be performed
+     * DEPRECATED: Check if the action can be performed.
      *
-     * @deprecated keep it to preserve BC
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @deprecated use $this->accessChecker->check instead. This method always
+     *             denies access.
+     *
+     * @throws AccessDeniedException Always denies access.
      */
     protected function performSecurityChecks()
     {
-        if ($this->securityContext && false === $this->securityContext->isGranted($this->requiredRole)) {
-            throw new AccessDeniedException();
-        }
+        throw new AccessDeniedException();
     }
+
 }
