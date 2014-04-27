@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * An access check for the create bundle controllers that can decide whether
@@ -26,7 +24,7 @@ interface AccessCheckerInterface
      * exception.
      *
      * @param Request $request The request in question, to take into account if
-     *      needed.
+     *                         needed.
      *
      * @return boolean true if access is granted, false otherwise
      */

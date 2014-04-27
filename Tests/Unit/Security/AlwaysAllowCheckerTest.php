@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Tests\Unit\Security;
 
 use Symfony\Cmf\Bundle\CreateBundle\Security\AlwaysAllowChecker;

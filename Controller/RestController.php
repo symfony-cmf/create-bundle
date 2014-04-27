@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
@@ -92,7 +91,10 @@ class RestController
      * @param Request $request
      * @param string  $subject URL of the subject, ie: cms/simple/news/news-name
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     *
+     * @throws AccessDeniedException If the action is not allowed by the access
+     *                               checker.
      */
     public function putDocumentAction(Request $request, $subject)
     {
@@ -115,6 +117,9 @@ class RestController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws AccessDeniedException If the action is not allowed by the access
+     *                               checker.
      */
     public function postDocumentAction(Request $request)
     {
@@ -129,6 +134,7 @@ class RestController
 
         if (!is_null($result)) {
             $view = View::create($result)->setFormat('json');
+
             return $this->viewHandler->handle($view, $request);
         }
 
@@ -136,11 +142,15 @@ class RestController
     }
 
     /**
-     * Handle document delete
+     * Handle document deletion.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $subject URL of the subject, ie: cms/simple/news/news-name
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param string  $subject URL of the subject, ie: cms/simple/news/news-name
+     *
+     * @return Response
+     *
+     * @throws AccessDeniedException If the action is not allowed by the access
+     *                               checker.
      */
     public function deleteDocumentAction(Request $request, $subject)
     {
@@ -158,11 +168,15 @@ class RestController
     }
 
     /**
-     * Get available Workflows for a document
+     * Get available Workflows for a document.
      *
      * @param Request $request
-     * @param $subject
+     * @param string  $subject
+     *
      * @return Response
+     *
+     * @throws AccessDeniedException If getting workflows for this document is
+     *                               not allowed by the access checker.
      */
     public function workflowsAction(Request $request, $subject)
     {

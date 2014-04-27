@@ -9,12 +9,9 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Composer;
 
-use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\PhpExecutableFinder;
 
 /**
  * A hack to work around the missing support for js assets in composer
@@ -95,9 +92,9 @@ class ScriptHandler
 
     /**
      * @throws \RuntimeException
-     * @param string $directory  The directory where the repository should be clone into
-     * @param string $repository The git repository
-     * @param string $commitId   The commit id
+     * @param  string            $directory  The directory where the repository should be clone into
+     * @param  string            $repository The git repository
+     * @param  string            $commitId   The commit id
      */
     public static function gitSynchronize($directory, $repository, $commitId)
     {

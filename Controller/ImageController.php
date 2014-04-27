@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -22,7 +21,6 @@ use Symfony\Cmf\Bundle\MediaBundle\MediaManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class ImageController extends FileController
 {
@@ -41,7 +39,7 @@ class ImageController extends FileController
      * @param string                    $managerName
      * @param string                    $class            FQN of image class
      * @param string                    $rootPath         Repository path where the
-     *      images are located
+     *                                                    images are located
      * @param MediaManagerInterface     $mediaManager
      * @param UploadFileHelperInterface $uploadFileHelper
      * @param ViewHandlerInterface      $viewHandler
@@ -84,6 +82,7 @@ class ImageController extends FileController
         );
 
         $view = View::create($data);
+
         return $this->viewHandler->handle($view);
     }
 
@@ -95,8 +94,8 @@ class ImageController extends FileController
      */
     public function searchAction(Request $request)
     {
-        $offset = (int)$request->query->get('offset', 0);
-        $limit = (int)$request->query->get('limit', 8);
+        $offset = (int) $request->query->get('offset', 0);
+        $limit = (int) $request->query->get('limit', 8);
         $query = $request->query->get('query');
         $images = $this->getImagesByCaption($query, $offset, $limit);
 
@@ -107,8 +106,8 @@ class ImageController extends FileController
      * Get images by a specified caption
      *
      * @param string $name
-     * @param int $offset
-     * @param int $limit
+     * @param int    $offset
+     * @param int    $limit
      *
      * @return array
      */
@@ -136,6 +135,7 @@ class ImageController extends FileController
         );
 
         $view = View::create($data);
+
         return $this->viewHandler->handle($view);
     }
 

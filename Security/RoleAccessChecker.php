@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -41,11 +40,14 @@ class RoleAccessChecker implements AccessCheckerInterface
     protected $logger;
 
     /**
-     * @param string                        $requiredRole The role to check
-     *      with the securityContext.
-     * @param SecurityContextInterface|null $securityContext The security
-     *      context to use to check for the role. If this is null, the security
-     *      check will always return false.
+     * @param string                        $requiredRole    The role to check with the security
+     *                                                       context.
+     * @param SecurityContextInterface|null $securityContext Context to get the current user from
+     *                                                       and check if he has the required role.
+     *                                                       If it is null, the security check will
+     *                                                       always return false.
+     * @param LoggerInterface               $logger          The logger to log exceptions from the
+     *                                                       security context.
      */
     public function __construct(
         $requiredRole,
@@ -70,9 +72,9 @@ class RoleAccessChecker implements AccessCheckerInterface
                 && $this->securityContext->getToken()
                 && $this->securityContext->isGranted($this->requiredRole)
             ;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             if ($this->logger) {
-                $this->logger->error($e);
+                $this->logger->error($e, array('exception' => $e));
             }
             // ignore and return false
         }

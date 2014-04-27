@@ -2,7 +2,6 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Workflow;
 
-
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Midgard\CreatePHP\WorkflowInterface;
@@ -12,12 +11,13 @@ use Midgard\CreatePHP\WorkflowInterface;
  *
  * Implement direct deletion of an object.
  *
- * @package Symfony\Cmf\Bundle\CreateBundle\Workflow
  * @author Uwe Jäger <uwej711@googlemail.com>
  */
 class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
 {
-    /** @var ObjectManager */
+    /**
+     * @var ObjectManager
+     */
     protected $om;
 
     public function __construct(ManagerRegistry $registry, $name = null)
@@ -32,7 +32,9 @@ class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
      * @see http://createjs.org/guide/#workflows
      *
      * @param mixed $object
-     * @return array|null array to return for this workflow, or null if workflow is not allowed
+     *
+     * @return array|null Array to return for this workflow, or null if
+     *                    workflow is not allowed.
      */
     public function getToolbarConfig($object)
     {
@@ -50,7 +52,7 @@ class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
      * Execute this workflow
      *
      * The object will only be set if there is a subject parameter in $_GET
-     * that can be found by the mapper tied to the RestService
+     * that can be found by the mapper tied to the RestService.
      *
      * @param mixed $object
      *

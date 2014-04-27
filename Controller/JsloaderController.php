@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
@@ -70,29 +69,28 @@ class JsloaderController
      */
     private $browserFileHelper;
 
-
     /**
      * Create the Controller
      *
      * @param ViewHandlerInterface     $viewHandler
      * @param AccessCheckerInterface   $accessChecker
      * @param string                   $stanbolUrl         the url to use for
-     *      the semantic enhancer stanbol.
+     *                                                     the semantic enhancer stanbol.
      * @param Boolean                  $imageUploadEnabled used to determine
-     *      whether image upload should be activated.
+     *                                                     whether image upload should be activated.
      * @param Boolean                  $fixedToolbar       whether the toolbar
-     *      is fixed or floating. Hallo editor specific.
+     *                                                     is fixed or floating. Hallo editor specific.
      * @param array                    $plainTextTypes     RDFa types to edit
-     *      in raw text only.
+     *                                                     in raw text only.
      * @param string|boolean           $requiredRole       Role a user needs to
-     *      be granted in order to see the the editor. If set to false, the
-     *      editor is always loaded.
+     *                                                     be granted in order to see the the editor. If set to false, the
+     *                                                     editor is always loaded.
      * @param SecurityContextInterface $securityContext    The security
-     *      context to use to check for the role.
+     *                                                     context to use to check for the role.
      * @param string                   $editorBasePath     Configuration for
-     *      ckeditor.
+     *                                                     ckeditor.
      * @param BrowserFileHelper        $browserFileHelper  Used to determine
-     *      image editing for ckeditor.
+     *                                                     image editing for ckeditor.
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
