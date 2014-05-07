@@ -10,7 +10,6 @@
         <parameter key="cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
         <parameter key="cmf_create.rest.handler_class">Midgard\CreatePHP\RestService</parameter>
         <parameter key="cmf_create.twig_extension.class">Midgard\CreatePHP\Extension\Twig\CreatephpExtension</parameter>
-        <parameter key="cmf_create.twig_extension.class">Midgard\CreatePHP\Extension\Twig\CreatephpExtension</parameter>
         <parameter key="cmf_create.rdf_driver.class">Midgard\CreatePHP\Metadata\RdfDriverXml</parameter>
         <parameter key="cmf_create.security.role_access_checker.class">Symfony\Cmf\Bundle\CreateBundle\Security\RoleAccessChecker</parameter>
         <parameter key="cmf_create.security.always_allow_checker.class">Symfony\Cmf\Bundle\CreateBundle\Security\AlwaysAllowChecker</parameter>
