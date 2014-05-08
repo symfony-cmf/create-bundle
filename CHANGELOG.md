@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.0
+-----
+
+Release 1.1.0
+
+* **2014-05-05**: Support symfony setups not running in the webserver root.
 
 1.1.0-RC3
 ---------
