@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('stanbol_url')->defaultValue('http://dev.iks-project.eu:8081')->end()
                 ->booleanNode('fixed_toolbar')->defaultTrue()->end()
-                ->scalarNode('editor_base_path')->defaultValue('bundles/cmfcreate/vendor/ckeditor/')->end()
+                ->scalarNode('editor_base_path')->defaultValue('/bundles/cmfcreate/vendor/ckeditor/')->end()
                 ->arrayNode('plain_text_types')
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
