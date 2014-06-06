@@ -29,9 +29,10 @@
         "symfony-cmf/media-bundle": "When using the default image support, 1.1.*"
     },
     "autoload": {
-        "psr-0": { "Symfony\\Cmf\\Bundle\\CreateBundle": "" }
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\": ""
+        }
     },
-    "target-dir": "Symfony/Cmf/Bundle/CreateBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.1-dev"
