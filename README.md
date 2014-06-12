@@ -1,6 +1,6 @@
 # Symfony CMF Create Bundle
 
-[![Build Status](https://secure.travis-ci.org/symfony-cmf/CreateBundle.png?branch=master)](http://travis-ci.org/symfony-cmf/CreateBundle)
+[![Build Status](https://secure.travis-ci.org/symfony-cmf/CreateBundle.png?branch=1.1)](http://travis-ci.org/symfony-cmf/CreateBundle)
 [![Latest Stable Version](https://poser.pugx.org/symfony-cmf/create-bundle/version.png)](https://packagist.org/packages/symfony-cmf/create-bundle)
 [![Total Downloads](https://poser.pugx.org/symfony-cmf/create-bundle/d/total.png)](https://packagist.org/packages/symfony-cmf/create-bundle)
 
