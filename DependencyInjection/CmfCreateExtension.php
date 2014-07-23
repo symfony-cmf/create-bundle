@@ -57,9 +57,18 @@ class CmfCreateExtension extends Extension
         if ($config['auto_mapping']) {
             foreach ($container->getParameter('kernel.bundles') as $class) {
                 $bundle = new \ReflectionClass($class);
-                $rdfMappingDir = dirname($bundle->getFilename()).'/Resources/rdf-mappings';
+                $classParts = explode('\\', $bundle->getName());
+                $bundleShortName = $classParts[count($classParts)-1];
+
+                $rdfMappingDir = $container->getParameter('kernel.root_dir').'/Resources/'.$bundleShortName.'/rdf-mappings';
                 if (file_exists($rdfMappingDir)) {
                     $config['rdf_config_dirs'][] = $rdfMappingDir;
+                }
+                else {
+                    $rdfMappingDir = dirname($bundle->getFilename()).'/Resources/rdf-mappings';
+                    if (file_exists($rdfMappingDir)) {
+                        $config['rdf_config_dirs'][] = $rdfMappingDir;
+                    }
                 }
             }
         }
