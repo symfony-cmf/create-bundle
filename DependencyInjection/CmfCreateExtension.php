@@ -64,11 +64,10 @@ class CmfCreateExtension extends Extension
                 if (file_exists($rdfMappingDir)) {
                     $config['rdf_config_dirs'][] = $rdfMappingDir;
                 }
-                else {
-                    $rdfMappingDir = dirname($bundle->getFilename()).'/Resources/rdf-mappings';
-                    if (file_exists($rdfMappingDir)) {
-                        $config['rdf_config_dirs'][] = $rdfMappingDir;
-                    }
+
+                $rdfMappingDir = dirname($bundle->getFilename()).'/Resources/rdf-mappings';
+                if (file_exists($rdfMappingDir)) {
+                    $config['rdf_config_dirs'][] = $rdfMappingDir;
                 }
             }
         }
