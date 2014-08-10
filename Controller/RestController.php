@@ -86,17 +86,24 @@ class RestController
     }
 
     /**
-     * Handle document PUT (update)
+     * Handle arbitrary methods with the RestHandler.
+     *
+     * Except for the PUT operation to update a document, operations are
+     * registered as workflows.
      *
      * @param Request $request
-     * @param string  $subject URL of the subject, ie: cms/simple/news/news-name
+     * @param string  $subject URL of the subject, ie: /cms/simple/news/news-name
      *
      * @return Response
      *
      * @throws AccessDeniedException If the action is not allowed by the access
      *                               checker.
+     *
+     * @see RestService::run
+     *
+     * @since 1.2
      */
-    public function putDocumentAction(Request $request, $subject)
+    public function updateDocumentAction(Request $request, $subject)
     {
         if (!$this->accessChecker->check($request)) {
             throw new AccessDeniedException();
@@ -105,7 +112,7 @@ class RestController
         $model = $this->getModelBySubject($request, $subject);
         $type = $this->typeFactory->getTypeByObject($model);
 
-        $result = $this->restHandler->run($request->request->all(), $type, null, RestService::HTTP_PUT);
+        $result = $this->restHandler->run($request->request->all(), $type, null, strtolower($request->getMethod()));
         $view = View::create($result)->setFormat('json');
 
         return $this->viewHandler->handle($view, $request);
@@ -138,33 +145,23 @@ class RestController
             return $this->viewHandler->handle($view, $request);
         }
 
-        return Response::create('The document could not be created', 500);
+        return Response::create('The document was not created', 500);
     }
 
     /**
-     * Handle document deletion.
-     *
-     * @param Request $request
-     * @param string  $subject URL of the subject, ie: cms/simple/news/news-name
-     *
-     * @return Response
-     *
-     * @throws AccessDeniedException If the action is not allowed by the access
-     *                               checker.
+     * @deprecated Use updateDocumentAction
+     */
+    public function putDocumentAction(Request $request, $subject)
+    {
+        return self::updateDocumentAction($request, $subject);
+    }
+
+    /**
+     * @deprecated Use updateDocumentAction
      */
     public function deleteDocumentAction(Request $request, $subject)
     {
-        if (!$this->accessChecker->check($request)) {
-            throw new AccessDeniedException();
-        }
-
-        $model = $this->getModelBySubject($request, $subject);
-        $type = $this->typeFactory->getTypeByObject($model);
-
-        $result = $this->restHandler->run($request->request->all(), $type, $subject, RestService::HTTP_DELETE);
-        $view = View::create($result)->setFormat('json');
-
-        return $this->viewHandler->handle($view, $request);
+        return self::updateDocumentAction($request, $subject);
     }
 
     /**
