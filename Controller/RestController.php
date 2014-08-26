@@ -11,6 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -55,24 +56,32 @@ class RestController
     protected $accessChecker;
 
     /**
+     * @var boolean
+     */
+    protected $forceRequestLocale;
+
+    /**
      * @param ViewHandlerInterface   $viewHandler
      * @param RdfMapperInterface     $rdfMapper
      * @param RdfTypeFactory         $typeFactory
      * @param RestService            $restHandler
      * @param AccessCheckerInterface $accessChecker
+     * @param boolean                $forceRequestLocale
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         RdfMapperInterface $rdfMapper,
         RdfTypeFactory $typeFactory,
         RestService $restHandler,
-        AccessCheckerInterface $accessChecker
+        AccessCheckerInterface $accessChecker,
+        $forceRequestLocale
     ) {
         $this->viewHandler = $viewHandler;
         $this->rdfMapper = $rdfMapper;
         $this->typeFactory = $typeFactory;
         $this->restHandler = $restHandler;
         $this->accessChecker = $accessChecker;
+        $this->forceRequestLocale = $forceRequestLocale;
     }
 
     protected function getModelBySubject(Request $request, $subject)
@@ -80,6 +89,10 @@ class RestController
         $model = $this->rdfMapper->getBySubject($subject);
         if (empty($model)) {
             throw new NotFoundHttpException($subject.' not found');
+        }
+
+        if ($this->forceRequestLocale && $model instanceof TranslatableInterface) {
+            $model->setLocale($request->getLocale());
         }
 
         return $model;

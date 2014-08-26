@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
             ->fixXmlConfig('rdf_config_dir', 'rdf_config_dirs')
             ->children()
                 ->scalarNode('rest_controller_class')->defaultFalse()->end()
+                ->booleanNode('rest_force_request_locale')->defaultFalse()->end()
                 ->arrayNode('map')
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()

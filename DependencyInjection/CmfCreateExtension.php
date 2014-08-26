@@ -76,6 +76,14 @@ class CmfCreateExtension extends Extension
             $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
         }
 
+        if ($config['rest_force_request_locale']) {
+            $bundles = $container->getParameter('kernel.bundles');
+            if (!isset($bundles['CmfCoreBundle'])) {
+                throw new InvalidConfigurationException('You need to enable "CmfCoreBundle" when activating the "rest_force_request_locale" option');
+            }
+        }
+        $container->setParameter($this->getAlias().'.rest.force_request_locale', $config['rest_force_request_locale']);
+
         $this->loadSecurity($config['security'], $loader, $container);
 
         $hasMapper = false;
