@@ -48,6 +48,7 @@
             <argument type="service" id="cmf_create.rdf_type_factory"/>
             <argument type="service" id="cmf_create.rest.handler"/>
             <argument type="service" id="cmf_create.security.checker"/>
+            <argument>%cmf_create.rest.force_request_locale%</argument>
         </service>
 
         <service id="cmf_create.security.role_access_checker" class="%cmf_create.security.role_access_checker.class%">
