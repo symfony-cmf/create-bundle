@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="cmf_create_post_document" pattern="/symfony-cmf/create/document/{subject}">
+        <default key="_controller">cmf_create.rest.controller:postDocumentAction</default>
+        <default key="_format">json</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="cmf_create_put_document" pattern="/symfony-cmf/create/document/{subject}">
+        <default key="_controller">cmf_create.rest.controller:updateDocumentAction</default>
+        <default key="_format">json</default>
+        <requirement key="subject">.+</requirement>
+    </route>
+
+    <route id="cmf_create_workflows" pattern="/symfony-cmf/create/workflows/{subject}">
+        <default key="_controller">cmf_create.rest.controller:workflowsAction</default>
+        <default key="_format">json</default>
+        <requirement key="subject">.+</requirement>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <!--
+      a variant of above routes that would not work but can be used to concatenate actual routes in javascript
+      this route should never be used from the outside, only to be used inside "includejsfiles-create.html.twig
+    -->
+    <route id="cmf_create_put_document_base" pattern="/symfony-cmf/create/document" />
+    <route id="cmf_create_workflows_base" pattern="/symfony-cmf/create/workflows" />
+
+</routes>
