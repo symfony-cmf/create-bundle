@@ -125,7 +125,7 @@ class RestController
         $model = $this->getModelBySubject($request, $subject);
         $type = $this->typeFactory->getTypeByObject($model);
 
-        $result = $this->restHandler->run($request->request->all(), $type, null, strtolower($request->getMethod()));
+        $result = $this->restHandler->run($request->request->all(), $type, $subject, strtolower($request->getMethod()));
         $view = View::create($result)->setFormat('json');
 
         return $this->viewHandler->handle($view, $request);
