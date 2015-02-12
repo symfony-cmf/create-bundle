@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="cmf_create.persistence.orm.manager_name">null</parameter>
+        <parameter key="cmf_create.persistence.orm.orm_mapper.class">Midgard\CreatePHP\Mapper\DoctrineOrmMapper</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="cmf_create.persistence.orm.object_mapper" class="%cmf_create.persistence.orm.orm_mapper.class%" public="false">
+            <argument>%cmf_create.map%</argument>
+            <argument type="service" id="doctrine"/>
+            <argument>%cmf_create.persistence.orm.manager_name%</argument>
+            <tag name="cmf_create.mapper"/>
+        </service>
+
+    </services>
+</container>

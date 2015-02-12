@@ -13,6 +13,7 @@ namespace Symfony\Cmf\Bundle\CreateBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Cmf\Bundle\CreateBundle\DependencyInjection\Compiler\MapperPass;
 
 class CmfCreateBundle extends Bundle
 {
@@ -23,5 +24,7 @@ class CmfCreateBundle extends Bundle
         if ($container->hasExtension('jms_di_extra')) {
             $container->getExtension('jms_di_extra')->blackListControllerFile(__DIR__ . '/Controller/ImageController.php');
         }
+
+        $container->addCompilerPass(new MapperPass());
     }
 }
