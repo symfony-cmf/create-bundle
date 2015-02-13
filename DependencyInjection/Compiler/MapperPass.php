@@ -11,6 +11,7 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\DependencyInjection\Compiler;
 
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -28,8 +29,15 @@ class MapperPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('cmf_create.chain_mapper');
 
-        foreach ($container->findTaggedServiceIds('cmf_create.mapper') as $id => $attributes) {
-            $definition->addMethodCall('registerMapper', array(new Reference($id), $id));
+        $tags = $container->findTaggedServiceIds('cmf_create.mapper');
+        if ($container->getAlias('cmf_create.object_mapper') == 'cmf_create.chain_mapper' && count($tags) == 0) {
+            throw new InvalidConfigurationException('You need to either enable one of the persistence layers, set the cmf_create.object_mapper_service_id option, or tag a mapper with cmf_create.mapper');
+        }
+
+        foreach ($tags as $id => $tags) {
+            foreach ($tags as $attributes) {
+                $definition->addMethodCall('registerMapper', array(new Reference($id), $attributes['alias']));
+            }
         }
     }
 }

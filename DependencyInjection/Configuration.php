@@ -58,7 +58,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->booleanNode('auto_mapping')->defaultTrue()->end()
-                ->scalarNode('object_mapper_service_id')->defaultNull()->end()
+                ->scalarNode('object_mapper_service_id')->defaultValue('cmf_create.chain_mapper')->end()
 
                 ->arrayNode('persistence')
                     ->addDefaultsIfNotSet()

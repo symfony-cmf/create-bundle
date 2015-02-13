@@ -86,26 +86,16 @@ class CmfCreateExtension extends Extension
 
         $this->loadSecurity($config['security'], $loader, $container);
 
-        if ($config['persistence']['phpcr']['enabled']) {
+        if ($this->isConfigEnabled($container, $config['persistence']['phpcr'])) {
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
         } else {
             // TODO: we should leverage the mediabundle here and not depend on phpcr
             $container->setParameter($this->getAlias() . '.image_enabled', false);
         }
-        if ($config['persistence']['orm']['enabled']) {
+        if ($this->isConfigEnabled($container, $config['persistence']['orm'])) {
             $this->loadOrm($config['persistence']['orm'], $loader, $container);
         }
-        $hasMapper = false;
-        if (isset($config['object_mapper_service_id'])) {
-            $container->setAlias($this->getAlias() . '.object_mapper', $config['object_mapper_service_id']);
-            $hasMapper = true;
-        } else {
-            $container->setAlias($this->getAlias() . '.object_mapper', $this->getAlias() . '.chain_mapper');
-            $hasMapper = count($container->findTaggedServiceIds('cmf_create.mapper')) > 0;
-        }
-        if (!$hasMapper) {
-            throw new InvalidConfigurationException('You need to either enable one of the persistence layers, set the cmf_create.object_mapper_service_id option, or tag a mapper with cmf_create.mapper');
-        }
+        $container->setAlias($this->getAlias() . '.object_mapper', $config['object_mapper_service_id']);
     }
 
     protected function loadSecurity($config, XmlFileLoader $loader, ContainerBuilder $container)
@@ -123,8 +113,6 @@ class CmfCreateExtension extends Extension
 
     public function loadPhpcr($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
-        $container->setParameter($this->getAlias() . '.backend_type_phpcr', true);
-
         $container->setParameter($this->getAlias().'.persistence.phpcr.manager_name', $config['manager_name']);
 
         $loader->load('persistence-phpcr.xml');
@@ -148,8 +136,6 @@ class CmfCreateExtension extends Extension
 
     public function loadOrm($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
-        $container->setParameter($this->getAlias() . '.backend_type_orm', true);
-
         $loader->load('persistence-orm.xml');
         $container->setParameter($this->getAlias().'.persistence.orm.manager_name', $config['manager_name']);
     }

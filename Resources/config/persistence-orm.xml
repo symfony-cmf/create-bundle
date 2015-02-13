@@ -15,7 +15,7 @@
             <argument>%cmf_create.map%</argument>
             <argument type="service" id="doctrine"/>
             <argument>%cmf_create.persistence.orm.manager_name%</argument>
-            <tag name="cmf_create.mapper"/>
+            <tag name="cmf_create.mapper" alias="orm"/>
         </service>
 
     </services>
