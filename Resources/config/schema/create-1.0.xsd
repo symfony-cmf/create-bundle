@@ -55,12 +55,12 @@
         <xsd:sequence>
             <xsd:element name="image" type="image" minOccurs="0" />
         </xsd:sequence>
-        <xsd:attribute name="enabled" type="xsd:string" />
+        <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="manager-name" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="orm">
-        <xsd:attribute name="enabled" type="xsd:string" />
+        <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="manager-name" type="xsd:string" />
     </xsd:complexType>
 
