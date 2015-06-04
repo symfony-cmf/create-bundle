@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.9",
         "symfony/framework-bundle": "~2.3",
         "symfony/assetic-bundle": "~2.1",
         "friendsofsymfony/rest-bundle": "~1.0",
