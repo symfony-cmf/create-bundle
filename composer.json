@@ -23,7 +23,7 @@
         "midgard/createphp": "~1.1"
     },
     "require-dev": {
-        "symfony-cmf/testing": "~1.1"
+        "symfony-cmf/testing": "~1.2,>=1.2.6"
     },
     "suggest": {
         "symfony-cmf/core-bundle": "To be able to enable 'rest_force_request_locale', ~1.0",
