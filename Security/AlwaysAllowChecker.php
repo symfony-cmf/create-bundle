@@ -10,6 +10,7 @@
  */
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Security;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
