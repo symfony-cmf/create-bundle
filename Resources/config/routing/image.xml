@@ -4,18 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="cmf_create_image_upload" path="/symfony-cmf/create/image/upload/{editor}" method="POST">
+    <route id="cmf_create_image_upload" path="/symfony-cmf/create/image/upload/{editor}" methods="POST">
         <default key="_controller">cmf_create.image.controller:uploadAction</default>
         <default key="_format">json</default>
         <default key="editor">default</default>
     </route>
 
-    <route id="cmf_create_image_search" path="/symfony-cmf/create/image/search/" method="GET">
+    <route id="cmf_create_image_search" path="/symfony-cmf/create/image/search/" methods="GET">
         <default key="_controller">cmf_create.image.controller:searchAction</default>
         <default key="_format">json</default>
     </route>
 
-    <route id="cmf_create_image_related" path="/symfony-cmf/create/image/related/" method="GET">
+    <route id="cmf_create_image_related" path="/symfony-cmf/create/image/related/" methods="GET">
         <default key="_controller">cmf_create.image.controller:showRelatedAction</default>
         <default key="_format">json</default>
     </route>

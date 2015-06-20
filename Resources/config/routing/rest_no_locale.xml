@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="cmf_create_post_document" path="/symfony-cmf/create/document/{subject}" method="POST">
+    <route id="cmf_create_post_document" path="/symfony-cmf/create/document/{subject}" methods="POST">
         <default key="_controller">cmf_create.rest.controller:postDocumentAction</default>
         <default key="_format">json</default>
     </route>
@@ -15,7 +15,7 @@
         <requirement key="subject">.+</requirement>
     </route>
 
-    <route id="cmf_create_workflows" path="/symfony-cmf/create/workflows/{subject}" method="GET">
+    <route id="cmf_create_workflows" path="/symfony-cmf/create/workflows/{subject}" methods="GET">
         <default key="_controller">cmf_create.rest.controller:workflowsAction</default>
         <default key="_format">json</default>
         <requirement key="subject">.+</requirement>
