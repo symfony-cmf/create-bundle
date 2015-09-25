@@ -3,7 +3,6 @@
     "type": "symfony-bundle",
     "description": "Symfony Bundle for createphp and create.js. The easiest way to make any site editable and have semantic annotations with RDFa.",
     "license": "MIT",
-    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Liip AG",
@@ -14,20 +13,21 @@
             "homepage": "https://github.com/symfony-cmf/CreateBundle/contributors"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.9",
-        "symfony/framework-bundle": "~2.3",
-        "symfony/assetic-bundle": "~2.1",
-        "friendsofsymfony/rest-bundle": "~1.0",
-        "jms/serializer-bundle": "~0.12",
-        "midgard/createphp": "~1.1"
+        "symfony/framework-bundle": "^2.3",
+        "symfony/assetic-bundle": "^2.1",
+        "friendsofsymfony/rest-bundle": "^1.0",
+        "jms/serializer-bundle": "^0.12",
+        "midgard/createphp": "^1.1"
     },
     "require-dev": {
-        "symfony-cmf/testing": "~1.2,>=1.2.6"
+        "symfony-cmf/testing": "^1.3"
     },
     "suggest": {
-        "symfony-cmf/core-bundle": "To be able to enable 'rest_force_request_locale', ~1.0",
-        "symfony-cmf/media-bundle": "When using the default image support, ~1.1"
+        "symfony-cmf/core-bundle": "To be able to enable 'rest_force_request_locale' (^1.0)",
+        "symfony-cmf/media-bundle": "When using the default image support (^1.1)"
     },
     "autoload": {
         "psr-4": {
