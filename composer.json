@@ -15,7 +15,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.9",
+        "php": "^5.3.9|^7.0",
         "symfony/framework-bundle": "^2.3",
         "symfony/assetic-bundle": "^2.1",
         "friendsofsymfony/rest-bundle": "^1.0",
