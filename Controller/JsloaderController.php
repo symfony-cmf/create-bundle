@@ -11,8 +11,8 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Controller;
 
-use FOS\RestBundle\View\ViewHandlerInterface,
-    FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use FOS\RestBundle\View\View;
 use Symfony\Cmf\Bundle\CreateBundle\Security\AccessCheckerInterface;
 use Symfony\Cmf\Bundle\MediaBundle\File\BrowserFileHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +45,7 @@ class JsloaderController
     private $stanbolUrl;
 
     /**
-     * @var Boolean
+     * @var bool
      */
     private $fixedToolbar;
 
@@ -60,7 +60,7 @@ class JsloaderController
     private $editorBasePath;
 
     /**
-     * @var Boolean
+     * @var bool
      */
     private $imageUploadEnabled;
 
@@ -70,19 +70,19 @@ class JsloaderController
     private $browserFileHelper;
 
     /**
-     * Create the Controller
+     * Create the Controller.
      *
      * @param ViewHandlerInterface     $viewHandler
      * @param AccessCheckerInterface   $accessChecker
      * @param string                   $stanbolUrl         the url to use for
      *                                                     the semantic enhancer stanbol.
-     * @param Boolean                  $imageUploadEnabled used to determine
+     * @param bool                     $imageUploadEnabled used to determine
      *                                                     whether image upload should be activated.
-     * @param Boolean                  $fixedToolbar       whether the toolbar
+     * @param bool                     $fixedToolbar       whether the toolbar
      *                                                     is fixed or floating. Hallo editor specific.
      * @param array                    $plainTextTypes     RDFa types to edit
      *                                                     in raw text only.
-     * @param string|boolean           $requiredRole       Role a user needs to
+     * @param string|bool              $requiredRole       Role a user needs to
      *                                                     be granted in order to see the the editor. If set to false, the
      *                                                     editor is always loaded.
      * @param SecurityContextInterface $securityContext    The security
@@ -102,14 +102,14 @@ class JsloaderController
         $editorBasePath = null,
         BrowserFileHelper $browserFileHelper = null
     ) {
-        $this->viewHandler        = $viewHandler;
-        $this->accessChecker      = $accessChecker;
-        $this->stanbolUrl         = $stanbolUrl;
+        $this->viewHandler = $viewHandler;
+        $this->accessChecker = $accessChecker;
+        $this->stanbolUrl = $stanbolUrl;
         $this->imageUploadEnabled = $imageUploadEnabled;
-        $this->fixedToolbar       = $fixedToolbar;
-        $this->plainTextTypes     = $plainTextTypes;
-        $this->editorBasePath     = $editorBasePath;
-        $this->browserFileHelper  = $browserFileHelper;
+        $this->fixedToolbar = $fixedToolbar;
+        $this->plainTextTypes = $plainTextTypes;
+        $this->editorBasePath = $editorBasePath;
+        $this->browserFileHelper = $browserFileHelper;
     }
 
     /**

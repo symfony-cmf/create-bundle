@@ -11,10 +11,8 @@
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Composer;
 
-use Symfony\Component\Process\Process;
-
 /**
- * A hack to work around the missing support for js assets in composer
+ * A hack to work around the missing support for js assets in composer.
  *
  * @see http://groups.google.com/group/composer-dev/browse_thread/thread/e9e2f7d919aadfec
  *
@@ -28,20 +26,20 @@ class ScriptHandler
 
     public static function downloadCreateAndCkeditor($event)
     {
-        ScriptHandler::downloadCreate($event);
-        ScriptHandler::downloadCkeditor($event);
+        self::downloadCreate($event);
+        self::downloadCkeditor($event);
     }
 
     public static function downloadCreate($event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
-        $event->getIO()->write("<info>Download or update create</info>");
+        $event->getIO()->write('<info>Download or update create</info>');
 
         // directory where the repository should be clone into
         if (isset($extra['create-directory'])) {
-            $directory = getcwd() . '/' . $extra['create-directory'];
+            $directory = getcwd().'/'.$extra['create-directory'];
         } else {
-            $directory = __DIR__ . '/../Resources/public/vendor/create';
+            $directory = __DIR__.'/../Resources/public/vendor/create';
         }
 
         // git repository
@@ -55,22 +53,22 @@ class ScriptHandler
         if (isset($extra['create-commit'])) {
             $commit = $extra['create-commit'];
         } else {
-            $commit = ScriptHandler::CREATE_COMMIT_ID;
+            $commit = self::CREATE_COMMIT_ID;
         }
 
-        ScriptHandler::gitSynchronize($directory, $repository, $commit);
+        self::gitSynchronize($directory, $repository, $commit);
     }
 
     public static function downloadCkeditor($event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
-        $event->getIO()->write("<info>Download or update ckeditor</info>");
+        $event->getIO()->write('<info>Download or update ckeditor</info>');
 
         // directory where the repository should be clone into
         if (isset($extra['ckeditor-directory'])) {
-            $directory = getcwd() . '/' . $extra['ckeditor-directory'];
+            $directory = getcwd().'/'.$extra['ckeditor-directory'];
         } else {
-            $directory = __DIR__ . '/../Resources/public/vendor/ckeditor';
+            $directory = __DIR__.'/../Resources/public/vendor/ckeditor';
         }
 
         // git repository
@@ -84,17 +82,18 @@ class ScriptHandler
         if (isset($extra['ckeditor-commit'])) {
             $commit = $extra['ckeditor-commit'];
         } else {
-            $commit = ScriptHandler::CKEDITOR_COMMIT_ID;
+            $commit = self::CKEDITOR_COMMIT_ID;
         }
 
-        ScriptHandler::gitSynchronize($directory, $repository, $commit);
+        self::gitSynchronize($directory, $repository, $commit);
     }
 
     /**
      * @throws \RuntimeException
-     * @param  string            $directory  The directory where the repository should be clone into
-     * @param  string            $repository The git repository
-     * @param  string            $commitId   The commit id
+     *
+     * @param string $directory  The directory where the repository should be clone into
+     * @param string $repository The git repository
+     * @param string $commitId   The commit id
      */
     public static function gitSynchronize($directory, $repository, $commitId)
     {
@@ -108,7 +107,7 @@ class ScriptHandler
 
         if (is_dir($projectDirectory)) {
             chdir($projectDirectory);
-            exec("git remote update", $output, $status);
+            exec('git remote update', $output, $status);
             if ($status) {
                 throw new \RuntimeException("Running git pull $repository failed with $status\n");
             }

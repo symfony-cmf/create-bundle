@@ -63,7 +63,7 @@ class RoleAccessChecker implements AccessCheckerInterface
      * Actions may be performed if there is a securityContext having a token
      * and granting the required role.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function check(Request $request)
     {

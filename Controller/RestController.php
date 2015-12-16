@@ -17,10 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
-
 use FOS\RestBundle\View\ViewHandlerInterface;
 use FOS\RestBundle\View\View;
-
 use Midgard\CreatePHP\Metadata\RdfTypeFactory;
 use Midgard\CreatePHP\RestService;
 use Midgard\CreatePHP\RdfMapperInterface;
@@ -56,7 +54,7 @@ class RestController
     protected $accessChecker;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $forceRequestLocale;
 
@@ -66,7 +64,7 @@ class RestController
      * @param RdfTypeFactory         $typeFactory
      * @param RestService            $restHandler
      * @param AccessCheckerInterface $accessChecker
-     * @param boolean                $forceRequestLocale
+     * @param bool                   $forceRequestLocale
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -113,7 +111,6 @@ class RestController
      *                               checker.
      *
      * @see RestService::run
-     *
      * @since 1.2
      */
     public function updateDocumentAction(Request $request, $subject)
@@ -132,7 +129,7 @@ class RestController
     }
 
     /**
-     * Handle document POST (creation)
+     * Handle document POST (creation).
      *
      * @param Request $request
      *
@@ -212,5 +209,4 @@ class RestController
     {
         throw new AccessDeniedException();
     }
-
 }

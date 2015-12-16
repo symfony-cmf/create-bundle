@@ -16,7 +16,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Midgard\CreatePHP\WorkflowInterface;
 
 /**
- * Class DirectDeleteWorkflow
+ * Class DirectDeleteWorkflow.
  *
  * Implement direct deletion of an object.
  *
@@ -51,14 +51,14 @@ class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
             'name' => 'delete',
             'label' => 'delete',
             'action' => array(
-                'type' => "confirm_destroy"
+                'type' => 'confirm_destroy',
             ),
-            'type' => "button"
+            'type' => 'button',
         );
     }
 
     /**
-     * Execute this workflow
+     * Execute this workflow.
      *
      * The object will only be set if there is a subject parameter in $_GET
      * that can be found by the mapper tied to the RestService.
@@ -72,5 +72,4 @@ class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
         $this->om->remove($object);
         $this->om->flush();
     }
-
 }

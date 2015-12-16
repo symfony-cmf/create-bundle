@@ -26,7 +26,7 @@ interface AccessCheckerInterface
      * @param Request $request The request in question, to take into account if
      *                         needed.
      *
-     * @return boolean true if access is granted, false otherwise
+     * @return bool true if access is granted, false otherwise
      */
     public function check(Request $request);
 }

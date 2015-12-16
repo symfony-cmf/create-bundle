@@ -21,9 +21,9 @@ class AlwaysAllowChecker implements AccessCheckerInterface
     /**
      * Always returns true.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
-     * @return boolean true
+     * @return bool true
      */
     public function check(Request $request)
     {

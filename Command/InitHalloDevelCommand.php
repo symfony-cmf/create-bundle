@@ -30,7 +30,7 @@ class InitHalloDevelCommand extends Command
     }
 
     /**
-     * This will clone the hallo repository into Resources/public/vendor
+     * This will clone the hallo repository into Resources/public/vendor.
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

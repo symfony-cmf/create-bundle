@@ -85,11 +85,10 @@ class RoleAccessCheckerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('isGranted')
             ->with('THE_ROLE')
-            ->will($this->throwException(new \Exception))
+            ->will($this->throwException(new \Exception()))
         ;
 
         $checker = new RoleAccessChecker('THE_ROLE', $context);
         $this->assertFalse($checker->check($this->request));
     }
-
 }

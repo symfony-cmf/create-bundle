@@ -70,7 +70,6 @@ class ImageController extends FileController
 
         $this->viewHandler = $viewHandler;
         $this->accessChecker = $accessChecker;
-
     }
 
     private function processResults($images, $offset)
@@ -78,7 +77,7 @@ class ImageController extends FileController
         $data = array(
             'offset' => $offset,
             'total' => count($images),
-            'assets' => $images
+            'assets' => $images,
         );
 
         $view = View::create($data);
@@ -87,10 +86,9 @@ class ImageController extends FileController
     }
 
     /**
-     * Search for assets matching the query
+     * Search for assets matching the query.
      *
      * This function currently only returns some fixture data to try the editor
-     *
      */
     public function searchAction(Request $request)
     {
@@ -103,7 +101,7 @@ class ImageController extends FileController
     }
 
     /**
-     * Get images by a specified caption
+     * Get images by a specified caption.
      *
      * @param string $name
      * @param int    $offset
@@ -121,7 +119,7 @@ class ImageController extends FileController
     }
 
     /**
-     * TODO: returns empty response
+     * TODO: returns empty response.
      *
      * @param Request $request
      *
