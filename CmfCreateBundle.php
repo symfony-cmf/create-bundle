@@ -22,7 +22,7 @@ class CmfCreateBundle extends Bundle
         parent::build($container);
 
         if ($container->hasExtension('jms_di_extra')) {
-            $container->getExtension('jms_di_extra')->blackListControllerFile(__DIR__ . '/Controller/ImageController.php');
+            $container->getExtension('jms_di_extra')->blackListControllerFile(__DIR__.'/Controller/ImageController.php');
         }
 
         $container->addCompilerPass(new MapperPass());
