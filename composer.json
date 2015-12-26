@@ -19,13 +19,14 @@
         "symfony/framework-bundle": "~2.3",
         "symfony/assetic-bundle": "~2.1",
         "friendsofsymfony/rest-bundle": "~1.0",
-        "jms/serializer-bundle": "~0.12",
         "midgard/createphp": "~1.0"
     },
     "require-dev": {
+        "jms/serializer-bundle": "^0.12|^1.0",
         "symfony-cmf/testing": "~1.1"
     },
     "suggest": {
+        "jms/serializer-bundle": "Add support for advanced serialization capabilities (^0.12|^1.0)",
         "symfony-cmf/core-bundle": "To be able to enable 'rest_force_request_locale', ~1.0",
         "symfony-cmf/media-bundle": "When using the default image support, ~1.1"
     },
