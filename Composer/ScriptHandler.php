@@ -10,6 +10,7 @@
  */
 
 namespace Symfony\Cmf\Bundle\CreateBundle\Composer;
+use Composer\Script\Event;
 
 use Symfony\Component\Process\Process;
 
@@ -26,13 +27,13 @@ class ScriptHandler
 
     const CKEDITOR_COMMIT_ID = '0fb9d534634a06af386027bd7dea2c9dcfb8bb99';
 
-    public static function downloadCreateAndCkeditor($event)
+    public static function downloadCreateAndCkeditor(Event $event)
     {
         ScriptHandler::downloadCreate($event);
         ScriptHandler::downloadCkeditor($event);
     }
 
-    public static function downloadCreate($event)
+    public static function downloadCreate(Event $event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
         $event->getIO()->write("<info>Download or update create</info>");
@@ -61,7 +62,7 @@ class ScriptHandler
         ScriptHandler::gitSynchronize($directory, $repository, $commit);
     }
 
-    public static function downloadCkeditor($event)
+    public static function downloadCkeditor(Event $event)
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
         $event->getIO()->write("<info>Download or update ckeditor</info>");
