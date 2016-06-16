@@ -3,7 +3,7 @@
 /*
  * This file is part of the Symfony CMF package.
  *
- * (c) 2011-2015 Symfony CMF
+ * (c) 2011-2016 Symfony CMF
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -147,8 +147,8 @@ class JsloaderController
         $view->setData(array(
                 'cmfCreateEditor' => $editor,
                 'cmfCreateStanbolUrl' => $this->stanbolUrl,
-                'cmfCreateImageUploadEnabled' => (boolean) $this->imageUploadEnabled,
-                'cmfCreateFixedToolbar' => (boolean) $this->fixedToolbar,
+                'cmfCreateImageUploadEnabled' => (bool) $this->imageUploadEnabled,
+                'cmfCreateFixedToolbar' => (bool) $this->fixedToolbar,
                 'cmfCreatePlainTextTypes' => json_encode($this->plainTextTypes),
                 'cmfCreateEditorBasePath' => $this->editorBasePath,
                 'cmfCreateBrowseUrl' => $browseUrl,
