@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.3.0
+-----
+
+* Doctrine ORM support
+* PHP 7 support
+
 1.2.0-RC1
 ---------
 
