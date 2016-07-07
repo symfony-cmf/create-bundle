@@ -2,7 +2,7 @@
 
 <phpunit
     colors="true"
-    bootstrap="vendor/symfony-cmf/testing/bootstrap/bootstrap.php"
+    bootstrap="vendor/autoload.php"
 >
     <testsuites>
         <testsuite name="Symfony CmfCreateBundle Test Suite">
@@ -20,9 +20,5 @@
             </exclude>
         </whitelist>
     </filter>
-
-    <php>
-        <server name="KERNEL_DIR" value="Tests/Resources/app" />
-    </php>
 
 </phpunit>
