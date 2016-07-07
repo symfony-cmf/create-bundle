@@ -16,79 +16,56 @@ use Symfony\Cmf\Bundle\CreateBundle\Security\RoleAccessChecker;
 class RoleAccessCheckerTest extends \PHPUnit_Framework_TestCase
 {
     private $request;
+    private $tokenStorage;
+    private $authorizationChecker;
+    private $checker;
 
     public function setUp()
     {
-        $this->request = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $this->request = $this->prophesize('Symfony\Component\HttpFoundation\Request')->reveal();
+        $this->tokenStorage = $this->prophesize('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $this->authorizationChecker = $this->prophesize('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $this->checker = new RoleAccessChecker('THE_ROLE', $this->tokenStorage->reveal(), $this->authorizationChecker->reveal());
     }
 
-    public function testNoContext()
+    public function testFalseWithoutSecurityServices()
     {
         $checker = new RoleAccessChecker('THE_ROLE');
-        $this->assertFalse($checker->check($this->request));
+        $this->assertFalse($checker->check($this->request), 'Always false without token storage');
+
+        $checker = new RoleAccessChecker('THE_ROLE', $this->tokenStorage->reveal());
+        $this->assertFalse($checker->check($this->request), 'Always false without authorization checker');
     }
 
-    public function testNoToken()
+    public function testFalseWithoutTokenAvailable()
     {
-        $context = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $checker = new RoleAccessChecker('THE_ROLE', $context);
-        $this->assertFalse($checker->check($this->request));
+        $this->assertFalse($this->checker->check($this->request));
     }
 
     public function testGranted()
     {
-        $context = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $context
-            ->expects($this->once())
-            ->method('getToken')
-            ->will($this->returnValue(true))
-        ;
-        $context
-            ->expects($this->once())
-            ->method('isGranted')
-            ->with('THE_ROLE')
-            ->will($this->returnValue(true))
-        ;
+        $token = $this->prophesize('Symfony\Component\Security\Authentication\Token\TokenInterface')->reveal();
+        $this->tokenStorage->getToken()->willReturn($token);
+        $this->authorizationChecker->isGranted('THE_ROLE')->willReturn(true);
 
-        $checker = new RoleAccessChecker('THE_ROLE', $context);
-        $this->assertTrue($checker->check($this->request));
+        $this->assertTrue($this->checker->check($this->request));
     }
 
     public function testNotGranted()
     {
-        $context = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $context
-            ->expects($this->once())
-            ->method('getToken')
-            ->will($this->returnValue(true))
-        ;
-        $context
-            ->expects($this->once())
-            ->method('isGranted')
-            ->with('THE_ROLE')
-            ->will($this->returnValue(false))
-        ;
+        $token = $this->prophesize('Symfony\Component\Security\Authentication\Token\TokenInterface')->reveal();
+        $this->tokenStorage->getToken()->willReturn($token);
+        $this->authorizationChecker->isGranted('THE_ROLE')->willReturn(false);
 
-        $checker = new RoleAccessChecker('THE_ROLE', $context);
-        $this->assertFalse($checker->check($this->request));
+        $this->assertFalse($this->checker->check($this->request));
     }
 
     public function testException()
     {
-        $context = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        $context
-            ->expects($this->once())
-            ->method('getToken')
-            ->will($this->returnValue(true))
-        ;
-        $context
-            ->expects($this->once())
-            ->method('isGranted')
-            ->with('THE_ROLE')
-            ->will($this->throwException(new \Exception()))
-        ;
+        $token = $this->prophesize('Symfony\Component\Security\Authentication\Token\TokenInterface')->reveal();
+        $this->tokenStorage->getToken()->willReturn($token);
+        $this->authorizationChecker->isGranted('THE_ROLE')->willThrow(new \Exception());
 
-        $checker = new RoleAccessChecker('THE_ROLE', $context);
-        $this->assertFalse($checker->check($this->request));
+        $this->assertFalse($this->checker->check($this->request));
     }
 }

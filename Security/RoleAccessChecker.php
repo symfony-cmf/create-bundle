@@ -12,7 +12,8 @@
 namespace Symfony\Cmf\Bundle\CreateBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -25,9 +26,14 @@ use Psr\Log\LoggerInterface;
 class RoleAccessChecker implements AccessCheckerInterface
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    protected $authorizationChecker;
 
     /**
      * @var string the role name for the security check
@@ -40,22 +46,24 @@ class RoleAccessChecker implements AccessCheckerInterface
     protected $logger;
 
     /**
-     * @param string                        $requiredRole    The role to check with the security
-     *                                                       context.
-     * @param SecurityContextInterface|null $securityContext Context to get the current user from
-     *                                                       and check if he has the required role.
-     *                                                       If it is null, the security check will
-     *                                                       always return false.
-     * @param LoggerInterface               $logger          The logger to log exceptions from the
-     *                                                       security context.
+     * @param string                             $requiredRole         The role to check with the security
+     *                                                                 context.
+     * @param TokenStorageInterface|null         $tokenStorage         If null is passed, check will always
+     *                                                                 return false.
+     * @param AuthorizationCheckerInterface|null $authorizationChecker If null is passed, check will always
+     *                                                                 return false.
+     * @param LoggerInterface                    $logger               The logger to log exceptions from the
+     *                                                                 security context.
      */
     public function __construct(
         $requiredRole,
-        SecurityContextInterface $securityContext = null,
+        TokenStorageInterface $tokenStorage = null,
+        AuthorizationCheckerInterface $authorizationChecker = null,
         LoggerInterface $logger = null
     ) {
         $this->requiredRole = $requiredRole;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
         $this->logger = $logger;
     }
 
@@ -68,9 +76,9 @@ class RoleAccessChecker implements AccessCheckerInterface
     public function check(Request $request)
     {
         try {
-            return $this->securityContext
-                && $this->securityContext->getToken()
-                && $this->securityContext->isGranted($this->requiredRole)
+            return $this->tokenStorage && $this->authorizationChecker
+                && $this->tokenStorage->getToken()
+                && $this->authorizationChecker->isGranted($this->requiredRole)
             ;
         } catch (\Exception $e) {
             if ($this->logger) {

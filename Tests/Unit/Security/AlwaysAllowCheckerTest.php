@@ -15,10 +15,11 @@ use Symfony\Cmf\Bundle\CreateBundle\Security\AlwaysAllowChecker;
 
 class AlwaysAllowCheckerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAllow()
+    public function testAlwaysAllows()
     {
-        $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
+
         $checker = new AlwaysAllowChecker();
-        $this->assertTrue($checker->check($request));
+        $this->assertTrue($checker->check($request->reveal()));
     }
 }
