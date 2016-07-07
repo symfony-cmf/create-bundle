@@ -1,4 +1,0 @@
-cmf_create:
-    persistence:
-        phpcr:
-            enabled: true

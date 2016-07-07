@@ -35,8 +35,6 @@ before_install:
 
 install: composer update --prefer-dist $COMPOSER_FLAGS
 
-before_script: vendor/symfony-cmf/testing/bin/travis/phpcr_odm_doctrine_dbal.sh
-
 script: phpunit
 
 notifications:
