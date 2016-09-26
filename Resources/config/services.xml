@@ -54,7 +54,8 @@
 
         <service id="cmf_create.security.role_access_checker" class="%cmf_create.security.role_access_checker.class%">
             <argument>%cmf_create.security.role%</argument>
-            <argument type="service" id="security.context" on-invalid="ignore"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="logger"/>
         </service>
 
