@@ -159,22 +159,6 @@ class RestController
     }
 
     /**
-     * @deprecated Use updateDocumentAction
-     */
-    public function putDocumentAction(Request $request, $subject)
-    {
-        return self::updateDocumentAction($request, $subject);
-    }
-
-    /**
-     * @deprecated Use updateDocumentAction
-     */
-    public function deleteDocumentAction(Request $request, $subject)
-    {
-        return self::updateDocumentAction($request, $subject);
-    }
-
-    /**
      * Get available Workflows for a document.
      *
      * @param Request $request
@@ -195,18 +179,5 @@ class RestController
         $view = View::create($result)->setFormat('json');
 
         return $this->viewHandler->handle($view, $request);
-    }
-
-    /**
-     * DEPRECATED: Check if the action can be performed.
-     *
-     * @deprecated use $this->accessChecker->check instead. This method always
-     *             denies access.
-     *
-     * @throws AccessDeniedException Always denies access.
-     */
-    protected function performSecurityChecks()
-    {
-        throw new AccessDeniedException();
     }
 }
