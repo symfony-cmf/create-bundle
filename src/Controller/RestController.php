@@ -107,8 +107,7 @@ class RestController
      *
      * @return Response
      *
-     * @throws AccessDeniedException If the action is not allowed by the access
-     *                               checker.
+     * @throws AccessDeniedException if the action is not allowed by the access checker
      *
      * @see RestService::run
      * @since 1.2
@@ -135,8 +134,7 @@ class RestController
      *
      * @return Response
      *
-     * @throws AccessDeniedException If the action is not allowed by the access
-     *                               checker.
+     * @throws AccessDeniedException if the action is not allowed by the access checker
      */
     public function postDocumentAction(Request $request)
     {
@@ -166,8 +164,8 @@ class RestController
      *
      * @return Response
      *
-     * @throws AccessDeniedException If getting workflows for this document is
-     *                               not allowed by the access checker.
+     * @throws AccessDeniedException if getting workflows for this document is
+     *                               not allowed by the access checker
      */
     public function workflowsAction(Request $request, $subject)
     {

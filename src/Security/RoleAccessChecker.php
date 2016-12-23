@@ -46,14 +46,14 @@ class RoleAccessChecker implements AccessCheckerInterface
     protected $logger;
 
     /**
-     * @param string                             $requiredRole         The role to check with the security
-     *                                                                 context.
-     * @param TokenStorageInterface|null         $tokenStorage         If null is passed, check will always
-     *                                                                 return false.
-     * @param AuthorizationCheckerInterface|null $authorizationChecker If null is passed, check will always
-     *                                                                 return false.
-     * @param LoggerInterface                    $logger               The logger to log exceptions from the
-     *                                                                 security context.
+     * @param string                             $requiredRole         the role to check with the security
+     *                                                                 context
+     * @param TokenStorageInterface|null         $tokenStorage         if null is passed, check will always
+     *                                                                 return false
+     * @param AuthorizationCheckerInterface|null $authorizationChecker if null is passed, check will always
+     *                                                                 return false
+     * @param LoggerInterface                    $logger               the logger to log exceptions from the
+     *                                                                 security context
      */
     public function __construct(
         $requiredRole,
