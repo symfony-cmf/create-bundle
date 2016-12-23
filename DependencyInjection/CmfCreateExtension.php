@@ -41,18 +41,18 @@ class CmfCreateExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->setParameter($this->getAlias().'.map', $config['map']);
+        $container->setParameter('cmf_create.map', $config['map']);
 
-        $container->setParameter($this->getAlias().'.stanbol_url', $config['stanbol_url']);
+        $container->setParameter('cmf_create.stanbol_url', $config['stanbol_url']);
 
-        $container->setParameter($this->getAlias().'.fixed_toolbar', $config['fixed_toolbar']);
+        $container->setParameter('cmf_create.fixed_toolbar', $config['fixed_toolbar']);
 
-        $container->setParameter($this->getAlias().'.editor_base_path', $config['editor_base_path']);
+        $container->setParameter('cmf_create.editor_base_path', $config['editor_base_path']);
 
         if (empty($config['plain_text_types'])) {
             $config['plain_text_types'] = array('dcterms:title', 'schema:headline');
         }
-        $container->setParameter($this->getAlias().'.plain_text_types', $config['plain_text_types']);
+        $container->setParameter('cmf_create.plain_text_types', $config['plain_text_types']);
 
         if ($config['auto_mapping']) {
             foreach ($container->getParameter('kernel.bundles') as $bundleShortName => $class) {
@@ -70,11 +70,7 @@ class CmfCreateExtension extends Extension
             }
         }
 
-        $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
-
-        if ($config['rest_controller_class']) {
-            $container->setParameter($this->getAlias().'.rest.controller.class', $config['rest_controller_class']);
-        }
+        $container->setParameter('cmf_create.rdf_config_dirs', $config['rdf_config_dirs']);
 
         if ($config['rest_force_request_locale']) {
             $bundles = $container->getParameter('kernel.bundles');
@@ -82,7 +78,7 @@ class CmfCreateExtension extends Extension
                 throw new InvalidConfigurationException('You need to enable "CmfCoreBundle" when activating the "rest_force_request_locale" option');
             }
         }
-        $container->setParameter($this->getAlias().'.rest.force_request_locale', $config['rest_force_request_locale']);
+        $container->setParameter('cmf_create.rest.force_request_locale', $config['rest_force_request_locale']);
 
         $this->loadSecurity($config['security'], $loader, $container);
 
@@ -90,17 +86,17 @@ class CmfCreateExtension extends Extension
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
         } else {
             // TODO: we should leverage the mediabundle here and not depend on phpcr
-            $container->setParameter($this->getAlias().'.image_enabled', false);
+            $container->setParameter('cmf_create.image_enabled', false);
         }
         if ($this->isConfigEnabled($container, $config['persistence']['orm'])) {
             $this->loadOrm($config['persistence']['orm'], $loader, $container);
         }
-        $container->setAlias($this->getAlias().'.object_mapper', $config['object_mapper_service_id']);
+        $container->setAlias('cmf_create.object_mapper', $config['object_mapper_service_id']);
     }
 
     protected function loadSecurity($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
-        $container->setParameter($this->getAlias().'.security.role', $config['role']);
+        $container->setParameter('cmf_create.security.role', $config['role']);
         if (isset($config['checker_service'])) {
             $service = $config['checker_service'];
         } elseif (false === $config['role']) {
@@ -108,24 +104,23 @@ class CmfCreateExtension extends Extension
         } else {
             $service = 'cmf_create.security.role_access_checker';
         }
-        $container->setAlias($this->getAlias().'.security.checker', $service);
+        $container->setAlias('cmf_create.security.checker', $service);
     }
 
     public function loadPhpcr($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
-        $container->setParameter($this->getAlias().'.persistence.phpcr.manager_name', $config['manager_name']);
+        $container->setParameter('cmf_create.persistence.phpcr.manager_name', $config['manager_name']);
 
         $loader->load('persistence-phpcr.xml');
 
         if ($config['image']['enabled']) {
             $loader->load('controller-image-phpcr.xml');
 
-            $container->setParameter($this->getAlias().'.image_enabled', true);
-            $container->setParameter($this->getAlias().'.persistence.phpcr.image.class', $config['image']['model_class']);
-            $container->setParameter($this->getAlias().'.persistence.phpcr.image_controller.class', $config['image']['controller_class']);
-            $container->setParameter($this->getAlias().'.persistence.phpcr.image_basepath', $config['image']['basepath']);
+            $container->setParameter('cmf_create.image_enabled', true);
+            $container->setParameter('cmf_create.persistence.phpcr.image.class', $config['image']['model_class']);
+            $container->setParameter('cmf_create.persistence.phpcr.image_basepath', $config['image']['basepath']);
         } else {
-            $container->setParameter($this->getAlias().'.image_enabled', false);
+            $container->setParameter('cmf_create.image_enabled', false);
         }
 
         if ($config['delete']) {
@@ -137,7 +132,7 @@ class CmfCreateExtension extends Extension
     public function loadOrm($config, XmlFileLoader $loader, ContainerBuilder $container)
     {
         $loader->load('persistence-orm.xml');
-        $container->setParameter($this->getAlias().'.persistence.orm.manager_name', $config['manager_name']);
+        $container->setParameter('cmf_create.persistence.orm.manager_name', $config['manager_name']);
     }
 
     /**

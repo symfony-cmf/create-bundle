@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="cmf_create.image.controller" class="%cmf_create.persistence.phpcr.image_controller.class%">
+        <service id="cmf_create.image.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController">
             <argument type="service" id="doctrine_phpcr" />
             <argument>%cmf_create.persistence.phpcr.manager_name%</argument>
             <argument>%cmf_create.persistence.phpcr.image.class%</argument>
