@@ -23,8 +23,7 @@ interface AccessCheckerInterface
      * Decide whether access should be granted, without ever throwing an
      * exception.
      *
-     * @param Request $request The request in question, to take into account if
-     *                         needed.
+     * @param Request $request the request in question, to take into account if needed
      *
      * @return bool true if access is granted, false otherwise
      */

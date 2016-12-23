@@ -74,23 +74,20 @@ class JsloaderController
      *
      * @param ViewHandlerInterface     $viewHandler
      * @param AccessCheckerInterface   $accessChecker
-     * @param string                   $stanbolUrl         the url to use for
-     *                                                     the semantic enhancer stanbol.
-     * @param bool                     $imageUploadEnabled used to determine
-     *                                                     whether image upload should be activated.
-     * @param bool                     $fixedToolbar       whether the toolbar
-     *                                                     is fixed or floating. Hallo editor specific.
-     * @param array                    $plainTextTypes     RDFa types to edit
-     *                                                     in raw text only.
-     * @param string|bool              $requiredRole       Role a user needs to
-     *                                                     be granted in order to see the the editor. If set to false, the
-     *                                                     editor is always loaded.
-     * @param SecurityContextInterface $securityContext    The security
-     *                                                     context to use to check for the role.
-     * @param string                   $editorBasePath     Configuration for
-     *                                                     ckeditor.
-     * @param BrowserFileHelper        $browserFileHelper  Used to determine
-     *                                                     image editing for ckeditor.
+     * @param string                   $stanbolUrl         the url to use for the semantic
+     *                                                     enhancer stanbol
+     * @param bool                     $imageUploadEnabled used to determine whether image
+     *                                                     upload should be activated
+     * @param bool                     $fixedToolbar       whether the toolbar is fixed or
+     *                                                     floating (Hallo editor specific)
+     * @param array                    $plainTextTypes     the RDFa types to edit in raw text only
+     * @param string|bool              $requiredRole       role a user needs to be granted in order
+     *                                                     to see the the editor. If set to false,
+     *                                                     the editor is always loaded
+     * @param SecurityContextInterface $securityContext    the security context to use to check for
+     *                                                     the role
+     * @param string                   $editorBasePath     Configuration for CKeditor
+     * @param BrowserFileHelper        $browserFileHelper  Used to determine image editing for ckeditor
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -124,8 +121,8 @@ class JsloaderController
      *   CmfCreateBundle::includejsfiles-%editor%.html.twig
      * and pass the appropriate editor name.
      *
-     * @param Request $request The request object for the AccessChecker.
-     * @param string  $editor  the name of the editor to load.
+     * @param Request $request the request object for the AccessChecker
+     * @param string  $editor  the name of the editor to load
      */
     public function includeJSFilesAction(Request $request, $editor = 'ckeditor')
     {

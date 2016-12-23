@@ -42,8 +42,8 @@ class DoctrinePhpcrDeleteWorkflow implements WorkflowInterface
      *
      * @param mixed $object
      *
-     * @return array|null Array to return for this workflow, or null if
-     *                    workflow is not allowed.
+     * @return array|null array to return for this workflow, or null if
+     *                    workflow is not allowed
      */
     public function getToolbarConfig($object)
     {

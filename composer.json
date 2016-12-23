@@ -27,7 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Symfony\\Cmf\\Bundle\\CreateBundle\\": ""
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symfony\\Cmf\\Bundle\\CreateBundle\\Tests\\": "tests/"
         }
     },
     "extra": {
