@@ -4,20 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="cmf_create.jsloader.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController</parameter>
-        <parameter key="cmf_create.rest.controller.class">Symfony\Cmf\Bundle\CreateBundle\Controller\RestController</parameter>
-        <parameter key="cmf_create.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
-        <parameter key="cmf_create.rest.handler_class">Midgard\CreatePHP\RestService</parameter>
-        <parameter key="cmf_create.twig_extension.class">Midgard\CreatePHP\Extension\Twig\CreatephpExtension</parameter>
-        <parameter key="cmf_create.rdf_driver.class">Midgard\CreatePHP\Metadata\RdfDriverXml</parameter>
-        <parameter key="cmf_create.security.role_access_checker.class">Symfony\Cmf\Bundle\CreateBundle\Security\RoleAccessChecker</parameter>
-        <parameter key="cmf_create.security.always_allow_checker.class">Symfony\Cmf\Bundle\CreateBundle\Security\AlwaysAllowChecker</parameter>
-        <parameter key="cmf_create.chain_mapper.class">Midgard\CreatePHP\Mapper\ChainRdfMapper</parameter>
-    </parameters>
-
     <services>
-        <service id="cmf_create.jsloader.controller" class="%cmf_create.jsloader.controller.class%">
+        <service id="cmf_create.jsloader.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\JsloaderController">
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="cmf_create.security.checker"/>
             <argument>%cmf_create.stanbol_url%</argument>
@@ -28,22 +16,22 @@
             <argument type="service" id="cmf_media.browser_file_helper" on-invalid="ignore"/>
         </service>
 
-        <service id="cmf_create.twig_extension" class="%cmf_create.twig_extension.class%">
+        <service id="cmf_create.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
             <argument type="service" id="cmf_create.rdf_type_factory"/>
             <tag name="twig.extension"/>
         </service>
 
-        <service id="cmf_create.rdf_driver" class="%cmf_create.rdf_driver.class%">
+        <service id="cmf_create.rdf_driver" class="Midgard\CreatePHP\Metadata\RdfDriverXml">
             <argument>%cmf_create.rdf_config_dirs%</argument>
         </service>
 
-        <service id="cmf_create.rdf_type_factory" class="%cmf_create.rdf_type_factory_class%" public="true">
+        <service id="cmf_create.rdf_type_factory" class="Midgard\CreatePHP\Metadata\RdfTypeFactory" public="true">
             <argument type="service" id="cmf_create.object_mapper"/>
             <argument type="service" id="cmf_create.rdf_driver"/>
             <argument>%cmf_create.map%</argument>
         </service>
 
-        <service id="cmf_create.rest.controller" class="%cmf_create.rest.controller.class%">
+        <service id="cmf_create.rest.controller" class="Symfony\Cmf\Bundle\CreateBundle\Controller\RestController">
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="cmf_create.object_mapper"/>
             <argument type="service" id="cmf_create.rdf_type_factory"/>
@@ -52,20 +40,20 @@
             <argument>%cmf_create.rest.force_request_locale%</argument>
         </service>
 
-        <service id="cmf_create.security.role_access_checker" class="%cmf_create.security.role_access_checker.class%">
+        <service id="cmf_create.security.role_access_checker" class="Symfony\Cmf\Bundle\CreateBundle\Security\RoleAccessChecker">
             <argument>%cmf_create.security.role%</argument>
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="security.authorization_checker"/>
             <argument type="service" id="logger"/>
         </service>
 
-        <service id="cmf_create.security.always_allow_checker" class="%cmf_create.security.always_allow_checker.class%"/>
+        <service id="cmf_create.security.always_allow_checker" class="Symfony\Cmf\Bundle\CreateBundle\Security\AlwaysAllowChecker"/>
 
-        <service id="cmf_create.rest.handler" class="%cmf_create.rest.handler_class%" public="true">
+        <service id="cmf_create.rest.handler" class="Midgard\CreatePHP\RestService" public="true">
             <argument type="service" id="cmf_create.object_mapper"/>
         </service>
 
-        <service id="cmf_create.chain_mapper" class="%cmf_create.chain_mapper.class%"/>
+        <service id="cmf_create.chain_mapper" class="Midgard\CreatePHP\Mapper\ChainRdfMapper"/>
 
     </services>
 

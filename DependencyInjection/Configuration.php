@@ -33,7 +33,6 @@ class Configuration implements ConfigurationInterface
             ->fixXmlConfig('plain_text_type', 'plain_text_types')
             ->fixXmlConfig('rdf_config_dir', 'rdf_config_dirs')
             ->children()
-                ->scalarNode('rest_controller_class')->defaultFalse()->end()
                 ->booleanNode('rest_force_request_locale')->defaultFalse()->end()
                 ->arrayNode('map')
                     ->useAttributeAsKey('name')
@@ -76,7 +75,6 @@ class Configuration implements ConfigurationInterface
                                         // if the CmfMediaBundle is present, it will prepend configuration
                                         // to enable this and set its model_class
                                         ->scalarNode('model_class')->cannotBeEmpty()->end()
-                                        ->scalarNode('controller_class')->defaultValue('Symfony\Cmf\Bundle\CreateBundle\Controller\ImageController')->end()
                                         ->scalarNode('basepath')->defaultValue('/cms/media')->end()
                                     ->end()
                                 ->end()
