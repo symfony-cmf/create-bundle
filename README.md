@@ -21,7 +21,7 @@ and entities.
 
 ## Requirements
 
-* Symfony 2.3+
+* Symfony 2.8+
 * create.js (can be installed through a composer post-install task, see the installation guide link below)
 * See also the `require` section of [composer.json](composer.json)
 
