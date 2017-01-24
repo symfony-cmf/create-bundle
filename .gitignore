@@ -1,7 +1,4 @@
-vendor/
-Resources/public/vendor/create
-Resources/public/vendor/hallo
-Resources/public/vendor/ckeditor
+/vendor/
 composer.lock
 Tests/Resources/app/cache
 Tests/Resources/app/logs
