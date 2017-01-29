@@ -4,7 +4,14 @@
 [![StyleCI](https://styleci.io/repos/5883356/shield)](https://styleci.io/repos/5883356)
 [![Latest Stable Version](https://poser.pugx.org/symfony-cmf/create-bundle/version.png)](https://packagist.org/packages/symfony-cmf/create-bundle)
 [![Total Downloads](https://poser.pugx.org/symfony-cmf/create-bundle/d/total.png)](https://packagist.org/packages/symfony-cmf/create-bundle)
-
+ 
+> **WARNING: Unmaintained** To focus our efforts in the CMF project, this package 
+> is currently *not* maintained. Security fixes and submitted bug fixes will
+> still be released, but no new features should be expected.
+>
+> If you want to help co-maintaining this package, tell us in a GitHub issue
+> or in the #symfony_cmf channel of the [Symfony devs slack](https://slackinvite.me/to/symfony-devs). 
+ 
 This bundle is part of the [Symfony Content Management Framework (CMF)](http://cmf.symfony.com/)
 and licensed under the [MIT License](LICENSE).
 
