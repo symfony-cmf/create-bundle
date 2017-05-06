@@ -15,9 +15,9 @@
     ],
     "require": {
         "php": "^5.5.6|^7.0",
-        "symfony/framework-bundle": "^2.8|^3.0",
-        "symfony/assetic-bundle": "^2.1",
-        "friendsofsymfony/rest-bundle": "^1.0|^2.0",
+        "symfony/framework-bundle": "^3.2",
+        "symfony/assetic-bundle": "^2.8",
+        "friendsofsymfony/rest-bundle": "^2.0",
         "midgard/createphp": "^1.1"
     },
     "suggest": {
