@@ -109,23 +109,29 @@ class ScriptHandler
 
         if (is_dir($projectDirectory)) {
             chdir($projectDirectory);
-            exec("git remote update", $output, $status);
-            if ($status) {
-                throw new \RuntimeException("Running git pull $repository failed with $status\n");
+
+            self::executeCommand("git remote get-url origin", $output, $status);
+
+            if ($output[0] !== $repository) {
+                self::executeCommand("git remote set-url origin $repository", $output, $status);
             }
+
+            self::executeCommand("git remote update", $output, $status);
         } else {
-            exec("git clone $repository $projectDirectory -q", $output, $status);
-            if ($status) {
-                throw new \RuntimeException("Running git clone $repository failed with $status\n");
-            }
+            self::executeCommand("git clone $repository $projectDirectory -q", $output, $status);
             chdir($projectDirectory);
         }
 
-        exec("git checkout $commitId -q", $output, $status);
-        if ($status) {
-            throw new \RuntimeException("Running git clone $repository failed with $status\n");
-        }
+        self::executeCommand("git checkout $commitId -q", $output, $status);
 
         chdir($currentDirectory);
+    }
+
+    private static function executeCommand($command, &$output, &$status): void
+    {
+        exec($command, $output, $status);
+        if ($status) {
+            throw new \RuntimeException("Running `$command` failed with exit code $status\n");
+        }
     }
 }
